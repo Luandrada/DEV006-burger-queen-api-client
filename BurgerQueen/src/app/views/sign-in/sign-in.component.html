@@ -1,0 +1,30 @@
+<div class="containerLogin">
+    <form id="cont-form" autocomplete="off" [formGroup]="formLogin" (ngSubmit)="signIn()">
+        <img src="../../../assets/img/burger.png" alt="logo" class="logo">
+        <h2>Inicio de Sesión</h2>
+        <div class="row1 ">
+            <div class="campo1 ">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" placeholder="hola@burguerqueen.com" formControlName="email"
+                    [class.is-invalid]="invalidEmail">
+                <i class="fas fa-user" id="icono-user" [class.is-invalid]="invalidEmail"></i>
+            </div>
+            <span *ngIf="invalidEmail" class="text-rojo-uno">Ingrese su email</span>
+        </div>
+        <div class="row1">
+            <div class="campo1">
+                <label for="password">Contraseña</label>
+                <input type="password" id="password" #password placeholder="*******" formControlName="password"
+                    [class.is-invalid]="invalidPassword">
+                <i class="fas fa-lock" id="icono-lock"></i>
+                <i class="far fa-eye" id="show" #show (click)="showPsw()"></i>
+                <i class="far fa-eye-slash" id="hide" #hide (click)="showPsw()"></i>
+            </div>
+            <span *ngIf="invalidPassword" class="text-rojo-uno">Ingrese su contraseña</span>
+
+        </div>
+        <div class="buttonContainer">
+            <button type="submit" id="btn-entrar" class="boton">Ingresar</button>
+        </div>
+    </form>
+</div>

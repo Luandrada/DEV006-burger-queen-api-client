@@ -1,0 +1,111 @@
+/* Importing Variables. */
+@import '../../../variables.scss';
+
+#cont-form {
+    width: 68vw;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .logo{
+        width: 120px;
+        margin-bottom: 15px;
+        margin-top: -80px;
+    }
+    h2{
+        font-family: $fte-ppal;
+        margin-bottom: 30px;
+    }
+    .row1{
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 380px;
+        margin-bottom: 24px;
+        font-family: $fte-sec;
+        .campo1 {
+            width: 100%;
+            position: relative;
+            input {
+                margin-top: 7px;
+                height: 34px;
+                width: 100%;
+                // font-family: $fte-sec;
+                font-size: 16px;
+                padding-left: 20px;
+                box-sizing: border-box;
+                border-radius: 11px;
+                margin-bottom: 4px;
+                &:focus {
+                    outline: none;
+                    border: 3px solid $color-bq4;
+                }
+                
+                &:focus~i {
+                    color: rgb(34, 33, 33);
+                }
+                &.is-invalid{
+                    border: 2px solid rgb(252, 62, 62);
+                }
+                &.is-invalid~i{
+                    color:rgb(150, 9, 9);
+                }
+            }
+            i{
+                position: absolute;
+                right: 15px;
+                font-size: 1.1em;
+            }
+            .fa-eye,
+            .fa-eye-slash {
+                margin-left: 86%;
+            }
+            .fa-eye-slash {
+                visibility: hidden;
+            }
+            .fa-lock{
+                left: 0;
+                &.is-invalid{
+                    border: 1px solid red;
+                  }
+            }
+        }
+        .text-rojo-uno{
+            // font-family: $fte-sec;
+            color: red;
+            text-align: right;
+            display: block;
+            font-size: 13px;
+        }
+      
+    }
+    .buttonContainer {
+        margin-top: 30px;
+        button {
+            background-color: $color-bq2;
+            color: white;
+            font-family: $fte-ppal;
+            width: 160px;
+            border-radius: 10px;
+            height: 30px;
+            outline: none;
+            box-shadow: 2px 3px 2px grey;
+            &:hover {
+                background-color: $color-bq1;
+            }
+
+        }
+    }
+}
+
+.containerLogin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: $color-bq4;
+    background: linear-gradient(0deg,  $color-bq3 3%,  $color-bq4 100%);
+}

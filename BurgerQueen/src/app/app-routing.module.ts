@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SignInComponent } from './views/sign-in/sign-in.component';
 
 const routes: Routes = [
-  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'admin', loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule) },
 
   // Otras rutas si es necesario
-  
-  { path: '', redirectTo: '/admin', pathMatch: 'full' }, // Ruta por defecto
+  { path: 'sign-in', component: SignInComponent},
+
+  { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, // Ruta por defecto
 ];
 
 @NgModule({

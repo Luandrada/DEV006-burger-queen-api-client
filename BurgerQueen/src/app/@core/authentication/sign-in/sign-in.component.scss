@@ -1,5 +1,5 @@
 /* Importing Variables. */
-@import '../../../variables.scss';
+@import '../../../../variables.scss';
 
 #cont-form {
     width: 68vw;
@@ -33,7 +33,6 @@
                 margin-top: 7px;
                 height: 34px;
                 width: 100%;
-                // font-family: $fte-sec;
                 font-size: 16px;
                 padding-left: 20px;
                 box-sizing: border-box;
@@ -74,7 +73,6 @@
             }
         }
         .text-rojo-uno{
-            // font-family: $fte-sec;
             color: red;
             text-align: right;
             display: block;

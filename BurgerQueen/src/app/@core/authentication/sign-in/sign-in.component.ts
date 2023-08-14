@@ -1,5 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { Credentials } from 'src/app/shared/interfaces/Login';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,8 +17,9 @@ export class SignInComponent implements OnInit {
   formLogin!: FormGroup;
 
   constructor( private fb: FormBuilder,
-    private renderer: Renderer2,) {
-   }
+    private renderer: Renderer2,
+    private localStorageService: LocalStorageService,
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -28,9 +32,7 @@ export class SignInComponent implements OnInit {
     });
   }
   
-    /**
-  *Getters para campos invalidos formulario login
-  **/
+  /***Getters para campos invalidos  **/
   get invalidEmail() {
     return this.formLogin?.get('email')?.invalid && this.formLogin.get('email')?.touched;
   }
@@ -55,8 +57,12 @@ export class SignInComponent implements OnInit {
     if (this.formLogin?.invalid) {
       return Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
+    } else {
+     this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
+      this.localStorageService.setStorage("accessToken", resp.accessToken);
+      this.localStorageService.setStorage("role", resp.user.role);
+    })
     }
   }
-
 
 }

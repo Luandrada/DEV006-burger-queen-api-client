@@ -9,13 +9,24 @@ import { Product } from 'src/app/shared/interfaces/Product';
 })
 export class MenuComponent implements OnInit {
   products: Array<Product> | undefined 
-
+  selectedMenu: string = "Desayuno"
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe((resp)=> {
-      this.products = resp
-      console.log(resp)
-    })
+    this.changeMenu(this.selectedMenu);
+  }
+
+  changeMenu(type: string) {
+    this.selectedMenu = type; 
+    switch (type) {
+      case "Almuerzo":
+        this.productService.getLunchProducts().subscribe((resp)=>  this.products = resp)
+        break;
+      case "Desayuno":
+        this.productService.getBreakfastProducts().subscribe((resp)=>  this.products = resp)
+        break;
+      default:
+        break;
+    }
   }
 }

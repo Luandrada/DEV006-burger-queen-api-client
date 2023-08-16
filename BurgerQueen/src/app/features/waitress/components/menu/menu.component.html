@@ -1,3 +1,7 @@
+<div class="containerButtons">
+    <button class="menuBtn" [ngClass]="{'selectedBtn': selectedMenu === 'Desayuno'}" (click)="changeMenu('Desayuno')">Desayuno</button>
+    <button class="menuBtn" [ngClass]="{'selectedBtn': selectedMenu === 'Almuerzo'}" (click)="changeMenu('Almuerzo')">Almuerzo</button>
+</div>
 <div  class="containerCards">
     <app-product-card *ngFor="let item of products; let i=index" [product] = item></app-product-card>
 </div>

@@ -55,17 +55,10 @@
         justify-content: center;
         font-family: $fte-ppal;
         align-items: center;
-        a{
-            text-decoration: none;
+        p{
             font-family: $fte-ppal;
             font-size: 15px;
             color: rgb(40, 40, 40);
-            &:active {
-                text-decoration: none;
-            }
-            &:hover {
-                transform: scale(1.025);
-            }
         }
     }
 }

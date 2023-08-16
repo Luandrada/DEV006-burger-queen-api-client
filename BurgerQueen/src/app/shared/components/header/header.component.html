@@ -8,8 +8,8 @@
         </nav>
         <img [src]="imgRole" alt="profile" class="profilePicture"   (click)="showMenu()" >
     </div>
-    <div class="menu" #menuRef>
-        <a [routerLink]="['/inicio-de-sesion']" >Cerrar Sesión</a>
+    <div class="menu" #menuRef (click)="signOut()">
+        <p >Cerrar Sesión</p>
     </div>
 
 </div>

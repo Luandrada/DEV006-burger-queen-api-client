@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,10 @@ export class HeaderComponent implements OnInit {
   @ViewChild("menuRef") menuRef: ElementRef | undefined;
   imgRole: string | undefined;
 
-  constructor(public router: Router,private renderer: Renderer2, private authService : AuthService) { }
+  constructor(public router: Router,
+    private renderer: Renderer2,
+    private authService : AuthService,
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
     this.setImgRole();
@@ -41,5 +45,10 @@ export class HeaderComponent implements OnInit {
       default:
         break;
     }
+  }
+
+  signOut() {
+    this.localStorageService.clearStorage();
+    this.router.navigate(["/sign-in"])
   }
 }

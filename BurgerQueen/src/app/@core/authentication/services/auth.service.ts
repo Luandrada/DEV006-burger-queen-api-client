@@ -12,6 +12,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  getToken():string | null {
+    return localStorage.getItem("accessToken");
+  }
+
+  getRole():string | null {
+    return localStorage.getItem("role");
+  }
+
   sigIn(credentials: Credentials ):Observable<LoginResponse> {
     return this.http.post('http://localhost:8080/login', credentials).pipe(
       map((resp: any) => {
@@ -19,4 +27,6 @@ export class AuthService {
       })
     );
   }
+
+  
 }

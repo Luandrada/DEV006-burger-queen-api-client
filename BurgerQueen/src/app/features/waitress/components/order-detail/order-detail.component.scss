@@ -1,0 +1,28 @@
+/* Importing Variables. */
+@import '../../../../../variables.scss';
+
+.orderDetailContainer {
+    width: 40vw;
+    border: 2px solid $color-bq1;
+    padding: 30px;
+    height: 450px;
+    padding-inline: 15px;
+    border-radius: 18px 18px 18px 0;
+    background-color: rgba(255, 255, 255, 0.749);
+    font-family: $fte-sec;
+    .headerList {
+        border-bottom: 1px solid $color-bq1;
+        width: 100%;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+
+        .inputName {
+            height: 32px;
+            border-radius: 4px;
+            border: 2px solid $color-bq1;
+            padding-inline: 8px;
+            margin-top: 8px;
+            width: 190px;
+        }
+    }
+}

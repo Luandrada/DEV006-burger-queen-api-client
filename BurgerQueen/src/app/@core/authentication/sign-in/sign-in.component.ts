@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { Credentials } from 'src/app/shared/interfaces/Login';
 import { LocalStorageService } from '../../services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -18,6 +19,7 @@ export class SignInComponent implements OnInit {
 
   constructor( private fb: FormBuilder,
     private renderer: Renderer2,
+    private router: Router,
     private localStorageService: LocalStorageService,
     private authService: AuthService) {}
 
@@ -53,6 +55,25 @@ export class SignInComponent implements OnInit {
     }
   }
 
+  redirectByRole(role: string) {
+    switch (role) {
+      case "mesera":
+        this.router.navigate(['orders/create'])
+        break;
+
+      case "cocinera":
+      
+      break;
+
+      case "admin":
+        
+        break;
+    
+      default:
+        break;
+    }
+  }
+
   signIn(): void {
     if (this.formLogin?.invalid) {
       return Object.values(this.formLogin.controls)
@@ -61,6 +82,7 @@ export class SignInComponent implements OnInit {
      this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
       this.localStorageService.setStorage("accessToken", resp.accessToken);
       this.localStorageService.setStorage("role", resp.user.role);
+      this.redirectByRole(resp.user.role);
     })
     }
   }

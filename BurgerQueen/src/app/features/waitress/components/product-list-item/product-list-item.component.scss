@@ -1,0 +1,33 @@
+.rowItem {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    flex-wrap: nowrap;
+    column-gap: 10px;
+    .counter {
+        display: flex;justify-content: center;
+        align-items: center;
+        column-gap: 8px;
+        width: 35%;
+        span{
+            text-align: center
+        };
+    }
+    .icon {
+        color: rgb(83, 81, 81);
+        cursor: pointer;
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    .name {
+        width: 40%;
+        cursor: default;
+    }
+    .subtotal {
+        width: 20%;
+        text-align: right;
+        cursor: default;
+
+    }
+}

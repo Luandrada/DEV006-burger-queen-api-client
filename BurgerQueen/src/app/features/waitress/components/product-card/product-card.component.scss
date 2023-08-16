@@ -1,0 +1,30 @@
+/* Importing Variables. */
+@import '../../../../../variables.scss';
+
+.card {
+    border: 1px solid $color-bq1;
+    border-radius: 18px 18px 18px 0;
+    padding: 20px;
+    padding-inline: 28px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 150px;
+    height: 170px;
+    background-color: rgba(255, 255, 255, 0.749);
+    
+    img {
+        width: 60px;
+
+        justify-self: flex-start;
+    }
+    h4 {
+        text-align: center;
+        font-family: $fte-ppal;
+    }
+    p{
+        text-align: center;
+        font-family: $fte-sec;
+    }
+}

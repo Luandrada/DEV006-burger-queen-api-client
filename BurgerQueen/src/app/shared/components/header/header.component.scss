@@ -1,0 +1,81 @@
+/* Importing Variables. */
+@import '../../../../variables.scss';
+.headerContainer {
+    width: 100%;
+    height: 9vh;
+    background-color: $color-bq2;
+    display: flex;
+   padding-inline: 40px;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    .logo {
+        width: 80px;
+    }
+    .navContainer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 50%;
+        nav {
+            color: white;
+            font-family: $fte-ppal;
+            width: 65%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            a{
+                text-decoration: none;
+                color: white;
+                &:active {
+                    text-decoration: none;
+                    font-weight: bold;
+                }
+                &:hover {
+                    transform: scale(1.05);
+                }
+            }
+
+        }
+        .profilePicture{
+            width: 70px;
+            cursor: pointer;
+        }
+    }
+    .menu {
+        display: none;
+        background-color: white;
+        width: 180px;
+        height: 50px;
+        position: absolute;
+        right: 0;
+        bottom: -50px;
+        border-radius: 0 0 15px 15px;
+        padding-left: 10px;
+        justify-content: center;
+        font-family: $fte-ppal;
+        align-items: center;
+        a{
+            text-decoration: none;
+            font-family: $fte-ppal;
+            font-size: 15px;
+            color: rgb(40, 40, 40);
+            &:active {
+                text-decoration: none;
+            }
+            &:hover {
+                transform: scale(1.025);
+            }
+        }
+    }
+}
+
+.activeLink {
+    border-bottom: 2px solid white;
+    font-weight: 500;
+    
+}
+
+.menu.show {
+    display: flex !important;
+  }

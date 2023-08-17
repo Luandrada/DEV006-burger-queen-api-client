@@ -10,5 +10,5 @@ export interface ProductItemList {
     id: number,
     name: string,
     price: number,
-    cantidad: number
+    quantity: number
 }

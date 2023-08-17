@@ -3,8 +3,9 @@
     <p class="name">{{product?.name}}</p>
     <div class="counter">
         <i class="fa-solid fa-circle-minus icon"></i>
-        <span>{{product?.cantidad}}</span>
+        <span>{{product?.quantity}}</span>
         <i class="fa-solid fa-circle-plus icon"></i>
     </div>
-    <p class="subtotal">${{totalUnidad}}</p>
+    <p class="subtotal">${{product?.price}}</p>
+    <p class="subtotal">${{ subtotal }}</p>
 </div>

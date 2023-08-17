@@ -1,7 +1,7 @@
 <div class="bgPedidos">
     <h2 class="titleSection">Crear Pedido</h2>
     <div class="orderMenu">
-        <app-menu></app-menu>
-        <app-order-detail></app-order-detail>
+        <app-menu (menuItemsSelected)="handleMenuItemSelected($event)"></app-menu>
+        <app-order-detail [productList]="selectedItems"></app-order-detail>
     </div>
 </div>

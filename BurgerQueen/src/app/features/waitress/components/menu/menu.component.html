@@ -3,5 +3,5 @@
     <button class="menuBtn" [ngClass]="{'selectedBtn': selectedMenu === 'Almuerzo'}" (click)="changeMenu('Almuerzo')">Almuerzo</button>
 </div>
 <div  class="containerCards">
-    <app-product-card *ngFor="let item of products; let i=index" [product] = item></app-product-card>
+    <app-product-card *ngFor="let item of products; let i=index" [product] = item (click)="addProduct(item)"></app-product-card>
 </div>

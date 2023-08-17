@@ -15,7 +15,9 @@ export class SignInComponent implements OnInit {
   @ViewChild("password") password: ElementRef | undefined;
   @ViewChild("show") show: ElementRef | undefined;
   @ViewChild("hide") hide: ElementRef | undefined;
+  
   formLogin!: FormGroup;
+  invalidCredentials: boolean = false;
 
   constructor( private fb: FormBuilder,
     private renderer: Renderer2,
@@ -42,6 +44,7 @@ export class SignInComponent implements OnInit {
   get invalidPassword() {
     return this.formLogin?.get('password')?.invalid && this.formLogin.get('password')?.touched;
   }
+  /***FIN de Getters para campos invalidos  **/
 
   showPsw() {
     if (this.password?.nativeElement.type == "password") {
@@ -75,15 +78,24 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(): void {
+    this.invalidCredentials = false;
+
     if (this.formLogin?.invalid) {
       return Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
     } else {
-     this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
-      this.localStorageService.setStorage("accessToken", resp.accessToken);
-      this.localStorageService.setStorage("role", resp.user.role);
-      this.redirectByRole(resp.user.role);
-    })
+
+      this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
+        this.localStorageService.setStorage("accessToken", resp.accessToken);
+        this.localStorageService.setStorage("role", resp.user.role);
+        this.redirectByRole(resp.user.role);
+
+      },(error) => {
+
+        if (error.error === "Cannot find user" || error.error === "Incorrect password") {
+          this.invalidCredentials = true;
+        }
+      })
     }
   }
 

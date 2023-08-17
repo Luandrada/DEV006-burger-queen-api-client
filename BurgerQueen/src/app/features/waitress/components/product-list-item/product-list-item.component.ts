@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ProductItemList } from 'src/app/shared/interfaces/Product';
 
 @Component({
@@ -8,6 +8,10 @@ import { ProductItemList } from 'src/app/shared/interfaces/Product';
 })
 export class ProductListItemComponent implements OnInit , OnChanges {
   @Input() product: ProductItemList | undefined; 
+  @Output() itemToAdd: EventEmitter<number> = new EventEmitter<number>();
+  @Output() itemToDelete: EventEmitter<number> = new EventEmitter<number>();
+  @Output() itemToRemove: EventEmitter<number> = new EventEmitter<number>();
+
   totalUnidad: number = 0;
   constructor() { }
 
@@ -31,4 +35,12 @@ export class ProductListItemComponent implements OnInit , OnChanges {
     }
     return 0;
   }
+
+  deleteProduct(idProduct: number| undefined) {
+
+  }
+  removeProduct(idProduct: number| undefined) {
+
+  }
+ 
 }

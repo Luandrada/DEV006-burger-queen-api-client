@@ -18,7 +18,11 @@
                 <option value="1">9</option>
             </select>
         </div>
-        <app-product-list-item *ngFor="let item of productList; let i=index" [product] = item></app-product-list-item>
-
+        <div class="containerItems">
+            <app-product-list-item *ngFor="let item of productList; let i=index" [product] = item (itemToAdd)="itemToAdd.emit($event)" (itemToRemove)="itemToRemove.emit($event)" (itemToDelete)="itemToDelete.emit($event)"></app-product-list-item>
+        </div>
+        <div class="total">
+            <p>TOTAL: ${{totalAmount}}</p>
+        </div>
     </form>
 </div>

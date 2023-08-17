@@ -10,6 +10,7 @@
     border-radius: 18px 18px 18px 0;
     background-color: rgba(255, 255, 255, 0.749);
     font-family: $fte-sec;
+    position: relative;
     .headerList {
         border-bottom: 1px solid $color-bq1;
         width: 100%;
@@ -24,5 +25,13 @@
             margin-top: 8px;
             width: 190px;
         }
+    }
+    .total {
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
+        font-weight: bold;
+        text-align: right;
+        width: 100%;
     }
 }

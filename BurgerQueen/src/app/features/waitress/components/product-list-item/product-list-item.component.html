@@ -1,10 +1,10 @@
 <div class="rowItem">
-    <i class="fa-regular fa-trash-can icon"></i>
+    <i class="fa-regular fa-trash-can icon" (click)="itemToRemove.emit(product?.id)"></i>
     <p class="name">{{product?.name}}</p>
     <div class="counter">
-        <i class="fa-solid fa-circle-minus icon"></i>
+        <i class="fa-solid fa-circle-minus icon" (click)="itemToDelete.emit(product?.id)"></i>
         <span>{{product?.quantity}}</span>
-        <i class="fa-solid fa-circle-plus icon"></i>
+        <i class="fa-solid fa-circle-plus icon" (click)="itemToAdd.emit(product?.id)"></i>
     </div>
     <p class="subtotal">${{product?.price}}</p>
     <p class="subtotal">${{ subtotal }}</p>

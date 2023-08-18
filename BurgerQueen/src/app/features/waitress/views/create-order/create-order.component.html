@@ -2,6 +2,11 @@
     <h2 class="titleSection">Crear Pedido</h2>
     <div class="orderMenu">
         <app-menu (menuItemsSelected)="handleAddItemToOrder($event)"></app-menu>
-        <app-order-detail [productList]="selectedItems" (itemToAdd)="handleAddItem($event)" (itemToDelete)="handleDeleteItem($event)" (itemToRemove)="handleRemoveItem($event)"></app-order-detail>
+        <app-order-detail [productList]="selectedItems"
+        (itemToAdd)="handleAddItem($event)"
+        (itemToDelete)="handleDeleteItem($event)"
+        (itemToRemove)="handleRemoveItem($event)"
+        (clearOrder)="handleClearOrder()">
+        </app-order-detail>
     </div>
 </div>

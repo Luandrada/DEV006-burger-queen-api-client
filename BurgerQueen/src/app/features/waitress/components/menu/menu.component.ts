@@ -1,6 +1,6 @@
 import { Component, OnInit, Output,  EventEmitter } from '@angular/core';
 import { ProductService } from 'src/app/@core/services/product.service';
-import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
+import { Product } from 'src/app/shared/interfaces/Product';
 
 @Component({
   selector: 'app-menu',
@@ -8,8 +8,6 @@ import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  // @Output() menuItemsSelected: EventEmitter<ProductItemList[]> = new EventEmitter<ProductItemList[]>();
-
   @Output() menuItemsSelected: EventEmitter<Product> = new EventEmitter<Product>();
   products: Array<Product> | undefined;
   selectedMenu: string = "Desayuno";
@@ -34,26 +32,6 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  // addProduct(product : Product) {
-  //   const newProduct: ProductItemList = {
-  //     id: product.id,
-  //     name: product.name,
-  //     price: product.price,
-  //     quantity: 1
-  //   }
-
-  //   const existingProductIndex = this.orderDetail.findIndex(item => item.id === newProduct.id);
-
-  //   if (existingProductIndex !== -1) {
-  //     // Si el producto ya existe en orderDetail, actualiza la cantidad
-  //     this.orderDetail[existingProductIndex].quantity += 1;
-  //   } else {
-  //     // Si el producto no existe en orderDetail, agrégalo
-  //     this.orderDetail.push(newProduct);
-  //   };
-
-  //   this.menuItemsSelected.emit(this.orderDetail);
-  // }'
   addProduct(product : Product) {
     this.menuItemsSelected.emit(product);
   }

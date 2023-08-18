@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 })
 
 export class SignInComponent implements OnInit {
-  @ViewChild("password") password: ElementRef | undefined;
-  @ViewChild("show") show: ElementRef | undefined;
-  @ViewChild("hide") hide: ElementRef | undefined;
+  @ViewChild("password") password!: ElementRef;
+  @ViewChild("show") show !: ElementRef ;
+  @ViewChild("hide") hide !: ElementRef ;
   
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
@@ -88,6 +88,8 @@ export class SignInComponent implements OnInit {
       this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
         this.localStorageService.setStorage("accessToken", resp.accessToken);
         this.localStorageService.setStorage("role", resp.user.role);
+        this.localStorageService.setStorage("idUser", resp.user.id.toString());
+
         this.redirectByRole(resp.user.role);
 
       },(error) => {

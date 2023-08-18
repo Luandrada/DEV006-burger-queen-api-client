@@ -17,7 +17,7 @@ export class ProductListItemComponent implements OnInit , OnChanges {
 
   ngOnInit(): void {
     if (this.product) {
-      this.totalUnidad = this.product?.price * this.product?.quantity;
+      this.totalUnidad = this.product?.product.price * this.product?.qty;
     }
   }
 
@@ -25,22 +25,15 @@ export class ProductListItemComponent implements OnInit , OnChanges {
     console.log("hubo un cAMBIO", changes);
     
     if (changes.product && this.product) {
-      this.totalUnidad = this.product.price * this.product.quantity;
+      this.totalUnidad = this.product.product.price * this.product.qty;
     }
   }
 
   get subtotal(): number{
     if (this.product) {
-      return this.product.quantity * this.product.price;
+      return this.product.qty * this.product.product.price;
     }
     return 0;
-  }
-
-  deleteProduct(idProduct: number| undefined) {
-
-  }
-  removeProduct(idProduct: number| undefined) {
-
   }
  
 }

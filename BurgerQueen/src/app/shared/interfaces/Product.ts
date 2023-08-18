@@ -7,8 +7,14 @@ export interface Product {
     dataEntry?: Date,
 }
 export interface ProductItemList {
-    id: number,
-    name: string,
-    price: number,
-    quantity: number
+    qty: number,
+    product: Product,
+}
+
+export interface Order {
+  userId: number,
+  client: string,
+  products: ProductItemList[],
+  status: "pending" | "delivered",
+  dataEntry: Date
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Credentials, LoginResponse } from '../../../shared/interfaces/Login';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 @Injectable({

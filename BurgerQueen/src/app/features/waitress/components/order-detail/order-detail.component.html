@@ -1,26 +1,27 @@
 <div class="orderDetailContainer">
-    <form action="">
+    <form autocomplete="off" [formGroup]="formOrderInfo" (ngSubmit)="sendOrder()">
         <div class="headerList">
-            <div>
-                <p>Pedido para : </p>
-                <input type="text" class="inputName" placeholder="Nombre">
-            </div>
-            <select name="mesa" class="inputName">
-                <option hidden selected value="">- Mesa -</option>
-                <option value="1">1</option>
-                <option value="1">2</option>
-                <option value="1">3</option>
-                <option value="1">4</option>
-                <option value="1">5</option>
-                <option value="1">6</option>
-                <option value="1">7</option>
-                <option value="1">8</option>
-                <option value="1">9</option>
-            </select>
+                <div>
+                    <p>Pedido para : </p>
+                    <input formControlName="clientName" type="text" class="inputName" placeholder="Nombre">
+                </div>
+                <select name="mesa" formControlName="table" class="inputName">
+                    <option hidden selected value="">- Mesa -</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>  
         </div>
-        <div class="containerItems">
-            <app-product-list-item *ngFor="let item of productList; let i=index" [product] = item (itemToAdd)="itemToAdd.emit($event)" (itemToRemove)="itemToRemove.emit($event)" (itemToDelete)="itemToDelete.emit($event)"></app-product-list-item>
+        <div class="containerItems"*ngIf="productList">
+            <app-product-list-item  *ngFor="let item of productList; let i=index" [product] = item (itemToAdd)="itemToAdd.emit($event)" (itemToRemove)="itemToRemove.emit($event)" (itemToDelete)="itemToDelete.emit($event)"></app-product-list-item>
         </div>
+        <p *ngIf="!productList || productList.length === 0" class="placeholder">- Agregue productos a su orden - </p>
+        
+        <button class="btnSend" [disabled]="this.formOrderInfo?.invalid" type="submit" *ngIf="productList && productList?.length !== 0" >Enviar a Cocina</button>
+      
         <div class="total">
             <p>TOTAL: ${{totalAmount}}</p>
         </div>

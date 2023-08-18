@@ -6,6 +6,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ProductListItemComponent } from './components/product-list-item/product-list-item.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { ProductCardComponent } from './components/product-card/product-card.com
   ],
   imports: [
     CommonModule,
-    WaitressRoutingModule
+    WaitressRoutingModule,
+    ReactiveFormsModule,
   ]
 })
 export class WaitressModule { }

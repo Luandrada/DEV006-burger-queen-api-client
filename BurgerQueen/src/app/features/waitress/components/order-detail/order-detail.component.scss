@@ -26,6 +26,14 @@
             width: 190px;
         }
     }
+    .containerItems {
+        overflow-y: scroll;
+        max-height: 215px;
+    }
+    .placeholder {
+        color: grey;
+        text-align: center;
+    }
     .total {
         position: absolute;
         bottom: 20px;
@@ -33,5 +41,20 @@
         font-weight: bold;
         text-align: right;
         width: 100%;
+    }
+    .btnSend {
+        position: absolute;
+        bottom: 20px;
+        left: 30px;
+        height: 35px;
+        width: 110px;
+        border-radius: 10px;
+        background-color:  $color-bq2;
+        color: white;
+        border: 0;
+        cursor: pointer;
+        &:disabled {
+            background-color: rgb(184, 179, 179);
+        }
     }
 }

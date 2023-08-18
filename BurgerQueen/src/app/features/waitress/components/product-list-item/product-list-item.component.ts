@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductItemList } from 'src/app/shared/interfaces/Product';
 
 @Component({
@@ -6,7 +6,7 @@ import { ProductItemList } from 'src/app/shared/interfaces/Product';
   templateUrl: './product-list-item.component.html',
   styleUrls: ['./product-list-item.component.scss']
 })
-export class ProductListItemComponent implements OnInit , OnChanges {
+export class ProductListItemComponent implements OnInit {
   @Input() product: ProductItemList | undefined; 
   @Output() itemToAdd: EventEmitter<number> = new EventEmitter<number>();
   @Output() itemToDelete: EventEmitter<number> = new EventEmitter<number>();
@@ -15,19 +15,7 @@ export class ProductListItemComponent implements OnInit , OnChanges {
   totalUnidad: number = 0;
   constructor() { }
 
-  ngOnInit(): void {
-    if (this.product) {
-      this.totalUnidad = this.product?.product.price * this.product?.qty;
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    console.log("hubo un cAMBIO", changes);
-    
-    if (changes.product && this.product) {
-      this.totalUnidad = this.product.product.price * this.product.qty;
-    }
-  }
+  ngOnInit(): void {}
 
   get subtotal(): number{
     if (this.product) {

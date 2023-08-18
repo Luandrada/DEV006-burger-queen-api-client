@@ -5,11 +5,13 @@ import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Product } from 'src/app/shared/interfaces/Product';
 import { AuthService } from '../authentication/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient, private authService : AuthService) { }
 
@@ -19,7 +21,7 @@ export class ProductService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get('http://localhost:8080/products', { headers }).pipe(
+    return this.http.get( `${this.apiUrl}/products`, { headers }).pipe(
       map((resp: any) => {
         return resp as Product[];
       })

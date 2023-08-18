@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   getToken():string | null {
@@ -20,7 +21,7 @@ export class AuthService {
   }
 
   sigIn(credentials: Credentials): Observable<LoginResponse> {
-    return this.http.post('http://localhost:8080/login', credentials).pipe(
+    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((resp: any) => {
         return resp;
       }),

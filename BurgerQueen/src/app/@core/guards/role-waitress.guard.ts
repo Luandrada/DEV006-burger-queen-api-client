@@ -10,7 +10,6 @@ export class RoleWaitressGuard implements CanActivate {
   constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(): boolean {
-    const accessToken = this.authService.getToken();
     const role = this.authService.getRole();
     if (role === 'mesera') {
       return true;

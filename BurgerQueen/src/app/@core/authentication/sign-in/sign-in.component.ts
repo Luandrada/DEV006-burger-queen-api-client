@@ -91,7 +91,6 @@ export class SignInComponent implements OnInit {
         this.localStorageService.setStorage("idUser", resp.user.id.toString());
 
         this.redirectByRole(resp.user.role);
-
       },(error) => {
 
         if (error.error === "Cannot find user" || error.error === "Incorrect password") {
@@ -100,5 +99,18 @@ export class SignInComponent implements OnInit {
       })
     }
   }
+
+  // async onLoginFormSubmit() {
+  //   try {
+  //     const resp = await this.authService.sigIn(this.formLogin.value as Credentials).toPromise();
+  //     this.localStorageService.setStorage("accessToken", resp.accessToken);
+  //     this.localStorageService.setStorage("role", resp.user.role);
+  //     this.localStorageService.setStorage("idUser", resp.user.id.toString());
+
+  //     this.redirectByRole(resp.user.role);
+  //   } catch (error) {
+  //     //manejo del error
+  //   }
+  // }
 
 }

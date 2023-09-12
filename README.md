@@ -1,4 +1,4 @@
-# Burger Queen (API Client)
+# Burger Queen (API Client) - Guía para Coaches
 
 ## Índice
 

@@ -7,10 +7,6 @@
 * [3. Arquitectura](#3-arquitectura)
 * [4. Consideraciones](#4-consideraciones)
 
-* [5. Criterios de aceptación del proyecto](#5-criterios-de-aceptación-del-proyecto)
-* [6. Despliegue](#6-despliegue)
-* [7. Pistas / tips](#7-pistas--tips)
-
 ***
 
 ## 1. Introducción
@@ -20,7 +16,8 @@
 
 
 ## 2. Resumen del proyecto
-Burger Queen API Client - [Read me]()
+Burger Queen API Client - [Read me](https://github.com/Laboratoria/DEV009-burger-queen-api-client)
+
 En resumen , un pequeño restaurante de hamburguesas, que está creciendo, necesita un
 sistema a través del cual puedan tomar pedidos usando una _tablet_, y enviarlos
 a la cocina para que se preparen ordenada y eficientemente.
@@ -28,7 +25,7 @@ Nuestro Frontend se conectará con el [Backend](https://app.swaggerhub.com/apis-
 
 ## 3. Arquitectura
 
-**Estructura de carpetas**
+* **Estructura de carpetas**
 
 Se optó por crear una estructura , donde algunas posiblemente queden sin utilizarse. Esto es , a modo ilustrativo, para poder visualizar y mostrar a las estudiantes como podria llegar a ser la estructura de un proyecto más robusto o donde podrian ir guardando sus distintos recursos si en algún momento decidiera complejizar su proeycto.
 

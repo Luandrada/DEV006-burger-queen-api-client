@@ -2,113 +2,36 @@
 
 ## Índice
 
-* [1. Preámbulo](#1-preámbulo)
+* [1. Introducción](#1-introducción)
 * [2. Resumen del proyecto](#2-resumen-del-proyecto)
-* [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
+* [3. Arquitectura](#3-arquitectura)
 * [4. Consideraciones](#4-consideraciones)
+
 * [5. Criterios de aceptación del proyecto](#5-criterios-de-aceptación-del-proyecto)
 * [6. Despliegue](#6-despliegue)
 * [7. Pistas / tips](#7-pistas--tips)
 
 ***
 
-## 1. Preámbulo
+## 1. Introducción
+ Este repositorio ha sido creado con el propósito de proporcionar a nuestro equipo de coaches una herramienta centralizada para guiar y estandarizar el proceso de aprendizaje del framework de frontend [Angular](https://angular.io/).
 
-[React](https://es.react.dev/) y [Angular](https://angular.io/)
-son algunos de los _frameworks_ y _librerías_ de JavaScript más utilizados por
-lxs desarrolladorxs alrededor del mundo, y hay una razón para eso.
-En el contexto del navegador, [_mantener la interfaz sincronizada con el estado
-es difícil_](https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445).
-Al elegir un _framework_ o _librería_ para nuestra interfaz, nos apoyamos en una
-serie de convenciones e implementaciones _probadas_ y _documentadas_ para
-resolver un problema común a toda interfaz web. Esto nos permite concentrarnos
-mejor (dedicar más tiempo) en las características _específicas_ de
-nuestra aplicación.
+ El objetivo principal de este proyecto es establecer un conjunto de mejores prácticas y estándares de desarrollo en Angular 14, que servirán como referencia para que el equipo trabaje y comunique siguiendo una misma linea.
 
-Cuando elegimos una de estas tecnologías no solo importamos un pedacito de
-código para reusarlo (lo cuál es un gran valor per se), si no que adoptamos una
-**arquitectura**, una serie de **principios de diseño**, un **paradigma**, unas
-**abstracciones**, un **vocabulario**, una **comunidad**, etc.
-
-Como desarrolladora Front-end, estos kits de desarrollo pueden resultarte
-de gran ayuda para implementar rápidamente características de los proyectos en
-los que trabajes.
 
 ## 2. Resumen del proyecto
-
-Un pequeño restaurante de hamburguesas, que está creciendo, necesita un
+Burger Queen API Client - [Read me]()
+En resumen , un pequeño restaurante de hamburguesas, que está creciendo, necesita un
 sistema a través del cual puedan tomar pedidos usando una _tablet_, y enviarlos
 a la cocina para que se preparen ordenada y eficientemente.
-
-![burger-queen](https://user-images.githubusercontent.com/110297/42118136-996b4a52-7bc6-11e8-8a03-ada078754715.jpg)
-
-Este proyecto tiene dos áreas: interfaz (cliente) y API (servidor). Nuestra
-clienta nos ha solicitado desarrollar la interfaz que se integre con una API.
-
-Esta vez tenemos un proyecto 100% por encargo. Si bien siempre puedes (y debes)
-hacer sugerencias de mejoras y/o cambios, muchas veces trabajarás en proyectos
-en los que primero hay que asegurarse de cumplir con lo requerido.
-
-Esta es la información que tenemos de la clienta:
-
-> Somos **Burguer Queen**, una cadena de comida 24hrs.
->
-> Nuestra propuesta de servicio 24hrs ha tenido muy buena acogida y, para
-> seguir creciendo, necesitamos un sistema que nos ayude a tomar los pedidos de
-> nuestrxs clientxs.
->
-> Tenemos 2 menús: uno muy sencillo para el desayuno:
->
-> | Ítem                      |Precio $|
-> |---------------------------|------|
-> | Café americano            |    5 |
-> | Café con leche            |    7 |
-> | Sandwich de jamón y queso |   10 |
-> | Jugo de frutas natural    |    7 |
->
-> Y otro menú para el resto del día:
->
-> | Ítem                      |Precio|
-> |---------------------------|------|
-> |**Hamburguesas**           |   **$**   |
-> |Hamburguesa simple         |    10|
-> |Hamburguesa doble          |    15|
-> |**Acompañamientos**        |   **$**   |
-> |Papas fritas               |     5|
-> |Aros de cebolla            |     5|
-> |**Para tomar**             |   **$**   |
-> |Agua 500ml                 |     5|
-> |Agua 750ml                 |     7|
-> |Bebida/gaseosa 500ml       |     7|
-> |Bebida/gaseosa 750ml       |     10|
->
-> Nuestrxs clientxs son bastante indecisos, por lo que es muy común que cambien
-> el pedido varias veces antes de finalizarlo.
-
-La interfaz debe mostrar los dos menús (desayuno y resto del día), cada uno
-con todos sus _productos_. La usuaria debe poder ir eligiendo qué _productos_
-agregar y la interfaz debe ir mostrando el _resumen del pedido_ con el
-costo total.
-
-![out](https://user-images.githubusercontent.com/110297/45984241-b8b51c00-c025-11e8-8fa4-a390016bee9d.gif)
-
-Además la clienta nos ha dado un [link a la documentación](https://app.swaggerhub.com/apis-docs/ssinuco/BurgerQueenAPI/2.0.0)
-que especifica el comportamiento esperado de la API HTTP que deberás consumir.
-Ahí puedes encontrar todos los detalles de los _endpoints_, como por ejemplo
-qué parámetros esperan, qué deben responder, etc.
-
-El objetivo principal de es aprender a construir una _interfaz web_ usando
-el _framework_ elegido (React, Angular o Vue). Todos estos frameworks de
-Front-end tratan de solucionar el mismo problema: **cómo mantener la interfaz
-y el estado sincronizados**. Así que esta experiencia espera familiarizarte con
-el concepto de _estado de pantalla_, y como cada cambio sobre el estado se va
-a ir reflejando en la interfaz (por ejemplo, cada vez que agregamos un _producto_
-a un _pedido_, la interfaz debe actualizar la lista del pedido y el total).
-
-## 3. Objetivos de aprendizaje
+Nuestro Frontend se conectará con el [Backend](https://app.swaggerhub.com/apis-docs/ssinuco/BurgerQueenAPI/2.0.0) provisto.
+## 3. Arquitectura
 
 Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
 
+Se optó por crear una estructura interna de carpetas, donde algunas posiblemente queden sin utilizarse. Esto es , a modo ilustrativo, para poder visualizar y mostrar a las estudiantes como podria llegar a ser la estructura de un proyecto más robusto.
+
+![burger-queen](https://imgur.com/a/r877hOd)
 ### HTML
 
 - [ ] **Uso de HTML semántico**

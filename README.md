@@ -30,8 +30,9 @@ Nuestro Frontend se conectará con el [Backend](https://app.swaggerhub.com/apis-
 Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en tu proyecto. Piensa en eso al decidir tu estrategia de trabajo.
 
 Se optó por crear una estructura interna de carpetas, donde algunas posiblemente queden sin utilizarse. Esto es , a modo ilustrativo, para poder visualizar y mostrar a las estudiantes como podria llegar a ser la estructura de un proyecto más robusto.
+![Alt text](estructura.png)
 
-![burger-queen](https://imgur.com/a/r877hOd)
+<!-- ![burger-queen](https://imgur.com/a/r877hOd) -->
 ### HTML
 
 - [ ] **Uso de HTML semántico**

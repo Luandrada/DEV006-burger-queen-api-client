@@ -32,7 +32,7 @@ Se optó por crear una estructura , donde algunas posiblemente queden sin utiliz
 ![estructura](estructura.png)
 
 
-**Cración de Módulos**
+* **Cración de Módulos**
 
 Se creó un modulo por perfil de usuario. Cada módulo cuenta con una organización interna que nos permite encontrar facilmente sus componentes, servicios, vistas y ruteo. Estos módulos se encuentran dentro de la carpeta principal "features".
 
@@ -40,7 +40,7 @@ Se creó un modulo por perfil de usuario. Cada módulo cuenta con una organizaci
 
 ## 4. Consideraciones
 
-**Uso de Rutas hijas**
+* **Uso de Rutas hijas**
 
 En nuestro app-routing.modules.ts
 ![Alt text](image-2.png)
@@ -50,24 +50,29 @@ en el routing de uno de nuestros modulos. ej: waitres-routing.module.ts
 
 En este ejemplo , la ruta orders/create nos llevará a la vista de mesera de Crear Orden.
 
-**Protección de rutas**
+* **Protección de rutas**
+
 Para la protección de rutas se usaron Guards de tipo CanActivate. Se creó una para identificar si el user está logueado, y otra para verificar bajo qué rol se encuentra.(Se pueden ver en la imágen anterior)
 
-**NO recomendamos el uso de Interceptors**
+* **NO recomendamos el uso de Interceptors**
+
 La incorporación del token en el header se realiza en cada petición . Se pe recurre a un servicio propio para traernos el token . 
 
 ![Alt text](image-4.png)
 
-**Manejo de Observables**
+* **Manejo de Observables**
+
 Se recomienda el trabajo con Observables a la estudiantes y se sugiere investigar los operadores básicos de rxjs como por ejemplo .pipe o .map ya que son muy utilizados en la diaria laboral.
 (podemos ver como se utilizan en la foto anterior)
 
-**Separación de responsabilidades entre componentes y servicios**
+* **Separación de responsabilidades entre componentes y servicios**
+
 Procurar que la mayor cantidad de lógica quede en el servicio, de forma tal que en mi componente se reciba unicamente la información que se precisa. Por ejemplo, en este caso , el filtrado de los productos según el tipo de menú se produce en el servicio y no en el componente . 
 
 ![Alt text](image-5.png)
 
-**Estilos**
+* **Estilos**
+
 Para los estilos se decidió trabajar con [SCSS](https://sass-lang.com/guide/#variables) por los beneficios y claridad que aportan. 
 Teniendo en cuenta que Angular se encarga por si solo de compilarlo a css.
 

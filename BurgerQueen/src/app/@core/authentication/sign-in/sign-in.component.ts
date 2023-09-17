@@ -86,8 +86,7 @@ export class SignInComponent implements OnInit {
 
       this.authService.sigIn(this.formLogin.value).subscribe((resp)=> {
         this.localStorageService.setStorage("accessToken", resp.accessToken);
-        this.localStorageService.setStorage("role", resp.user.role);
-        this.localStorageService.setStorage("idUser", resp.user.id.toString());
+        this.localStorageService.setStorage("userInfo", JSON.stringify(resp.user));
 
         this.redirectByRole(resp.user.role);
       },(error) => {
@@ -98,18 +97,5 @@ export class SignInComponent implements OnInit {
       })
     }
   }
-
-  // async onLoginFormSubmit() {
-  //   try {
-  //     const resp = await this.authService.sigIn(this.formLogin.value as Credentials).toPromise();
-  //     this.localStorageService.setStorage("accessToken", resp.accessToken);
-  //     this.localStorageService.setStorage("role", resp.user.role);
-  //     this.localStorageService.setStorage("idUser", resp.user.id.toString());
-
-  //     this.redirectByRole(resp.user.role);
-  //   } catch (error) {
-  //     //manejo del error
-  //   }
-  // }
 
 }

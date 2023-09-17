@@ -17,7 +17,9 @@ export class AuthService {
   }
 
   getRole():string | null {
-    return localStorage.getItem("role");
+    const userInfoString = localStorage.getItem("userInfo") ?? '{}'; 
+    const info = JSON.parse(userInfoString);
+    return info ? info.role : null;
   }
 
   sigIn(credentials: {email : string, password: string }): Observable<LoginResponse> {
@@ -31,7 +33,4 @@ export class AuthService {
     );
   }  
 
-  // sigIn(credentials: Credentials): Observable<LoginResponse> {
-  //   return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
-  // }
 }

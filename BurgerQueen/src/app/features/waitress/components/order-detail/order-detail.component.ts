@@ -58,7 +58,7 @@ export class OrderDetailComponent implements OnInit {
     } else if (this.productList && this.productList?.length !== 0) {
 
       const newOrder: Order = {
-        userId: Number(localStorage.getItem("idUser")), // este dato lo debe obtener el servicio
+        userId: Number(JSON.parse(localStorage.getItem("userInfo") || "").id), // este dato lo debe obtener el servicio
         client: this.formOrderInfo.value.clientName,
         products: this.productList,
         status: 'pending',  // este dato lo debe obteenr el servicio

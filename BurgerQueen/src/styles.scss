@@ -39,3 +39,19 @@
         background-color: rgb(184, 179, 179);
     }
 }
+.btn-sec-border {
+    height: 35px;
+    width: 110px;
+    color: $color-bq2;
+    font-weight: bold;
+    background-color: unset;
+    border-radius: 10px;
+    width: fit-content;
+    padding-inline: 10px;
+    min-width: 110px;
+    border: 1px solid $color-bq2;
+    cursor: pointer;
+    &:disabled {
+        background-color: rgb(184, 179, 179);
+    }
+}

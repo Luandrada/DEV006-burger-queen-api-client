@@ -49,6 +49,28 @@
         
        
     }
+    .rowItem {
+        display: flex;
+        align-items: center;
+        height: 35px;
+        flex-wrap: nowrap;
+        column-gap: 10px;
+        margin-bottom: 10px;
+        line-height: 13px;
+        font-weight: bold;
+        cursor: default;
+        .name {
+            padding-left: 20px;
+            width: 45%;
+        }
+        .qty {
+            width: 15%;
+        }
+        .subtotal {
+            width: 20%;
+            text-align: right;
+        }
+    }
     .containerItems {
         overflow-y: scroll;
         max-height: 215px;

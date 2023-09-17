@@ -24,6 +24,12 @@
                 
                   
         </div>
+        <div class="rowItem">
+            <p class="name">Producto</p>
+            <p class="qty">Cantidad</p>
+            <p class="subtotal">P.U</p>
+            <p class="subtotal">Subtotal</p>
+        </div>
         <div class="containerItems" *ngIf="productList">
             <app-product-list-item  *ngFor="let item of productList; let i=index" [product] = item (itemToAdd)="itemToAdd.emit($event)" (itemToRemove)="itemToRemove.emit($event)" (itemToDelete)="itemToDelete.emit($event)"></app-product-list-item>
         </div>

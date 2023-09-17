@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateOrderComponent } from './create-order.component';
-import { Product } from 'src/app/shared/interfaces/Product';
+import { Product } from 'src/app/shared/models/Product';
 
 describe('CreateOrderComponent', () => {
   let component: CreateOrderComponent;

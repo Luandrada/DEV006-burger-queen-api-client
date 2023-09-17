@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { Credentials } from 'src/app/shared/interfaces/Login';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
 
@@ -85,7 +84,7 @@ export class SignInComponent implements OnInit {
         .forEach(control => control.markAsTouched());
     } else {
 
-      this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
+      this.authService.sigIn(this.formLogin.value).subscribe((resp)=> {
         this.localStorageService.setStorage("accessToken", resp.accessToken);
         this.localStorageService.setStorage("role", resp.user.role);
         this.localStorageService.setStorage("idUser", resp.user.id.toString());

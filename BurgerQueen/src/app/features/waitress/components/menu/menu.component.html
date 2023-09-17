@@ -2,6 +2,10 @@
     <button class="menuBtn" [ngClass]="{'selectedBtn': selectedMenu === 'Desayuno'}" (click)="changeMenu('Desayuno')">Desayuno</button>
     <button class="menuBtn" [ngClass]="{'selectedBtn': selectedMenu === 'Almuerzo'}" (click)="changeMenu('Almuerzo')">Almuerzo</button>
 </div>
+<!-- editar: incorporar loader cuando se esta cargando la peticion y muestra de errores -->
 <div  class="containerCards">
-    <app-product-card *ngFor="let item of products; let i=index" [product] = item (click)="addProduct(item)"></app-product-card>
+    <app-product-card *ngFor="let item of products" [product] = item (click)="addProduct(item)"></app-product-card>
+    <div *ngIf="isLoading" class="spinner-border" role="status">
+        <span class="visually-hidden"></span>
+    </div>
 </div>

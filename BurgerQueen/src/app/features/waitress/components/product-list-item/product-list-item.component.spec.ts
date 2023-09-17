@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductListItemComponent } from './product-list-item.component';
-import { ProductItemList } from 'src/app/shared/interfaces/Product';
+import { ProductItemList } from 'src/app/shared/models/Product';
 import { EventEmitter } from '@angular/core';
 
 describe('ProductListItemComponent', () => {

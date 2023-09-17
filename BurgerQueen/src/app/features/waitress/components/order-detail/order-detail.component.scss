@@ -17,15 +17,37 @@
         width: 100%;
         margin-bottom: 30px;
         padding-bottom: 10px;
-
-        .inputName {
-            height: 32px;
-            border-radius: 4px;
-            border: 2px solid $color-bq1;
-            padding-inline: 8px;
-            margin-top: 8px;
-            width: 190px;
+        .pedido {
+            font-weight: bold;
         }
+        .orderInfo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            column-gap: 10px;
+            .row-input {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-bottom: 10px;
+                width: 50%;
+                label {
+                    font-size: 14px;
+                    margin-bottom: 0;
+                }
+                .inputName {
+                    height: 32px;
+                    border-radius: 4px;
+                    border: 2px solid $color-bq1;
+                    padding-inline: 8px;
+                    margin-top: 0px;
+                    width: 100%;
+                }
+            }
+
+        }
+        
+       
     }
     .containerItems {
         overflow-y: scroll;
@@ -45,17 +67,7 @@
     }
     .btnSend {
         position: absolute;
-        bottom: 20px;
-        left: 30px;
-        height: 35px;
-        width: 110px;
-        border-radius: 10px;
-        background-color:  $color-bq2;
-        color: white;
-        border: 0;
-        cursor: pointer;
-        &:disabled {
-            background-color: rgb(184, 179, 179);
-        }
+        bottom: 30px;
+        left: 14px;
     }
 }

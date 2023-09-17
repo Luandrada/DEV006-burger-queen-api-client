@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
+import { Product, ProductItemList } from 'src/app/shared/models/Product';
 
 @Component({
   selector: 'app-create-order',
@@ -7,8 +7,10 @@ import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-  selectedItems: ProductItemList[] | undefined;
+  selectedItems: ProductItemList[] = [];
+  itemSelected: ProductItemList | null = null;
   orderDetail: ProductItemList[] = [];
+  showDeleteModal: boolean = false;
 
   constructor() { }
 
@@ -43,7 +45,8 @@ export class CreateOrderComponent implements OnInit {
     if(existingProduct && existingProduct.qty > 1){
       existingProduct.qty -= 1;
     } else {
-      this.handleRemoveItem(idProduct)
+      this.showDeleteModal = true;
+      this.itemSelected = existingProduct ? existingProduct : null;
     }
   }
 
@@ -55,5 +58,9 @@ export class CreateOrderComponent implements OnInit {
   handleClearOrder(){
     this.selectedItems = [];
     this.orderDetail = [];
+  }
+
+  handleCloseModal(){
+    this.showDeleteModal = false;
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Credentials, LoginResponse } from '../../../shared/interfaces/Login';
+import { LoginResponse } from '../../../shared/models/Login';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -20,7 +20,7 @@ export class AuthService {
     return localStorage.getItem("role");
   }
 
-  sigIn(credentials: Credentials): Observable<LoginResponse> {
+  sigIn(credentials: {email : string, password: string }): Observable<LoginResponse> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((resp: any) => {
         return resp;

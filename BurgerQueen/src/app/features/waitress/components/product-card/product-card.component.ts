@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from 'src/app/shared/interfaces/Product';
+import { Product } from 'src/app/shared/models/Product';
 
 @Component({
   selector: 'app-product-card',
@@ -7,7 +7,7 @@ import { Product } from 'src/app/shared/interfaces/Product';
   styleUrls: ['./product-card.component.scss']
 })
 export class ProductCardComponent implements OnInit {
-  @Input() product: Product | undefined;
+  @Input() product: Product | undefined; // editar :  cambiar undefined por un producto modelo vacio 
 
   constructor() { }
 

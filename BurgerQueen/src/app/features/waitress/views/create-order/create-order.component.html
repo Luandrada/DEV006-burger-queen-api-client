@@ -3,8 +3,7 @@
     <div class="orderMenu">
         <app-menu (menuItemsSelected)="handleAddItemToOrder($event)"></app-menu>
         <app-order-detail [productList]="selectedItems"
-        (itemToAdd)="handleAddItem($event)"
-        (itemToDelete)="handleDeleteItem($event)"
+        (updateQuantity)="updateQuantity($event)"
         (itemToRemove)="handleRemoveItem($event)"
         (clearOrder)="handleClearOrder()">
         </app-order-detail>

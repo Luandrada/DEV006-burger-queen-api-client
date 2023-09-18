@@ -7,9 +7,8 @@ import { ProductItemList } from 'src/app/shared/models/Product';
   styleUrls: ['./product-list-item.component.scss']
 })
 export class ProductListItemComponent implements OnInit {
-  @Input() product: ProductItemList | undefined; 
-  @Output() itemToAdd: EventEmitter<number> = new EventEmitter<number>();
-  @Output() itemToDelete: EventEmitter<number> = new EventEmitter<number>();
+  @Input() product: ProductItemList | null = null; 
+  @Output() updateQuantity: EventEmitter<{ id: number; qtyChange: number }> = new EventEmitter<{ id: number; qtyChange: number }>();
   @Output() itemToRemove: EventEmitter<number> = new EventEmitter<number>();
 
   totalUnidad: number = 0;
@@ -24,4 +23,9 @@ export class ProductListItemComponent implements OnInit {
     return 0;
   }
  
+  modifyQuantity(productId: number | null, modify: number) {
+    if (productId) {
+      this.updateQuantity.emit({ id: productId, qtyChange: modify });
+    }
+  }
 }

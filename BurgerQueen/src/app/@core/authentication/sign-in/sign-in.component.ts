@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,13 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.scss']
 })
 
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
   @ViewChild("password") password!: ElementRef;
   @ViewChild("show") show !: ElementRef ;
   @ViewChild("hide") hide !: ElementRef ;
   
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
+
+  private authSubscription: Subscription = new Subscription();
 
   constructor( private fb: FormBuilder,
     private renderer: Renderer2,
@@ -26,6 +29,12 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+  }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
   createForm(): void {
@@ -84,7 +93,7 @@ export class SignInComponent implements OnInit {
         .forEach(control => control.markAsTouched());
     } else {
 
-      this.authService.sigIn(this.formLogin.value).subscribe((resp)=> {
+      this.authSubscription = this.authService.sigIn(this.formLogin.value).subscribe((resp)=> {
         this.localStorageService.setStorage("accessToken", resp.accessToken);
         this.localStorageService.setStorage("userInfo", JSON.stringify(resp.user));
 

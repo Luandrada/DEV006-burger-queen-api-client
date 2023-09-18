@@ -1,26 +1,32 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Order, ProductItemList } from 'src/app/shared/models/Product';
 import { OrdersService } from '../../services/orders.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
 })
-export class OrderDetailComponent implements OnInit {
+export class OrderDetailComponent implements OnInit, OnDestroy {
   @Input() productList: Array<ProductItemList>  = [];
-  @Output() itemToAdd: EventEmitter<number> = new EventEmitter<number>();
-  @Output() itemToDelete: EventEmitter<number> = new EventEmitter<number>();
-  // cambiar nombre de los que borran que se entienda mejor o update(1 o -1) y remove y qeu sean solo 2 y no 3 metodos 
+  @Output() updateQuantity: EventEmitter<{ id: number; qtyChange: number }> = new EventEmitter<{ id: number; qtyChange: number }>();
   @Output() itemToRemove: EventEmitter<number> = new EventEmitter<number>();
   @Output() clearOrder: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private orderSubscription: Subscription = new Subscription();
 
   constructor( private fb: FormBuilder, private ordersService: OrdersService) { }
   formOrderInfo!: FormGroup;
 
   ngOnInit(): void {
     this.createForm();
+  }
+
+  ngOnDestroy() {
+    if (this.orderSubscription) {
+      this.orderSubscription.unsubscribe();
+    }
   }
 
   createForm(): void {
@@ -65,7 +71,7 @@ export class OrderDetailComponent implements OnInit {
         dataEntry: new Date() // ver si no lo agrega el back y sino lo lelvo al servicio
       }
 
-      this.ordersService.createOrder(newOrder).subscribe( // en el ngondestroy desuscribirme
+      this.orderSubscription = this.ordersService.createOrder(newOrder).subscribe(
         (response) => {
           alert('Orden creada con éxito');
           this.formOrderInfo.reset();
@@ -77,4 +83,6 @@ export class OrderDetailComponent implements OnInit {
       );
     }
   }
+
+  
 }

@@ -1,11 +1,8 @@
 <div class="containerLogin">
-    <div *ngIf="(authService.isSiginLoading); else loadComplete">
+    <div *ngIf="(authService.isSiginLoading);">
         <!-- Is Loading -->
         {{authService.isSiginLoading}} Cargando....
-      </div>
-      <ng-template #loadComplete>
-       <div>HOLAAAAAAAAAAAAAA</div>
-      </ng-template>      
+    </div>
     <form id="cont-form" autocomplete="off" [formGroup]="formLogin" (ngSubmit)="signIn()">
         <img src="../../../assets/img/burger.png" alt="logo" class="logo">
         <h2>Inicio de Sesión</h2>
@@ -21,10 +18,9 @@
         <div class="row1">
             <div class="inputContainer">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" #password placeholder="*******" formControlName="password"
+                <input [type]="attrsToShowPassword.inputPasswordType" id="password" #password placeholder="*******" formControlName="password"
                     [class.is-invalid]="invalidPassword">
-                <i class="far fa-eye" id="show" #show (click)="showPsw()"></i>
-                <i class="far fa-eye-slash" id="hide" #hide (click)="showPsw()"></i>
+                <i [class]="attrsToShowPassword.iconClass" (click)="showPsw()"></i>
             </div>
             <span *ngIf="invalidPassword" class="text-rojo-uno">Ingrese su contraseña</span>
 

@@ -19,6 +19,10 @@ export class SignInComponent implements OnInit {
   
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
+  attrsToShowPassword = {
+    inputPasswordType: 'password',
+    iconClass: 'far fa-eye'
+  };
   //singInCall!: ApiService;
   // data: any = null;
   // loading: any = false
@@ -32,6 +36,9 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.authService.userInfo.subscribe(userInfo => {
+      this.router.navigate([`orders/${userInfo.role}`])
+    })
   }
 
 
@@ -53,33 +60,18 @@ export class SignInComponent implements OnInit {
   /***FIN de Getters para campos invalidos  **/
 
   showPsw() {
-    if (this.password?.nativeElement.type == "password") {
-      this.renderer.setAttribute(this.password.nativeElement, "type", "text");
-      this.renderer.setStyle(this.show?.nativeElement, "visibility", "hidden");
-      this.renderer.setStyle(this.hide?.nativeElement, "visibility", "visible")
-    } else {
-      this.renderer.setAttribute(this.password?.nativeElement, "type", "password");
-      this.renderer.setStyle(this.show?.nativeElement, "visibility", "visible");
-      this.renderer.setStyle(this.hide?.nativeElement, "visibility", "hidden")
-    }
-  }
-
-  redirectByRole(role: string) {
-    switch (role) {
-      case "mesera":
-        this.router.navigate(['orders/create'])
-        break;
-
-      case "cocinera":
-      
-      break;
-
-      case "admin":
+    if (this.attrsToShowPassword.inputPasswordType == "password") {
+      this.attrsToShowPassword = {
+        inputPasswordType: 'text',
+        iconClass: 'far fa-eye-slash'
         
-        break;
-    
-      default:
-        break;
+     }
+    }
+    else{
+      this.attrsToShowPassword = {
+        inputPasswordType: 'password',
+        iconClass: 'far fa-eye'
+     }
     }
   }
 
@@ -93,18 +85,4 @@ export class SignInComponent implements OnInit {
       this.authService.sigIn(this.formLogin.value)
     }
   }
-
-  // async onLoginFormSubmit() {
-  //   try {
-  //     const resp = await this.authService.sigIn(this.formLogin.value as Credentials).toPromise();
-  //     this.localStorageService.setStorage("accessToken", resp.accessToken);
-  //     this.localStorageService.setStorage("role", resp.user.role);
-  //     this.localStorageService.setStorage("idUser", resp.user.id.toString());
-
-  //     this.redirectByRole(resp.user.role);
-  //   } catch (error) {
-  //     //manejo del error
-  //   }
-  // }
-
 }

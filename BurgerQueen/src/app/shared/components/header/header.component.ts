@@ -14,11 +14,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(public router: Router,
     private renderer: Renderer2,
-    private authService : AuthService,
     private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.setImgRole();
   }
   
   showMenu () {
@@ -30,25 +28,9 @@ export class HeaderComponent implements OnInit {
       this.renderer.addClass(menuElement, 'show');
     }
   }
-
-  setImgRole (){
-    switch (this.authService.getRole()) {
-      case "mesera":
-        this.imgRole = "../../../../assets/img/camarera.png"
-        break;
-      case "cocinera":
-        this.imgRole = "../../../../assets/img/cocinera.png"
-        break;
-      case "admin":
-        this.imgRole = "../../../../assets/img/admin.png"
-        break;
-      default:
-        break;
-    }
-  }
-
+  
   signOut() {
     this.localStorageService.clearStorage();
-    this.router.navigate(["/sign-in"])
+    window.location.reload()
   }
 }

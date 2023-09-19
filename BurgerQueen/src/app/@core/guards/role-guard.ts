@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from '../authentication/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-  private accessToken: string = ''
+export class RoleGuard implements CanActivate {
+  private userRole: string = ''
 
   constructor(private router: Router, private authService: AuthService) {
     this.authService.userInfo.subscribe(userInfo => {
-      this.accessToken = userInfo.accessToken
-    })
+        this.userRole = userInfo.role
+      })
   }
 
-  canActivate(): boolean {
-    const accessToken = this.accessToken;
-    if (accessToken) {
+  canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): boolean {
+    if (route.data.allowedRoles.includes(this.userRole)) {
       return true;
     } else {
       this.router.navigate(['/sign-in']);

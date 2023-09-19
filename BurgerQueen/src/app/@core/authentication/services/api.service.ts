@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
+import { Observable, Subject, throwError, of } from 'rxjs';
 import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { map, tap, catchError, finalize } from 'rxjs/operators';
@@ -10,34 +10,16 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 
-export class ApiService {
+export class ApiService<DataType> {
 
 
- loading = new BehaviorSubject<boolean>(false);
- error = new BehaviorSubject<HttpErrorResponse|null>(null);
- data = new BehaviorSubject<any>(null);
+ loading = new Subject<boolean>();
+ error = new Subject<HttpErrorResponse|null>();
+ data = new Subject< DataType | null>();
 
  constructor() { }
 
-//  call<resultType>(observable:Observable<resultType>, isLoading:boolean, error:Error|null):void{
-//     this.loading.next(true);
-//     this.error.next(null);
-
-//     //this.http.request(method,url,{body})
-//     observable.pipe(
-//         catchError((error) => {
-//             this.error.next(error);
-//             return throwError(error)
-//         }),
-//         finalize(() => {
-//             this.loading.next(false);
-//         }),
-//     ).subscribe(data => {
-//         this.data.next(data as resultType)
-//     })  
-//  }
-
- makeCall<responseData>(observable: Observable<responseData>): void {
+ makeCall(observable: Observable<DataType>): void {
     this.loading.next(true);
     this.error.next(null);
 
@@ -47,10 +29,13 @@ export class ApiService {
           this.error.next(error);
           return of([]);
         }),
-        finalize(() => this.loading.next(false))
+        finalize(() => {
+          this.loading.next(false)
+        }
+        )
       )
       .subscribe((data) => {
-        this.data.next(data as responseData);
+        this.data.next(data as DataType);
       });
   }
 

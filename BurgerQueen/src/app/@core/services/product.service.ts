@@ -16,7 +16,8 @@ export class ProductService {
   constructor(private http: HttpClient, private authService : AuthService) { }
 
   getAllProducts():Observable<Product[]> {
-    const token = this.authService.getToken(); 
+    const token = ''
+    //this.authService.getToken(); 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

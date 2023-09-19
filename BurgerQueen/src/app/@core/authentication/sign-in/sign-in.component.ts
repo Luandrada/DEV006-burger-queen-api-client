@@ -1,14 +1,15 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { Credentials } from 'src/app/shared/interfaces/Login';
+import { Credentials, LoginResponse } from 'src/app/shared/interfaces/Login';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.scss']
+  styleUrls: ['./sign-in.component.scss'],
 })
 
 export class SignInComponent implements OnInit {
@@ -18,16 +19,21 @@ export class SignInComponent implements OnInit {
   
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
+  //singInCall!: ApiService;
+  // data: any = null;
+  // loading: any = false
+  // count = 0
 
   constructor( private fb: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
     private localStorageService: LocalStorageService,
-    private authService: AuthService) {}
+    public authService: AuthService) { }
 
   ngOnInit(): void {
     this.createForm();
   }
+
 
   createForm(): void {
     this.formLogin = this.fb.group({
@@ -84,19 +90,7 @@ export class SignInComponent implements OnInit {
       return Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
     } else {
-
-      this.authService.sigIn(this.formLogin.value as Credentials).subscribe((resp)=> {
-        this.localStorageService.setStorage("accessToken", resp.accessToken);
-        this.localStorageService.setStorage("role", resp.user.role);
-        this.localStorageService.setStorage("idUser", resp.user.id.toString());
-
-        this.redirectByRole(resp.user.role);
-      },(error) => {
-
-        if (error.error === "Cannot find user" || error.error === "Incorrect password") {
-          this.invalidCredentials = true;
-        }
-      })
+      this.authService.sigIn(this.formLogin.value)
     }
   }
 

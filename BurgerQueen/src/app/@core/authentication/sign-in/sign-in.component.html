@@ -1,4 +1,11 @@
 <div class="containerLogin">
+    <div *ngIf="(authService.isSiginLoading); else loadComplete">
+        <!-- Is Loading -->
+        {{authService.isSiginLoading}} Cargando....
+      </div>
+      <ng-template #loadComplete>
+       <div>HOLAAAAAAAAAAAAAA</div>
+      </ng-template>      
     <form id="cont-form" autocomplete="off" [formGroup]="formLogin" (ngSubmit)="signIn()">
         <img src="../../../assets/img/burger.png" alt="logo" class="logo">
         <h2>Inicio de Sesión</h2>
@@ -30,3 +37,4 @@
         </div>
     </form>
 </div>
+

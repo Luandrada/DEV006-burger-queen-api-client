@@ -1,10 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { Credentials, LoginResponse } from 'src/app/shared/interfaces/Login';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
-import { ApiService } from '../services/api.service';
+import { HttpErrorResponse, HttpResponse, HttpResponseBase } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,9 +11,9 @@ import { ApiService } from '../services/api.service';
 })
 
 export class SignInComponent implements OnInit {
-  @ViewChild("password") password!: ElementRef;
-  @ViewChild("show") show !: ElementRef ;
-  @ViewChild("hide") hide !: ElementRef ;
+  // @ViewChild("password") password!: ElementRef;
+  // @ViewChild("show") show !: ElementRef ;
+  // @ViewChild("hide") hide !: ElementRef ;
   
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
@@ -23,21 +21,21 @@ export class SignInComponent implements OnInit {
     inputPasswordType: 'password',
     iconClass: 'far fa-eye'
   };
-  //singInCall!: ApiService;
-  // data: any = null;
-  // loading: any = false
-  // count = 0
+  isLoading: Boolean = false;
+  error: HttpErrorResponse | null = null;
 
   constructor( private fb: FormBuilder,
-    private renderer: Renderer2,
     private router: Router,
-    private localStorageService: LocalStorageService,
     public authService: AuthService) { }
 
   ngOnInit(): void {
     this.createForm();
     this.authService.userInfo.subscribe(userInfo => {
       this.router.navigate([`orders/${userInfo.role}`])
+    })
+    this.authService.loginRequest$.subscribe(state => {
+      this.isLoading = state.isLoading
+      this.error = state.error
     })
   }
 
@@ -48,14 +46,18 @@ export class SignInComponent implements OnInit {
       password: ["", Validators.required]
     });
   }
+
+  isInputInvalid(inputName:string){
+   return this.formLogin?.get(inputName)?.invalid && this.formLogin.get(inputName)?.touched;
+  }
   
   /***Getters para campos invalidos  **/
   get invalidEmail() {
-    return this.formLogin?.get('email')?.invalid && this.formLogin.get('email')?.touched;
+    return this.isInputInvalid('email')
   }
 
   get invalidPassword() {
-    return this.formLogin?.get('password')?.invalid && this.formLogin.get('password')?.touched;
+    return this.isInputInvalid('password')
   }
   /***FIN de Getters para campos invalidos  **/
 
@@ -82,7 +84,7 @@ export class SignInComponent implements OnInit {
       return Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
     } else {
-      this.authService.sigIn(this.formLogin.value)
+      this.authService.login(this.formLogin.value)
     }
   }
 }

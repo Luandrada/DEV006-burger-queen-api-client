@@ -1,7 +1,7 @@
 <div class="containerLogin">
-    <div *ngIf="(authService.isSiginLoading);">
+    <div *ngIf="(isLoading);">
         <!-- Is Loading -->
-        {{authService.isSiginLoading}} Cargando....
+        Cargando....
     </div>
     <form id="cont-form" autocomplete="off" [formGroup]="formLogin" (ngSubmit)="signIn()">
         <img src="../../../assets/img/burger.png" alt="logo" class="logo">

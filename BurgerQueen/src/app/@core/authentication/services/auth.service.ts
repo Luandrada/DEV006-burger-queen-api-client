@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Credentials, LoginResponse } from '../../../shared/interfaces/Login';
+import { LoginResponse } from '../../../shared/models/Login';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
@@ -17,10 +17,12 @@ export class AuthService {
   }
 
   getRole():string | null {
-    return localStorage.getItem("role");
+    const userInfoString = localStorage.getItem("userInfo") ?? '{}'; 
+    const info = JSON.parse(userInfoString);
+    return info ? info.role : null;
   }
 
-  sigIn(credentials: Credentials): Observable<LoginResponse> {
+  sigIn(credentials: {email : string, password: string }): Observable<LoginResponse> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((resp: any) => {
         return resp;
@@ -31,7 +33,4 @@ export class AuthService {
     );
   }  
 
-  // sigIn(credentials: Credentials): Observable<LoginResponse> {
-  //   return this.http.post<LoginResponse>(`${this.apiUrl}/login`, credentials);
-  // }
 }

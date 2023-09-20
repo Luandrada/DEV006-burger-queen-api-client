@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrderDetailComponent } from './order-detail.component';
 import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { OrdersService } from '../../services/orders.service';
-import { ProductItemList } from 'src/app/shared/interfaces/Product';
+import { ProductItemList } from 'src/app/shared/models/Product';
 import { of } from 'rxjs';
 
 describe('OrderDetailComponent', () => {

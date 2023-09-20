@@ -10,15 +10,15 @@ import { LocalStorageService } from 'src/app/@core/services/local-storage.servic
 })
 export class HeaderComponent implements OnInit {
   @ViewChild("menuRef") menuRef: ElementRef | undefined;
-  imgRole: string | undefined;
+  userEmail: string = ""
+  userRole: string = ""
 
   constructor(public router: Router,
     private renderer: Renderer2,
-    private authService : AuthService,
     private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.setImgRole();
+    this.setPersonalInfo();
   }
   
   showMenu () {
@@ -31,20 +31,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  setImgRole (){
-    switch (this.authService.getRole()) {
-      case "mesera":
-        this.imgRole = "../../../../assets/img/camarera.png"
-        break;
-      case "cocinera":
-        this.imgRole = "../../../../assets/img/cocinera.png"
-        break;
-      case "admin":
-        this.imgRole = "../../../../assets/img/admin.png"
-        break;
-      default:
-        break;
-    }
+  setPersonalInfo() {
+    this.userEmail = this.localStorageService.getUserInfo().email;
+    this.userRole = this.localStorageService.getUserInfo().role;
   }
 
   signOut() {

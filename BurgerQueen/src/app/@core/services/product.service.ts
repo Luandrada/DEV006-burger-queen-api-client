@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Product } from 'src/app/shared/interfaces/Product';
+import { Product } from 'src/app/shared/models/Product';
 import { AuthService } from '../authentication/services/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -25,18 +25,6 @@ export class ProductService {
       map((resp: any) => {
         return resp as Product[];
       })
-    );
-  }
-
-  getBreakfastProducts(): Observable<Product[]> {
-    return this.getAllProducts().pipe(
-      map(products => products.filter(item => item.type === "Desayuno"))
-    );
-  }
-  
-  getLunchProducts(): Observable<Product[]> {
-    return this.getAllProducts().pipe(
-      map(products => products.filter(item => item.type === "Almuerzo"))
     );
   }
 }

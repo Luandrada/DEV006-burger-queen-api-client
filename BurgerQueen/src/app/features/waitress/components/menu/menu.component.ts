@@ -1,35 +1,40 @@
-import { Component, OnInit, Output,  EventEmitter } from '@angular/core';
+import { Component, OnInit, Output,  EventEmitter , OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ProductService } from 'src/app/@core/services/product.service';
-import { Product } from 'src/app/shared/interfaces/Product';
+import { Product } from 'src/app/shared/models/Product';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit , OnDestroy{
   @Output() menuItemsSelected: EventEmitter<Product> = new EventEmitter<Product>();
-  products: Array<Product> | undefined;
+  allProductsData: Array<Product> = [];
+  products: Array<Product> = [];
   selectedMenu: string = "Desayuno";
+  isLoading: boolean = true;
+
+  private productSubscription: Subscription = new Subscription();
 
   constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.changeMenu(this.selectedMenu);
+    this.productSubscription = this.productService.getAllProducts().subscribe((resp) => {
+      this.allProductsData = resp;
+      this.changeMenu(this.selectedMenu);
+    })
   }
 
+  ngOnDestroy() {
+    if (this.productSubscription) {
+      this.productSubscription.unsubscribe();
+    }
+  }
   changeMenu(type: string) {
     this.selectedMenu = type; 
-    switch (type) {
-      case "Almuerzo":
-        this.productService.getLunchProducts().subscribe((resp)=>  this.products = resp)
-        break;
-      case "Desayuno":
-        this.productService.getBreakfastProducts().subscribe((resp)=>  this.products = resp)
-        break;
-      default:
-        break;
-    }
+    this.products = this.allProductsData.filter(item => item.type === type);
+    this.isLoading = false;
   }
 
   addProduct(product : Product) {

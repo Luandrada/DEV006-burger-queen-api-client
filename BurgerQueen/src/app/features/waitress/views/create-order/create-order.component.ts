@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
+import { Product, ProductItemList } from 'src/app/shared/models/Product';
 
 @Component({
   selector: 'app-create-order',
@@ -7,8 +7,10 @@ import { Product, ProductItemList } from 'src/app/shared/interfaces/Product';
   styleUrls: ['./create-order.component.scss']
 })
 export class CreateOrderComponent implements OnInit {
-  selectedItems: ProductItemList[] | undefined;
+  selectedItems: ProductItemList[] = [];
+  itemSelected: ProductItemList | null = null;
   orderDetail: ProductItemList[] = [];
+  showDeleteModal: boolean = false;
 
   constructor() { }
 
@@ -33,17 +35,15 @@ export class CreateOrderComponent implements OnInit {
    this.selectedItems = this.orderDetail;
   }
 
-  handleAddItem(idProduct : number){
-    const existingProduct = this.orderDetail.find(item => item.product.id === idProduct);
-    if(existingProduct) existingProduct.qty += 1;
-  }
-
-  handleDeleteItem(idProduct : number){
-    const existingProduct = this.orderDetail.find(item => item.product.id === idProduct);
-    if(existingProduct && existingProduct.qty > 1){
-      existingProduct.qty -= 1;
-    } else {
-      this.handleRemoveItem(idProduct)
+  updateQuantity(data: {id: number , qtyChange: number}){
+    const existingProduct = this.orderDetail.find(item => item.product.id === data.id);
+    if(existingProduct) {
+      if(existingProduct.qty !== 1 || data.qtyChange === 1){
+        existingProduct.qty += data.qtyChange;
+      } else if(data.qtyChange === -1) {
+        this.showDeleteModal = true;
+        this.itemSelected = existingProduct ? existingProduct : null;
+      }
     }
   }
 
@@ -55,5 +55,9 @@ export class CreateOrderComponent implements OnInit {
   handleClearOrder(){
     this.selectedItems = [];
     this.orderDetail = [];
+  }
+
+  handleCloseModal(){
+    this.showDeleteModal = false;
   }
 }

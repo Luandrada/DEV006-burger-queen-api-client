@@ -1,6 +1,6 @@
 <div class="containerButtons ">
-    <button class="btn-sec-border" [ngClass]="{'selectedBtn': selectedMenu === 'Almuerzo'}" (click)="changeMenu('Desayuno')">Desayuno</button>
-    <button class="btn-sec-border" [ngClass]="{'selectedBtn': selectedMenu === 'Desayuno'}" (click)="changeMenu('Almuerzo')">Almuerzo</button>
+    <button class="btn-sec-border" [class.selectedBtn]="selectedMenu === 'Desayuno'" (click)="changeMenu('Desayuno')">Desayuno</button>
+    <button class="btn-sec-border" [class.selectedBtn]="selectedMenu === 'Almuerzo'" (click)="changeMenu('Almuerzo')">Almuerzo</button>
 </div>
 <div  class="containerCards">
     <app-product-card *ngFor="let item of products" [product] = item (click)="addProduct(item)"></app-product-card>

@@ -31,12 +31,13 @@ export class MenuComponent implements OnInit , OnDestroy{
       this.productSubscription.unsubscribe();
     }
   }
+
   changeMenu(type: string) {
     this.selectedMenu = type; 
-   this.productService.getProductByCategory([type]).subscribe(resp => {
-    this.products = resp;
-    this.isLoading = false;
-  });
+    this.productService.getProductByCategory([type]).subscribe(resp => {
+      this.products = resp;
+      this.isLoading = false;
+    });
   }
 
   addProduct(product : Product) {

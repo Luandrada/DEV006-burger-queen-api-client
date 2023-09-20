@@ -21,6 +21,12 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   private authSubscription: Subscription = new Subscription();
 
+  redirections: { [key: string]: string } = {
+    mesera: 'orders/create',
+    cocinera: '',
+    admin: '',
+  };
+
   constructor( private fb: FormBuilder,
     private renderer: Renderer2,
     private router: Router,
@@ -44,15 +50,12 @@ export class SignInComponent implements OnInit, OnDestroy {
     });
   }
   
-  /***Getters para campos invalidos  **/
-  get invalidEmail() {
-    return this.formLogin?.get('email')?.invalid && this.formLogin.get('email')?.touched;
+  isFieldInvalid(fieldName: string) {
+    return (
+      this.formLogin?.get(fieldName)?.invalid &&
+      this.formLogin.get(fieldName)?.touched
+    );
   }
-
-  get invalidPassword() {
-    return this.formLogin?.get('password')?.invalid && this.formLogin.get('password')?.touched;
-  }
-  /***FIN de Getters para campos invalidos  **/
 
   showPsw() {
     if (this.password?.nativeElement.type == "password") {
@@ -67,22 +70,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   redirectByRole(role: string) {
-    switch (role) {
-      case "mesera":
-        this.router.navigate(['orders/create'])
-        break;
-
-      case "cocinera":
-      
-      break;
-
-      case "admin":
-        
-        break;
-    
-      default:
-        break;
-    }
+    const route = this.redirections[role];
+    this.router.navigate([route]);
   }
 
   signIn(): void {

@@ -33,8 +33,10 @@ export class MenuComponent implements OnInit , OnDestroy{
   }
   changeMenu(type: string) {
     this.selectedMenu = type; 
-    this.products = this.allProductsData.filter(item => item.type === type);
+   this.productService.getProductByCategory([type]).subscribe(resp => {
+    this.products = resp;
     this.isLoading = false;
+  });
   }
 
   addProduct(product : Product) {

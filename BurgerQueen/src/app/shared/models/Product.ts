@@ -16,5 +16,4 @@ export interface Order {
   client: string,
   products: ProductItemList[],
   status: "pending" | "delivered",
-  dataEntry: Date
 }

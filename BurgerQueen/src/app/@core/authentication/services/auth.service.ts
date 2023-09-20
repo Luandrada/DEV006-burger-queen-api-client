@@ -26,9 +26,6 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
       map((resp: any) => {
         return resp;
-      }),
-      catchError((error: any) => {
-        return throwError(error);
       })
     );
   }  

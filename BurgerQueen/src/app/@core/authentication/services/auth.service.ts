@@ -1,87 +1,61 @@
 import { Injectable } from '@angular/core';
-import { Credentials, LoginResponse } from '../../../shared/interfaces/Login';
-import { Observable, BehaviorSubject, Subject, Subscription } from 'rxjs';
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
-import { ApiService } from './api.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { stateService } from './state.service';
+import { requestHandler } from '../../utils/requestHandler';
+import { LoginResponse, requestResponse, systemUser } from '../../interfaces';
+
+export interface Credentials  {
+  email: string,
+  password: string,
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  public isSiginLoading!: Boolean;
-  public userInfo = new BehaviorSubject<{id:string, accessToken:string, role:string}>({
-    id:'',
-    accessToken:'',
-    role:''
-  })
-  loginRequest$ = new BehaviorSubject<{
-    isLoading: Boolean,
-    error: HttpErrorResponse|null,
-    data: LoginResponse | null
- }>({
-    isLoading: false,
-    error: null,
-    data: null,
- })
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService) { 
-    const id = localStorageService.getStorage('idUser');
-    if(id){
-      this.userInfo.next({
-        id,
-        accessToken: localStorageService.getStorage('accessToken'),
-        role: localStorageService.getStorage('role')
-      })
-    }
-  }
+  private loginHandler!:requestHandler <LoginResponse, Credentials>
+  loginResponse$!: Subject<requestResponse<LoginResponse>>;
+  systemUser$ = new Subject<systemUser>();
+  private tmpCredentials: Credentials = {email:'', password:''}
+  
+  
 
-  login(credentials: Credentials){
-    const state = new stateService (this.http.post(`${this.apiUrl}/login`, credentials) as Observable<LoginResponse>);
-    state.state$.subscribe(state => {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router,) {
+    this.loginHandler = new requestHandler<LoginResponse, Credentials>(http)
+    this.loginResponse$ = this.loginHandler.response$;
+
+    this.loginResponse$.subscribe((state)=> {
       if(state.data){
-        this.localStorageService.setStorage("accessToken", state.data.accessToken);
-        this.localStorageService.setStorage("role", state.data.user.role);
-        this.localStorageService.setStorage("idUser", state.data.user.id.toString());
-        this.userInfo.next({
-          id: state.data.user.id.toString(),
-          accessToken: state.data.accessToken,
+        const newUser = {
+          id: state.data.user.id.toString(), 
+          accessToken: state.data.accessToken, 
           role: state.data.user.role
-        })
+        }
+        this.systemUser$.next(newUser);
       }
-      this.loginRequest$.next({
-        ...state,
-        data: null
-      })
     });
-    state.makeCall();
+
+    this.systemUser$.subscribe((user)=>{
+      this.localStorageService.setStorage("accessToken", user.accessToken);
+      this.localStorageService.setStorage("role", user.role);
+      this.localStorageService.setStorage("idUser", user.id);
+    })
   }
-    
 
-  sigIn(credentials: Credentials) {
-    // const apiService = new ApiService<LoginResponse>();
-    // apiService.makeCall(this.http.post(`${this.apiUrl}/login`, credentials) as Observable<LoginResponse>)
-    // apiService.data.subscribe(resp => {
+  login(credentials: Credentials) {
+    const url = `${this.apiUrl}/login`;
+    const body = credentials;
+    this.loginHandler.makeCall('POST', url, body)
+  
+  }
 
-    //   if(!resp){
-    //     return
-    //   }
-    //   this.localStorageService.setStorage("accessToken", resp.accessToken);
-    //   this.localStorageService.setStorage("role", resp.user.role);
-    //   this.localStorageService.setStorage("idUser", resp.user.id.toString());
-    //   this.userInfo.next({
-    //     id: resp.user.id.toString(),
-    //     accessToken: resp.accessToken,
-    //     role: resp.user.role
-    //   })
-        
-    // })
-    // apiService.loading.subscribe(loading => this.isSiginLoading = loading)
-    // return apiService
-  }  
+  logout () {
+    this.systemUser$.next({ id: '', accessToken: '', role: ''})
+  }
 }

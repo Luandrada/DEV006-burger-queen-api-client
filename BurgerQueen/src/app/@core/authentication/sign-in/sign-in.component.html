@@ -1,7 +1,11 @@
 <div class="containerLogin">
-    <div *ngIf="(isLoading);">
+    <div *ngIf="isLoading">
         <!-- Is Loading -->
         Cargando....
+    </div>
+    <div *ngIf="error">
+        <!-- Is Error -->
+        Error....
     </div>
     <form id="cont-form" autocomplete="off" [formGroup]="formLogin" (ngSubmit)="signIn()">
         <img src="../../../assets/img/burger.png" alt="logo" class="logo">

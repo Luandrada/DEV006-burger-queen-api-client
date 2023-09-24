@@ -11,34 +11,30 @@ import { HttpErrorResponse, HttpResponse, HttpResponseBase } from '@angular/comm
 })
 
 export class SignInComponent implements OnInit {
-  // @ViewChild("password") password!: ElementRef;
-  // @ViewChild("show") show !: ElementRef ;
-  // @ViewChild("hide") hide !: ElementRef ;
-  
+
   formLogin!: FormGroup;
   invalidCredentials: boolean = false;
-  attrsToShowPassword = {
+    attrsToShowPassword = {
     inputPasswordType: 'password',
     iconClass: 'far fa-eye'
   };
   isLoading: Boolean = false;
-  error: HttpErrorResponse | null = null;
+  error: HttpErrorResponse | Error | null = null;
 
-  constructor( private fb: FormBuilder,
-    private router: Router,
-    public authService: AuthService) { }
+  constructor( private fb: FormBuilder, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.createForm();
-    this.authService.userInfo.subscribe(userInfo => {
-      this.router.navigate([`orders/${userInfo.role}`])
-    })
-    this.authService.loginRequest$.subscribe(state => {
+    this.authService.loginResponse$.subscribe(state => {
       this.isLoading = state.isLoading
       this.error = state.error
+      if(this.error instanceof HttpErrorResponse){
+        if(this.error.error === "Incorrect password"){
+          this.invalidCredentials = true;
+        }
+      }
     })
   }
-
 
   createForm(): void {
     this.formLogin = this.fb.group({
@@ -77,9 +73,7 @@ export class SignInComponent implements OnInit {
     }
   }
 
-  signIn(): void {
-    this.invalidCredentials = false;
-
+  signIn() {
     if (this.formLogin?.invalid) {
       return Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());

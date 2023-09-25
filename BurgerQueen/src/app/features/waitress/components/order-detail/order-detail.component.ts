@@ -36,27 +36,6 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     });
   }
   
-  /***Getters para campos invalidos  **/
-  get invalidClientName() {
-    return this.formOrderInfo?.get('clientName')?.invalid && this.formOrderInfo.get('clientName')?.touched;
-  }
-
-  get invalidTable() {
-    return this.formOrderInfo?.get('table')?.invalid && this.formOrderInfo.get('table')?.touched;
-  }
-  /***FIN de Getters para campos invalidos  **/
-
-  get totalAmount(): number {
-    if (this.productList) { // editar : mejorar sacar return 0 cuando productlist tenga un length 0  va a return 0 . anaizar de resolver con un pipe 
-      const total = this.productList.reduce((accumulator, item) => {
-        const subtotal = item.product.price * item.qty;
-        return accumulator + subtotal;
-      }, 0);
-      return total; 
-    }
-    return 0;
-  }
-
   sendOrder(): void {
     if (this.formOrderInfo?.invalid) {
       return Object.values(this.formOrderInfo.controls)

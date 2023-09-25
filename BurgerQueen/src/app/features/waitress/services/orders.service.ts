@@ -15,7 +15,7 @@ export class OrdersService {
   createOrder(data: Order): Observable<any> {
     const url = `${this.apiUrl}/products`;
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`
+      //'Authorization': `Bearer ${this.authService.getToken()}`
     });
 
     return this.http.post(url, data, { headers });

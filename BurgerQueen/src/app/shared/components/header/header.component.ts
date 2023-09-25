@@ -10,13 +10,15 @@ import { LocalStorageService } from 'src/app/@core/services/local-storage.servic
 })
 export class HeaderComponent implements OnInit {
   @ViewChild("menuRef") menuRef: ElementRef | undefined;
-  imgRole: string | undefined;
+  userEmail: string = ""
+  userRole: string = ""
 
   constructor(public router: Router,
     private renderer: Renderer2,
     private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+    this.setPersonalInfo();
   }
   
   showMenu () {
@@ -28,7 +30,12 @@ export class HeaderComponent implements OnInit {
       this.renderer.addClass(menuElement, 'show');
     }
   }
-  
+
+  setPersonalInfo() {
+    this.userEmail = this.localStorageService.getUserInfo().email;
+    this.userRole = this.localStorageService.getUserInfo().role;
+  }
+
   signOut() {
     this.localStorageService.clearStorage();
     window.location.reload()

@@ -7,6 +7,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { ProductListItemComponent } from './components/product-list-item/product-list-item.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MenuComponent,
     OrderDetailComponent,
     ProductListItemComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

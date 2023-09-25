@@ -1,8 +1,7 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -34,6 +33,12 @@ export class SignInComponent implements OnInit {
         }
       }
     })
+  }
+
+  ngOnDestroy() {
+    // if (this.authSubscription) {
+    //   this.authSubscription.unsubscribe();
+    // }
   }
 
   createForm(): void {

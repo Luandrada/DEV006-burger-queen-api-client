@@ -1,7 +1,57 @@
 @import './variables.scss';
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "~ngx-bootstrap/datepicker/bs-datepicker";
+
 
 *{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+.btn-ppal {
+    height: 35px;
+    width: fit-content;
+    padding-inline: 10px;
+    min-width: 110px;
+    border-radius: 10px;
+    background-color:  $color-bq2;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    &:disabled {
+        background-color: rgb(184, 179, 179);
+    }
+}
+
+.btn-sec {
+    height: 35px;
+    width: 110px;
+    color: $color-bq2;
+    font-weight: bold;
+    background-color: unset;
+    border: 0;
+    cursor: pointer;
+    &:disabled {
+        background-color: rgb(184, 179, 179);
+    }
+}
+.btn-sec-border {
+    height: 35px;
+    width: 110px;
+    color: $color-bq2;
+    font-weight: bold;
+    background-color: unset;
+    border-radius: 10px;
+    width: fit-content;
+    padding-inline: 10px;
+    min-width: 110px;
+    border: 1px solid $color-bq2;
+    cursor: pointer;
+    &:disabled {
+        background-color: rgb(184, 179, 179);
+    }
 }

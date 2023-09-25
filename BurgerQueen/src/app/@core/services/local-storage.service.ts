@@ -14,4 +14,10 @@ export class LocalStorageService {
   clearStorage() {
     localStorage.clear();
   }
+
+  getUserInfo() {
+    const userInfoString = localStorage.getItem("userInfo") ?? '{}'; 
+    const userInfoObject = JSON.parse(userInfoString);
+    return userInfoObject;
+  }
 }

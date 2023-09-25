@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { OrdersService } from './orders.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { Order } from 'src/app/shared/interfaces/Product';
+import { Order } from 'src/app/shared/models/Product';
 import { environment } from 'src/environments/environment';
 
 describe('OrdersService', () => {

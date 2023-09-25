@@ -58,7 +58,7 @@
                 right: 15px;
                 font-size: 16px;
                 color: grey;
-                top: 34px;
+                top: 49px;
             }
             .fa-eye,
             .fa-eye-slash {
@@ -79,6 +79,7 @@
         margin-right: auto;
         max-width: 380px;
         height: 18px;
+        margin-top: 0;
         .text-rojo-uno{
             color: red;
             text-align: left;
@@ -105,7 +106,10 @@
         }
     }
 }
-
+.container-error{
+    height: 18px;
+    width: 100%;
+}
 .containerLogin {
     display: flex;
     justify-content: center;

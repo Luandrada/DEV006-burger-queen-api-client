@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { LoginResponse } from '../../../shared/models/Login';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { requestHandler } from '../../utils/requestHandler';
-import { LoginResponse, requestResponse, systemUser } from '../../interfaces';
+import { requestResponse, systemUser } from '../../interfaces';
 
 export interface Credentials  {
   email: string,

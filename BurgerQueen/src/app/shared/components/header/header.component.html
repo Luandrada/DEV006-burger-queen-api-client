@@ -6,9 +6,13 @@
             <a [routerLink]="['/orders/pending']" [ngClass]="{'activeLink': router.url === '/orders/pending'}">Pendientes</a>
             <a [routerLink]="['/orders/delivered']" [ngClass]="{'activeLink': router.url === '/orders/delivered'}">Entregados</a>
         </nav>
-        <img [src]="imgRole" alt="profile" class="profilePicture"   (click)="showMenu()" >
+        <div class="profile">
+            <i role="button" aria-label="button-menu" class="fa-solid fa-user" (click)="showMenu()"></i>
+        </div>
     </div>
     <div class="menu" #menuRef (click)="signOut()">
+        <span class="personalInfo role">{{userRole}}</span>
+        <span class="personalInfo">{{userEmail}}</span>
         <p >Cerrar Sesión</p>
     </div>
 

@@ -17,7 +17,10 @@
                     [class.is-invalid]="invalidEmail">
                 <i class="fas fa-user" id="icono-user" [class.is-invalid]="invalidEmail"></i>
             </div>
-            <span *ngIf="invalidEmail" class="text-rojo-uno">Ingrese su email</span>
+            <div class="container-error">
+                <span *ngIf="invalidEmail" class="text-rojo-uno">Ingrese su email</span>
+            </div>
+
         </div>
         <div class="row1">
             <div class="inputContainer">
@@ -26,8 +29,9 @@
                     [class.is-invalid]="invalidPassword">
                 <i [class]="attrsToShowPassword.iconClass" (click)="showPsw()"></i>
             </div>
-            <span *ngIf="invalidPassword" class="text-rojo-uno">Ingrese su contraseña</span>
-
+            <div class="container-error">
+                <span *ngIf="invalidPassword" class="text-rojo-uno">Ingrese su contraseña</span>
+            </div>
         </div>
         <div class="errorMessage">
             <span *ngIf="invalidCredentials" class="text-rojo-uno">Credenciales incorrectas</span>

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Order } from 'src/app/shared/interfaces/Product';
+import { Order } from 'src/app/shared/models/Product';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { environment } from 'src/environments/environment';
 

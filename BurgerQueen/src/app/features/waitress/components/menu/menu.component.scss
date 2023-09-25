@@ -17,10 +17,8 @@
 }
 
 .selectedBtn {
-    background-color: $color-bq1;
-    transform: scale(1.1);
-    font-weight: bold;
-    box-shadow: 2px 2px 3px rgb(171, 171, 169);
+    color: grey;
+    border: none;
 }
 .containerCards {
     display: flex;
@@ -28,4 +26,10 @@
     width: 50vw;
     column-gap: 15px;
     row-gap: 15px;
+}
+.spinner-border {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+
 }

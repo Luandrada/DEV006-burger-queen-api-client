@@ -4,7 +4,7 @@ import { CreateOrderComponent } from './views/create-order/create-order.componen
 
 const routes: Routes = [
   // Aquí iran las rutas para el módulo Waitress 
-  { path: 'create', component: CreateOrderComponent},
+  { path: 'waiter', component: CreateOrderComponent},
 
 ];
 

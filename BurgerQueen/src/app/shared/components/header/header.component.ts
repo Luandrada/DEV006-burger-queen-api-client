@@ -38,6 +38,6 @@ export class HeaderComponent implements OnInit {
 
   signOut() {
     this.localStorageService.clearStorage();
-    this.router.navigate(["/sign-in"])
+    window.location.reload()
   }
 }

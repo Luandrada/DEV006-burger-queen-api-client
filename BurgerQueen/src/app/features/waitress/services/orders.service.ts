@@ -11,24 +11,19 @@ import { systemUser } from 'src/app/@core/interfaces';
 })
 export class OrdersService {
   private apiUrl = environment.apiUrl;
-  private systemUser: systemUser = { id: '', accessToken: '', role: ''};
-  
-  constructor(private http: HttpClient, private authService: AuthService) { 
-    this.authService.systemUser$.subscribe(systemUser => {
-      systemUser = systemUser;
-    })
-    
-  }
+
+  constructor(private http: HttpClient, private authService: AuthService) {   }
 
   createOrder(data: {client: string, products: ProductItemList[]}): Observable<any> {
     const url = `${this.apiUrl}/products`;
+    const systemUser = this.authService.systemUser$.getValue()
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.systemUser.accessToken}`
+      'Authorization': `Bearer ${systemUser.accessToken}`
     });
 
     const body: Order = { 
       ...data,
-      userId: Number(this.systemUser.id),
+      userId: Number(systemUser.id),
       status: 'pending'
     };
 

@@ -42,12 +42,6 @@ export class AuthService {
       this.localStorageService.setStorage("accessToken", user.accessToken);
       this.localStorageService.setStorage("role", user.role);
       this.localStorageService.setStorage("idUser", user.id);
-      // if(!user.accessToken) { 
-      //   this.router.navigate(['/sign-in']);
-      // } 
-      // else {  
-      //   this.router.navigate([`orders/${user.role}`])
-      // }
     })
   }
 

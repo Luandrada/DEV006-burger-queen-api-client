@@ -13,18 +13,13 @@ import { environment } from 'src/environments/environment';
 export class ProductService {
   private apiUrl = environment.apiUrl;
   private allProducts: Product[] = [];
-  private token = "";
-  constructor(private http: HttpClient, private authService : AuthService) {
-    this.authService.systemUser$.subscribe(systemUser => {
-      this.token = systemUser.accessToken;
-    })
-  }
+  constructor(private http: HttpClient, private authService : AuthService) { }
 
   getAllProducts():Observable<Product[]> {
     if (this.allProducts.length !== 0 ) {
       return of(this.allProducts) ;
     }
-    const token = this.token; 
+    const token = this.authService.systemUser$.getValue().role; 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

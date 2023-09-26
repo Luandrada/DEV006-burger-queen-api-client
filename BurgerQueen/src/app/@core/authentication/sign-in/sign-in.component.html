@@ -6,11 +6,11 @@
             <div class="inputContainer">
                 <label for="username">Usuario</label>
                 <input type="text" id="username" placeholder="hola@burguerqueen.com" formControlName="email"
-                    [class.is-invalid]="invalidEmail">
-                <i class="fas fa-user" id="icono-user" [class.is-invalid]="invalidEmail"></i>
+                    [class.is-invalid]="isFieldInvalid('email')">
+                <i class="fas fa-user" id="icono-user" [class.is-invalid]="isFieldInvalid('email')"></i>
             </div>
             <div class="container-error">
-                <span *ngIf="invalidEmail" class="text-rojo-uno">Ingrese su email</span>
+                <span *ngIf="isFieldInvalid('email')" class="text-rojo-uno">Ingrese su email</span>
             </div>
 
         </div>
@@ -18,12 +18,12 @@
             <div class="inputContainer">
                 <label for="password">Contraseña</label>
                 <input type="password" id="password" #password placeholder="*******" formControlName="password"
-                    [class.is-invalid]="invalidPassword">
+                    [class.is-invalid]="isFieldInvalid('password')">
                 <i class="far fa-eye" id="show" #show (click)="showPsw()"></i>
                 <i class="far fa-eye-slash" id="hide" #hide (click)="showPsw()"></i>
             </div>
             <div class="container-error">
-                <span *ngIf="invalidPassword" class="text-rojo-uno">Ingrese su contraseña</span>
+                <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
             </div>
         </div>
         <div class="errorMessage">

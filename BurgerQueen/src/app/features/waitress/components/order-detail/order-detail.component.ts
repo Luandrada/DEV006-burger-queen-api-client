@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Order, ProductItemList } from 'src/app/shared/models/Product';
+import { ProductItemList } from 'src/app/shared/models/Product';
 import { OrdersService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
 

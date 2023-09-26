@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { LoginResponse } from '../../../shared/models/Login';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'

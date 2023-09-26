@@ -21,12 +21,9 @@ export class AuthService {
 
   private loginHandler!:requestHandler <LoginResponse, Credentials>
   loginResponse$!: Subject<requestResponse<LoginResponse>>;
-  systemUser$ = new Subject<systemUser>();
-  private tmpCredentials: Credentials = {email:'', password:''}
+  systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: ''});
   
-  
-
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router,) {
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router, ) {
     this.loginHandler = new requestHandler<LoginResponse, Credentials>(http)
     this.loginResponse$ = this.loginHandler.response$;
 
@@ -45,6 +42,12 @@ export class AuthService {
       this.localStorageService.setStorage("accessToken", user.accessToken);
       this.localStorageService.setStorage("role", user.role);
       this.localStorageService.setStorage("idUser", user.id);
+      // if(!user.accessToken) { 
+      //   this.router.navigate(['/sign-in']);
+      // } 
+      // else {  
+      //   this.router.navigate([`orders/${user.role}`])
+      // }
     })
   }
 

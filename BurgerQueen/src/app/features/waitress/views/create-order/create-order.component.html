@@ -3,10 +3,11 @@
     <div class="orderMenu">
         <app-menu (menuItemsSelected)="handleAddItemToOrder($event)"></app-menu>
         <app-order-detail [productList]="selectedItems"
-        (itemToAdd)="handleAddItem($event)"
-        (itemToDelete)="handleDeleteItem($event)"
+        (updateQuantity)="updateQuantity($event)"
         (itemToRemove)="handleRemoveItem($event)"
         (clearOrder)="handleClearOrder()">
         </app-order-detail>
+        <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->
     </div>
+    <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal>
 </div>

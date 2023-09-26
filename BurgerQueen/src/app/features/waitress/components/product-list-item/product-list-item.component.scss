@@ -4,6 +4,7 @@
     height: 35px;
     flex-wrap: nowrap;
     column-gap: 10px;
+    margin-bottom: 10px;
     .counter {
         display: flex;justify-content: center;
         align-items: center;
@@ -23,11 +24,14 @@
     .name {
         width: 40%;
         cursor: default;
+        line-height: 13px;
+        margin-bottom: 0 !important;
     }
     .subtotal {
         width: 20%;
         text-align: right;
         cursor: default;
-
+        line-height: 13px;
+        margin-bottom: 0 !important;
     }
 }

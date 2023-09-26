@@ -7,16 +7,11 @@ import { systemUser } from '../interfaces';
   providedIn: 'root'
 })
 export class RoleGuard implements CanActivate {
-  private systemUser: systemUser = { id: '', accessToken: '', role: ''};
-
-  constructor(private router: Router, private authService: AuthService) {
-    this.authService.systemUser$.subscribe(systemUser => {
-        this.systemUser = systemUser
-      })
-  }
+  
+  constructor(private router: Router, private authService: AuthService) {  }
 
   canActivate(route: ActivatedRouteSnapshot, state:RouterStateSnapshot): boolean {
-    if (route.data.allowedRoles.includes(this.systemUser.role)) {
+    if (route.data.allowedRoles.includes(this.authService.systemUser$.getValue().role)) {
       return true;
     } else {
       this.router.navigate(['/sign-in']);

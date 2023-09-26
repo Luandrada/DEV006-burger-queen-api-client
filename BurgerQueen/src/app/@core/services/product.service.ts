@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Product } from 'src/app/shared/interfaces/Product';
+import { map, tap } from 'rxjs/operators';
+import { Product } from 'src/app/shared/models/Product';
 import { AuthService } from '../authentication/services/auth.service';
 import { environment } from 'src/environments/environment';
 
@@ -12,32 +12,34 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductService {
   private apiUrl = environment.apiUrl;
-
-  constructor(private http: HttpClient, private authService : AuthService) { }
+  private allProducts: Product[] = [];
+  private token = "";
+  constructor(private http: HttpClient, private authService : AuthService) {
+    this.authService.systemUser$.subscribe(systemUser => {
+      this.token = systemUser.accessToken;
+    })
+  }
 
   getAllProducts():Observable<Product[]> {
-    const token = ''
-    //this.authService.getToken(); 
+    if (this.allProducts.length !== 0 ) {
+      return of(this.allProducts) ;
+    }
+    const token = this.token; 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
     return this.http.get( `${this.apiUrl}/products`, { headers }).pipe(
-      map((resp: any) => {
-        return resp as Product[];
-      })
-    );
-  }
-
-  getBreakfastProducts(): Observable<Product[]> {
-    return this.getAllProducts().pipe(
-      map(products => products.filter(item => item.type === "Desayuno"))
-    );
+      map((resp) => {
+        return this.allProducts = resp as Product[];
+      }));
   }
   
-  getLunchProducts(): Observable<Product[]> {
+  getProductByCategory(types: Array<string>):Observable<Product[]> { // se filtra por arreglo que es más flexible
     return this.getAllProducts().pipe(
-      map(products => products.filter(item => item.type === "Almuerzo"))
-    );
+      map((resp) => {
+        return resp.filter(item => types.includes(item.type))
+      })
+    )
   }
 }

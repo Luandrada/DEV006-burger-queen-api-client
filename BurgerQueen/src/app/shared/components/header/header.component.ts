@@ -1,22 +1,47 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
+import { systemUser } from 'src/app/@core/interfaces';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+
+export class HeaderComponent implements OnInit , OnDestroy{
   @ViewChild("menuRef") menuRef: ElementRef | undefined;
-  imgRole: string | undefined;
+  userEmail: string = ""
+  userRole: string = ""
+  activeLink: string = ""
+
+  private routerSubscription: Subscription = new Subscription();
+  private systemUser: systemUser = { id: '', accessToken: '', role: ''};
+
 
   constructor(public router: Router,
     private renderer: Renderer2,
-    private localStorageService: LocalStorageService) { }
+    private authService: AuthService ) { }
 
   ngOnInit(): void {
+    this.routerSubscription =  this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.activeLink = event.url; 
+      }
+    })
+
+    this.setPersonalInfo();
+    this.authService.systemUser$.subscribe(systemUser => {
+      this.systemUser = systemUser;
+    })
+
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
   
   showMenu () {
@@ -28,9 +53,14 @@ export class HeaderComponent implements OnInit {
       this.renderer.addClass(menuElement, 'show');
     }
   }
-  
+
+  setPersonalInfo() {
+    this.userEmail = ''// el user no esta disponible en el request de login
+    ///this.systemUser.email;
+    this.userRole =  this.systemUser.role;
+  }
+
   signOut() {
-    this.localStorageService.clearStorage();
-    window.location.reload()
+    this.authService.logout();
   }
 }

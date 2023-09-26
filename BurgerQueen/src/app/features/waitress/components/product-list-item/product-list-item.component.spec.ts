@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductListItemComponent } from './product-list-item.component';
-import { ProductItemList } from 'src/app/shared/interfaces/Product';
+import { ProductItemList } from 'src/app/shared/models/Product';
 import { EventEmitter } from '@angular/core';
 
 describe('ProductListItemComponent', () => {
@@ -30,30 +30,30 @@ describe('ProductListItemComponent', () => {
     expect(subtotal).toEqual(30); 
   });
 
-  it('should calculate subtotal as 0 when product is undefined', () => {
-    component.product = undefined;
+  it('should calculate subtotal as 0 when product is null', () => {
+    component.product = null;
 
     const subtotal = component.subtotal;
     expect(subtotal).toEqual(0);
   });
 
   it('should emit itemToAdd event with correct quantity', () => {
-    spyOn(component.itemToAdd, 'emit');
+    spyOn(component.updateQuantity, 'emit');
     component.totalUnidad = 5;
 
-    component.itemToAdd.emit(component.totalUnidad);
+    component.updateQuantity.emit({id: component.totalUnidad,qty: -1});
 
-    expect(component.itemToAdd.emit).toHaveBeenCalledWith(5);
+    expect(component.updateQuantity.emit).toHaveBeenCalledWith(5);
   });
 
-  it('should emit itemToDelete event with correct quantity', () => {
-    spyOn(component.itemToDelete, 'emit');
-    component.totalUnidad = 3;
+  // it('should emit itemToDelete event with correct quantity', () => {
+  //   spyOn(component.itemToDelete, 'emit');
+  //   component.totalUnidad = 3;
 
-    component.itemToDelete.emit(component.totalUnidad);
+  //   component.itemToDelete.emit(component.totalUnidad);
 
-    expect(component.itemToDelete.emit).toHaveBeenCalledWith(3);
-  });
+  //   expect(component.itemToDelete.emit).toHaveBeenCalledWith(3);
+  // });
 
   it('should emit itemToRemove event with correct quantity', () => {
     spyOn(component.itemToRemove, 'emit');

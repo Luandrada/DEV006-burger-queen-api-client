@@ -1,8 +1,8 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpResponse, HttpResponseBase } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -36,6 +36,12 @@ export class SignInComponent implements OnInit {
     })
   }
 
+  ngOnDestroy() {
+    if (this.authService.loginResponse$) {
+      this.authService.loginResponse$.unsubscribe();
+    }
+  }
+
   createForm(): void {
     this.formLogin = this.fb.group({
       email: ["", [Validators.required, Validators.pattern('[A-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
@@ -47,16 +53,6 @@ export class SignInComponent implements OnInit {
    return this.formLogin?.get(inputName)?.invalid && this.formLogin.get(inputName)?.touched;
   }
   
-  /***Getters para campos invalidos  **/
-  get invalidEmail() {
-    return this.isInputInvalid('email')
-  }
-
-  get invalidPassword() {
-    return this.isInputInvalid('password')
-  }
-  /***FIN de Getters para campos invalidos  **/
-
   showPsw() {
     if (this.attrsToShowPassword.inputPasswordType == "password") {
       this.attrsToShowPassword = {

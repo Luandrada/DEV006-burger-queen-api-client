@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './@core/authentication/sign-in/sign-in.component';
 import { AuthGuard } from './@core/guards/auth.guard';
 import { RoleGuard } from './@core/guards/role-guard';
-//import { RoleWaitressGuard } from './@core/guards/role-waitress.guard';
 
 const routes: Routes = [
   { path: 'admin', loadChildren: () => import('./features/admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard, RoleGuard], data: {

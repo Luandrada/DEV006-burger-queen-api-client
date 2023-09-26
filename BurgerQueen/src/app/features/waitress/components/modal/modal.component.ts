@@ -13,7 +13,6 @@ export class ModalComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
   handleAccept () {

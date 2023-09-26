@@ -9,16 +9,13 @@
 .menuBtn {
     height: 35px;
     width: 110px;
-    border-radius: 10px;
-    background-color:  $color-bq2;
-    color: white;
-    border: 0;
+    color: grey;
     cursor: pointer;
 }
 
-.selectedBtn {
-    color: grey;
-    border: none;
+.selectedBtn {    
+    border-radius: 10px;
+    border: 1px solid $color-bq2;
 }
 .containerCards {
     display: flex;

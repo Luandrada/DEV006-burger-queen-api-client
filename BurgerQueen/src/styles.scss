@@ -25,6 +25,10 @@
     &:disabled {
         background-color: rgb(184, 179, 179);
     }
+    &:hover{
+        background-color: $color-bq1;
+        color: $color-bq2
+    }
 }
 
 .btn-sec {

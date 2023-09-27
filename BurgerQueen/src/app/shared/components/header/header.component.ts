@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { Component, ElementRef, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
 
 @Component({
@@ -8,17 +8,34 @@ import { LocalStorageService } from 'src/app/@core/services/local-storage.servic
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+
+export class HeaderComponent implements OnInit , OnDestroy{
   @ViewChild("menuRef") menuRef: ElementRef | undefined;
   userEmail: string = ""
   userRole: string = ""
+  activeLink: string = ""
+
+  private routerSubscription: Subscription = new Subscription();;
+
 
   constructor(public router: Router,
     private renderer: Renderer2,
     private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
+    this.routerSubscription =  this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.activeLink = event.url; 
+      }
+    })
+
     this.setPersonalInfo();
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
   
   showMenu () {

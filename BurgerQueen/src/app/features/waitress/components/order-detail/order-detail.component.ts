@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Order, ProductItemList } from 'src/app/shared/models/Product';
+import { ProductItemList } from 'src/app/shared/models/Product';
 import { OrdersService } from '../../services/orders.service';
 import { Subscription } from 'rxjs';
 
@@ -42,16 +42,13 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
         .forEach(control => control.markAsTouched());
     } else if (this.productList && this.productList?.length !== 0) {
 
-      const newOrder: Order = {
-        userId: Number(JSON.parse(localStorage.getItem("userInfo") || "").id), // este dato lo debe obtener el servicio
+      const newOrder: {client: string, products: ProductItemList[]} = {
         client: this.formOrderInfo.value.clientName,
         products: this.productList,
-        status: 'pending',  // este dato lo debe obteenr el servicio
-        dataEntry: new Date() // ver si no lo agrega el back y sino lo lelvo al servicio
       }
 
       this.orderSubscription = this.ordersService.createOrder(newOrder).subscribe(
-        (response) => {
+        () => {
           alert('Orden creada con éxito');
           this.formOrderInfo.reset();
           this.clearOrder.emit(true);

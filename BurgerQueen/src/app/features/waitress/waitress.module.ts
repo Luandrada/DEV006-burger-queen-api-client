@@ -8,6 +8,7 @@ import { ProductListItemComponent } from './components/product-list-item/product
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
+import { CalculateTotalPipe } from './pipes/calculate-total.pipe';
 
 
 
@@ -18,7 +19,8 @@ import { ModalComponent } from './components/modal/modal.component';
     OrderDetailComponent,
     ProductListItemComponent,
     ProductCardComponent,
-    ModalComponent
+    ModalComponent,
+    CalculateTotalPipe
   ],
   imports: [
     CommonModule,

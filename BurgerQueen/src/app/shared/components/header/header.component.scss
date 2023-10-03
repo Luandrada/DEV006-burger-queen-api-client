@@ -19,7 +19,7 @@
         width: 50%;
         nav {
             color: white;
-            font-family: $fte-ppal;
+            font-family: $primary-font;
             width: 65%;
             display: flex;
             justify-content: space-between;
@@ -65,7 +65,7 @@
         padding-left: 10px;
         flex-direction: column;
         justify-content: center;
-        font-family: $fte-ppal;
+        font-family: $primary-font;
         z-index: 3;
         .personalInfo {
             font-weight: bold;
@@ -76,7 +76,7 @@
             text-transform: capitalize;
         }
         p{
-            font-family: $fte-ppal;
+            font-family: $primary-font;
             font-size: 15px;
             color: rgb(40, 40, 40);
             margin-top: 30px;

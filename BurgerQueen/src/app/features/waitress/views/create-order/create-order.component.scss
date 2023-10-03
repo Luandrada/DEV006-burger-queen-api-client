@@ -1,14 +1,14 @@
 /* Importing Variables. */
 @import '../../../../../variables.scss';
 
-.bgPedidos{
+.bgOrders{
     background-color: $color-bq4;
     height: fit-content;
     min-height: 91vh;
     padding: 40px;
     padding-inline: 30px;
     .titleSection {
-        font-family: $fte-ppal;
+        font-family: $primary-font;
         color: rgb(23, 22, 22);
         margin-bottom: 30px;
     }

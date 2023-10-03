@@ -12,7 +12,7 @@
     padding: 0;
 }
 
-.btn-ppal {
+.primary-button {
     height: 35px;
     width: fit-content;
     padding-inline: 10px;
@@ -31,7 +31,7 @@
     }
 }
 
-.btn-sec {
+.secondary-button {
     height: 35px;
     width: 110px;
     color: $color-bq2;
@@ -43,7 +43,7 @@
         background-color: rgb(184, 179, 179);
     }
 }
-.btn-sec-border {
+.secondary-button-border {
     height: 35px;
     width: 110px;
     color: $color-bq2;

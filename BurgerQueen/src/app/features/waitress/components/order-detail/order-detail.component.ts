@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductItemList } from 'src/app/shared/models/Product';
-
-interface NewOrder {client: string, products: ProductItemList[]};
+import { NewOrder, ProductItemList } from 'src/app/shared/models/Product';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',

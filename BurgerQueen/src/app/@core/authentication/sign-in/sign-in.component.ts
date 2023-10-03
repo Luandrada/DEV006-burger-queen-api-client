@@ -28,11 +28,8 @@ export class SignInComponent implements OnInit {
     this.authService.loginResponse$.subscribe(state => {
       this.isLoading = state.isLoading
       this.error = state.error
-      if(this.error instanceof HttpErrorResponse){
-        if(this.error.error === "Incorrect password"){
-          this.invalidCredentials = true;
-        }
-      }
+      
+      this.invalidCredentials = (this.error instanceof HttpErrorResponse) && this.error.error === "Incorrect password";
     })
   }
 
@@ -57,19 +54,15 @@ export class SignInComponent implements OnInit {
   }
 
   showPsw() {
-    if (this.attrsToShowPassword.inputPasswordType == "password") {
-      this.attrsToShowPassword = {
-        inputPasswordType: 'text',
-        iconClass: 'far fa-eye-slash'
-
-     }
+    const passwordViewOps = {
+      inputPasswordType: 'text',
+      iconClass: 'far fa-eye-slash'
+   };
+   const passwordOps = {
+      inputPasswordType: 'password',
+      iconClass: 'far fa-eye'
     }
-    else{
-      this.attrsToShowPassword = {
-        inputPasswordType: 'password',
-        iconClass: 'far fa-eye'
-     }
-    }
+   this.attrsToShowPassword = this.attrsToShowPassword.inputPasswordType == "password" ? passwordViewOps : passwordOps;
   }
 
   signIn(): void {

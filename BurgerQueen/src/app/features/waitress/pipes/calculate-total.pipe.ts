@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'calculateTotal',
-  pure: true 
+  pure: false 
 })
 export class CalculateTotalPipe implements PipeTransform {
   transform(productList: any[]): number {

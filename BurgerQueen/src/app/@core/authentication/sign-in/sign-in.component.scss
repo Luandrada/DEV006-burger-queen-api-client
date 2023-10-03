@@ -64,9 +64,6 @@
             .fa-eye-slash {
                 margin-left: 86%;
             }
-            .fa-eye-slash {
-                visibility: hidden;
-            }
         }
         .text-rojo-uno{
             color: red;
@@ -93,19 +90,9 @@
     }
     .buttonContainer {
         margin-top: 30px;
-        button {
-            background-color: $color-bq2;
-            color: white;
-            font-family: $fte-ppal;
-            width: 160px;
-            border-radius: 10px;
-            height: 30px;
-            outline: none;
-            box-shadow: 2px 3px 2px grey;
-            &:hover {
-                background-color: $color-bq1;
-            }
-
+        .spinner-border {
+            width: 10px;
+            height: 10px;
         }
     }
 }

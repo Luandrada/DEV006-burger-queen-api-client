@@ -38,7 +38,7 @@
         <button type="submit"  class="btnSend btn-ppal" [disabled]="this.formOrderInfo?.invalid || productList?.length === 0" >Enviar a Cocina</button>
       
         <div class="total">
-            <p>TOTAL: ${{totalAmount}}</p>
+            <p>TOTAL: ${{ productList | calculateTotal }}</p>
         </div>
     </form>
 </div>

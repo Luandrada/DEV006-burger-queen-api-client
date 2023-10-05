@@ -25,19 +25,8 @@ export class OrderDetailComponent implements OnInit {
       table: ["", Validators.required]
     });
   }
-
-  get totalAmount(): number {
-    if (this.productList) { // editar : mejorar sacar return 0 cuando productlist tenga un length 0  va a return 0 . anaizar de resolver con un pipe 
-      const total = this.productList.reduce((accumulator, item) => {
-        const subtotal = item.product.price * item.qty;
-        return accumulator + subtotal;
-      }, 0);
-      return total; 
-    }
-    return 0;
-  }
-
-  handleSubmit(): void {
+  
+  sendOrder(): void {
     if (this.formOrderInfo?.invalid) {
       return Object.values(this.formOrderInfo.controls)
         .forEach(control => control.markAsTouched());

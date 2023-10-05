@@ -1,32 +1,57 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse } from '../../../shared/models/Login';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { requestHandler } from '../../utils/requestHandler';
+import { LoginResponse, requestResponse, systemUser } from '../../interfaces';
+import { Router } from '@angular/router';
+
+export interface Credentials  {
+  email: string,
+  password: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) { }
+  private loginHandler!:requestHandler <LoginResponse, Credentials>
+  loginResponse$!: Subject<requestResponse<LoginResponse>>;
+  systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
 
-  getToken():string | null {
-    return localStorage.getItem("accessToken");
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router, ) {
+    this.loginHandler = new requestHandler<LoginResponse, Credentials>(http)
+    this.loginResponse$ = this.loginHandler.response$;
+
+    this.loginResponse$.subscribe((state)=> {
+      if(state.data){
+        const newUser = {
+          id: state.data.user.id.toString(), 
+          accessToken: state.data.accessToken, 
+          role: state.data.user.role, 
+          email: state.data.user.email
+        }
+        this.systemUser$.next(newUser);
+      }
+    });
+    this.systemUser$.subscribe((user)=>{
+      this.localStorageService.setStorage("accessToken", user.accessToken);
+      this.localStorageService.setStorage("role", user.role);
+      this.localStorageService.setStorage("idUser", user.id);
+    })
   }
 
-  getRole():string | null {
-    const userInfoString = localStorage.getItem("userInfo") ?? '{}'; 
-    const info = JSON.parse(userInfoString);
-    return info ? info.role : null;
+  login(credentials: Credentials) {
+    const url = `${this.apiUrl}/login`;
+    const body = credentials;
+    this.loginHandler.makeCall('POST', url, body)
+
   }
 
-  sigIn(credentials: {email : string, password: string }): Observable<LoginResponse> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      map((resp: any) => {
-        return resp;
-      })
-    );
-  }  
+  logout () {
+    this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""})
+  }
 
 }

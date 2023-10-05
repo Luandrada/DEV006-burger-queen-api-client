@@ -17,20 +17,23 @@
         <div class="row1">
             <div class="inputContainer">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" #password placeholder="*******" formControlName="password"
+                <input [type]="attrsToShowPassword.inputPasswordType" id="password" #password placeholder="Contraseña" formControlName="password"
                     [class.is-invalid]="isFieldInvalid('password')">
-                <i class="far fa-eye" id="show" #show (click)="showPsw()"></i>
-                <i class="far fa-eye-slash" id="hide" #hide (click)="showPsw()"></i>
+                <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
-            <div class="container-error">
-                <span *ngIf="isFieldInvalid('password')" class="error-text">Ingrese su contraseña</span>
-            </div>
+            <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
             <span *ngIf="invalidCredentials" class="error-text">Credenciales incorrectas</span>
         </div>
         <div class="buttonContainer">
-            <button type="submit" id="btn-entrar" class="primary-button">Ingresar</button>
+            <button type="submit" id="btn-entrar" class="btn-ppal">
+                <div *ngIf="isLoading" class="spinner-border" role="status">
+                    <span class="visually-hidden"></span>
+                </div>
+
+                <span *ngIf="!isLoading"> Ingresar</span>
+            </button>
         </div>
     </form>
 </div>

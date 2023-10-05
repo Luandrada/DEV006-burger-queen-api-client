@@ -12,9 +12,7 @@ export class ModalComponent implements OnInit {
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.data)
-  }
+  ngOnInit(): void {}
 
   handleAccept () {
     this.acceptButton.emit(this.data?.product.id);

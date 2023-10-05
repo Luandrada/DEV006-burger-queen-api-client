@@ -64,9 +64,6 @@
             .fa-eye-slash {
                 margin-left: 86%;
             }
-            .fa-eye-slash {
-                visibility: hidden;
-            }
         }
         .error-text{
             color:  $color-error;
@@ -93,7 +90,10 @@
     }
     .buttonContainer {
         margin-top: 30px;
-      
+        .spinner-border {
+            width: 10px;
+            height: 10px;
+        }
     }
 }
 .container-error{

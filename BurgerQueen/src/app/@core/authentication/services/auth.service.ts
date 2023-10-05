@@ -18,8 +18,8 @@ export interface Credentials  {
 export class AuthService {
   private apiUrl = environment.apiUrl;
   private loginHandler!:requestHandler <LoginResponse, Credentials>
-  loginResponse$!: Subject<requestResponse<LoginResponse>>;
-  systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
+  public loginResponse$!: Subject<requestResponse<LoginResponse>>;
+  public systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router, ) {
     this.loginHandler = new requestHandler<LoginResponse, Credentials>(http)
@@ -46,12 +46,11 @@ export class AuthService {
   login(credentials: Credentials) {
     const url = `${this.apiUrl}/login`;
     const body = credentials;
-    this.loginHandler.makeCall('POST', url, body)
-
+    this.loginHandler.makeCall('POST', url, body);
   }
 
   logout () {
-    this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""})
+    this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""});
   }
 
 }

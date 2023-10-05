@@ -11,7 +11,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class SignInComponent implements OnInit {
   formLogin!: FormGroup;
-  invalidCredentials: boolean = false;
 
   attrsToShowPassword = {
     inputPasswordType: 'password',
@@ -19,6 +18,7 @@ export class SignInComponent implements OnInit {
   };
   isLoading: Boolean = false;
   error: HttpErrorResponse | Error | null = null;
+  errorMessage : string | null  = null;
 
   constructor( private fb: FormBuilder, public authService: AuthService) { }
 
@@ -26,10 +26,14 @@ export class SignInComponent implements OnInit {
     this.createForm();
 
     this.authService.loginResponse$.subscribe(state => {
-      this.isLoading = state.isLoading
-      this.error = state.error
-      
-      this.invalidCredentials = (this.error instanceof HttpErrorResponse) && this.error.error === "Incorrect password";
+      this.isLoading = state.isLoading;
+      this.error = state.error;
+
+      if (this.error instanceof HttpErrorResponse) {
+        this.errorMessage = (this.error.error === "Incorrect password" || this.error.error === "Cannot find user")
+          ? "Credenciales Inválidas"
+          : this.error.error;
+      }
     })
   }
 
@@ -66,7 +70,7 @@ export class SignInComponent implements OnInit {
   }
 
   signIn(): void {
-    this.invalidCredentials = false;
+    this.errorMessage = null;
 
     if (this.formLogin?.invalid) {
       return Object.values(this.formLogin.controls)

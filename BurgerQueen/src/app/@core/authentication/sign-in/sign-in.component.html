@@ -25,7 +25,8 @@
             <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
-            <span *ngIf="invalidCredentials" class="text-rojo-uno">Credenciales incorrectas</span>
+            <span *ngIf="errorMessage" class="text-rojo-uno">{{errorMessage}}</span>
+
         </div>
         <div class="buttonContainer">
             <button type="submit" id="btn-entrar" class="btn-ppal">

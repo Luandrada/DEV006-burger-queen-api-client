@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, OnDestroy, Renderer2, ViewChild } from '
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
-
+import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { systemUser } from 'src/app/@core/interfaces';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -16,11 +17,11 @@ export class HeaderComponent implements OnInit , OnDestroy{
   activeLink: string = ""
 
   private routerSubscription: Subscription = new Subscription();;
-
+  private systemUser: systemUser = { id: '', accessToken: '', role: '', email: ""};
 
   constructor(public router: Router,
     private renderer: Renderer2,
-    private localStorageService: LocalStorageService) { }
+    private authService: AuthService ) { }
 
   ngOnInit(): void {
     this.routerSubscription =  this.router.events.subscribe(event => {
@@ -28,8 +29,11 @@ export class HeaderComponent implements OnInit , OnDestroy{
         this.activeLink = event.url; 
       }
     })
-
-    this.setPersonalInfo();
+    
+    this.authService.systemUser$.subscribe(systemUser => {
+      this.systemUser = systemUser;
+      this.setPersonalInfo();
+    })
   }
 
   ngOnDestroy() {
@@ -49,12 +53,11 @@ export class HeaderComponent implements OnInit , OnDestroy{
   }
 
   setPersonalInfo() {
-    this.userEmail = this.localStorageService.getUserInfo().email;
-    this.userRole = this.localStorageService.getUserInfo().role;
+    this.userEmail = this.systemUser.email;
+    this.userRole =  this.systemUser.role;
   }
 
   signOut() {
-    this.localStorageService.clearStorage();
-    this.router.navigate(["/sign-in"])
+    this.authService.logout();
   }
 }

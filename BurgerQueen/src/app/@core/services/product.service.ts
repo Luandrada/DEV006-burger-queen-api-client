@@ -10,16 +10,19 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
   private apiUrl = environment.apiUrl;
   private allProducts: Product[] = [];
+
   constructor(private http: HttpClient, private authService : AuthService) {}
 
   getAllProducts():Observable<Product[]> {
     if (this.allProducts.length !== 0 ) {
       return of(this.allProducts) ;
     }
-    const token = this.authService.getToken(); 
+    
+    const token = this.authService.systemUser$.getValue().accessToken;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

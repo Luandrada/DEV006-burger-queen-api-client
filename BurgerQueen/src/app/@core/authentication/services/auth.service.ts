@@ -46,12 +46,10 @@ export class AuthService {
   login(credentials: Credentials) {
     const url = `${this.apiUrl}/login`;
     const body = credentials;
-    this.loginHandler.makeCall('POST', url, body)
-
+    this.loginHandler.makeCall('POST', url, body);
   }
 
   logout () {
     this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""})
   }
-
 }

@@ -29,7 +29,7 @@
 
         </div>
         <div class="buttonContainer">
-            <button type="submit" id="btn-entrar" class="btn-ppal">
+            <button type="submit" class="btn-ppal" [aria-label]="isLoading ? 'Formulario enviado, estado: cargando' : 'Botón para Ingresar' ">
                 <div *ngIf="isLoading" class="spinner-border" role="status">
                     <span class="visually-hidden"></span>
                 </div>

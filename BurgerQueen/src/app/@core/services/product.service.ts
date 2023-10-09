@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Product } from 'src/app/shared/models/Product';
 import { AuthService } from '../authentication/services/auth.service';
 import { environment } from 'src/environments/environment';

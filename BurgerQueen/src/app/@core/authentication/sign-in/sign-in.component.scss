@@ -108,3 +108,7 @@
     background-color: $color-bq4;
     background: linear-gradient(0deg,  $color-bq3 3%,  $color-bq4 100%);
 }
+
+.loadingMessage {
+    visibility: hidden;
+}

@@ -29,13 +29,14 @@
 
         </div>
         <div class="buttonContainer">
-            <button type="submit" class="btn-ppal" [aria-label]="isLoading ? 'Formulario enviado, estado: cargando' : 'Botón para Ingresar' ">
+            <button type="submit" class="btn-ppal" [disabled]="isLoading">
                 <div *ngIf="isLoading" class="spinner-border" role="status">
                     <span class="visually-hidden"></span>
                 </div>
 
                 <span *ngIf="!isLoading"> Ingresar</span>
-            </button>
+            </button>    
         </div>
+        <div *ngIf="isLoading" aria-live="polite" class="loadingMessage">Formulario enviado, estado: cargando</div>
     </form>
 </div>

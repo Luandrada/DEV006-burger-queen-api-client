@@ -41,7 +41,7 @@ describe('ProductListItemComponent', () => {
     spyOn(component.updateQuantity, 'emit');
     component.totalUnidad = 5;
 
-    component.updateQuantity.emit({id: component.totalUnidad,qty: -1});
+    component.updateQuantity.emit({id: component.totalUnidad, qtyChange: -1});
 
     expect(component.updateQuantity.emit).toHaveBeenCalledWith(5);
   });

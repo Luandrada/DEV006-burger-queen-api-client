@@ -18,7 +18,7 @@
         align-items: center;
         width: 50%;
         nav {
-            color: white;
+            color: rgb(255, 255, 255);
             font-family: $primary-font;
             width: 65%;
             display: flex;
@@ -26,7 +26,7 @@
             align-items: center;
             a{
                 text-decoration: none;
-                color: white;
+                color: rgb(255, 255, 255);
                 &:active {
                     text-decoration: none;
                     font-weight: bold;
@@ -38,7 +38,7 @@
 
         }
         .profile{
-            background-color: #fff;
+            background-color: rgb(255, 255, 255);
             border-radius: 50%;
             width: 42px;
             height: 42px;
@@ -55,7 +55,7 @@
     }
     .menu {
         display: none;
-        background-color: white;
+        background-color: rgb(255, 255, 255);
         width: 200px;
         height: 120px;
         position: absolute;

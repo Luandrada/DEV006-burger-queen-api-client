@@ -65,12 +65,6 @@
                 margin-left: 86%;
             }
         }
-        .error-text{
-            color:  $color-error;
-            text-align: right;
-            display: block;
-            font-size: 13px;
-        }
       
     }
     .errorMessage {
@@ -80,13 +74,6 @@
         max-width: 380px;
         height: 18px;
         margin-top: 0;
-        .error-text{
-            color: $color-error;
-            text-align: left;
-            display: block;
-            font-size: 15px;
-            font-family: $secondary-font;
-        }
     }
     .buttonContainer {
         margin-top: 30px;
@@ -106,4 +93,10 @@
     align-items: center;
     min-height: 100vh;
     background-color: $color-bq4;
+}
+
+.error-text{
+    color: $color-error;
+    text-align: left;
+    font-family: $secondary-font;
 }

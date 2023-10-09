@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { systemUser } from 'src/app/@core/interfaces';
 @Component({

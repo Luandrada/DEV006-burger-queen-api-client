@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { requestHandler } from '../../utils/requestHandler';
 import { LoginResponse, requestResponse, systemUser } from '../../interfaces';
-import { Router } from '@angular/router';
 
 export interface Credentials  {
   email: string,
@@ -21,8 +20,8 @@ export class AuthService {
   loginResponse$!: Subject<requestResponse<LoginResponse>>;
   systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private router: Router, ) {
-    this.loginHandler = new requestHandler<LoginResponse, Credentials>(http)
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService ) {
+    this.loginHandler = new requestHandler<LoginResponse, Credentials>(this.http)
     this.loginResponse$ = this.loginHandler.response$;
 
     this.loginResponse$.subscribe((state)=> {

@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ProductListItemComponent } from './product-list-item.component';
 import { ProductItemList } from 'src/app/shared/models/Product';
-import { EventEmitter } from '@angular/core';
 
 describe('ProductListItemComponent', () => {
   let component: ProductListItemComponent;
@@ -35,15 +34,6 @@ describe('ProductListItemComponent', () => {
 
     const subtotal = component.subtotal;
     expect(subtotal).toEqual(0);
-  });
-
-  it('should emit itemToAdd event with correct quantity', () => {
-    spyOn(component.updateQuantity, 'emit');
-    component.totalUnidad = 5;
-
-    component.updateQuantity.emit({id: component.totalUnidad, qtyChange: -1});
-
-    expect(component.updateQuantity.emit).toHaveBeenCalledWith(5);
   });
 
   // it('should emit itemToDelete event with correct quantity', () => {

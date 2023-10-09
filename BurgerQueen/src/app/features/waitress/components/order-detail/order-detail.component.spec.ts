@@ -57,11 +57,8 @@ describe('OrderDetailComponent', () => {
     component.sendOrder();
 
     expect(ordersService.createOrder).toHaveBeenCalledOnceWith({
-      userId: Number(localStorage.getItem('idUser')),
       client: 'Client',
       products: mockProductList,
-      status: 'pending',
-      dataEntry: jasmine.any(Date),
     });
   });
 

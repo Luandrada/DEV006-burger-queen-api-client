@@ -4,8 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { SignInComponent } from './sign-in.component';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { of, throwError } from 'rxjs';
-import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;

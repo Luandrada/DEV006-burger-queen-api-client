@@ -44,7 +44,7 @@
                 }
                 
                 &:focus~i {
-                    color: rgb(34, 33, 33);
+                    color: #222121;
                 }
                 &.is-invalid{
                     border: 2px solid  $color-error;

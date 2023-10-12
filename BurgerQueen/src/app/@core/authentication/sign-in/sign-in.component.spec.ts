@@ -35,12 +35,13 @@ describe('SignInComponent', () => {
 
   it('should call signIn when the form is valid', () => {
     spyOn(component, 'signIn');
-    component.formLogin.setValue({
+    const credentials = {
       email: 'test@example.com',
-      password: 'password',
-    });
+      password: 'myRealPassword',
+    }
+    component.formLogin.setValue(credentials);
     component.signIn();
-    expect(component.signIn).toHaveBeenCalled();
+    expect(authService.login).toHaveBeenCalledWith(credentials);
   });
 
   it('should not call signIn when the form is invalid', () => {
@@ -50,7 +51,7 @@ describe('SignInComponent', () => {
       password: '', 
     });
     component.signIn();
-    expect(component.signIn).not.toHaveBeenCalled();
+    expect(authService.login).not.toHaveBeenCalled();
   });
 
   it('handle login errors', () => {
@@ -61,7 +62,7 @@ describe('SignInComponent', () => {
 
     component.formLogin.setValue({
       email: 'test@example.com',
-      password: 'password',
+      password: 'incorrectPassword',
     });
 
     component.signIn();

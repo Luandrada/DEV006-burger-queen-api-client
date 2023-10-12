@@ -25,7 +25,6 @@ describe('AuthService', () => {
   let httpClientSpy: { post: jasmine.Spy };
   let localStorageService: MockLocalStorageService; 
 
-
   const mockCredentials: Credentials = { email: 'test@test.com', password: 'password' };
 
   const mockResponse :LoginResponse = {
@@ -53,53 +52,46 @@ describe('AuthService', () => {
     localStorageService = TestBed.inject(MockLocalStorageService);
   });
 
-
-  it('send a POST request when calling login', () => {
-    httpClientSpy.post.and.returnValue(of(mockResponse));
-
-    authService.login(mockCredentials);
-
-    expect(httpClientSpy.post).toHaveBeenCalledWith(`${environment.apiUrl}/login`, mockCredentials);
-    
-    authService.loginResponse$.subscribe((response) => {
-      expect(response.data).toEqual(mockResponse);
+  describe('Login', () => {
+    beforeEach(()=> {
+      httpClientSpy.post.and.returnValue(of(mockResponse));
+      authService.login(mockCredentials);
     });
-  });
 
-  it('systemUSer$ is filled correctly', () => {
-    httpClientSpy.post.and.returnValue(of(mockResponse));
-    authService.login(mockCredentials);
-
-    authService.systemUser$.subscribe((user: systemUser) => {
-      expect(user.id).toBe('1');
-      expect(user.role).toBe('user');
-      expect(user.email).toBe('test@test.com');
+    it('should send a POST request when calling login', () => {
+      expect(httpClientSpy.post).toHaveBeenCalledWith(`${environment.apiUrl}/login`, mockCredentials);
+      
+      authService.loginResponse$.subscribe((response) => {
+        expect(response.data).toEqual(mockResponse);
+      });
     });
-  });
 
-  it('localStorage is filled correctly', () => {
-    httpClientSpy.post.and.returnValue(of(mockResponse));
-    authService.login(mockCredentials);
+    it('should verify if systemUSer$ is filled correctly when login was executed', () => {
+      authService.systemUser$.subscribe((user: systemUser) => {
+        expect(user.id).toBe('1');
+        expect(user.role).toBe('user');
+        expect(user.email).toBe('test@test.com');
 
-    expect(localStorageService.getItem('accessToken')).toBe('mockAccessToken');
-    expect(localStorageService.getItem('role')).toBe('user');
-    expect(localStorageService.getItem('idUser')).toBe('1');
-  });
+        expect(localStorageService.getItem('accessToken')).toBe('mockAccessToken');
+        expect(localStorageService.getItem('role')).toBe('user');
+        expect(localStorageService.getItem('idUser')).toBe('1');
+      });
+    });
+  })
+  
+  describe('Logout', () => {
+    it('should clear systemUser$ when calling logout', () => {
+      authService.logout();
+      authService.systemUser$.subscribe((user) => {
+        expect(user).toEqual({ id: '', accessToken: '', role: '', email: '' });
+
+        expect(localStorageService.getItem('accessToken')).toBe(null);
+        expect(localStorageService.getItem('role')).toBe(null);
+        expect(localStorageService.getItem('idUser')).toBe(null);
+      });
+    });
+  })
  
-  it('should clear systemUser$ when calling logout', () => {
-    authService.logout();
-    authService.systemUser$.subscribe((user) => {
-      expect(user).toEqual({ id: '', accessToken: '', role: '', email: '' });
-    });
-  });
-
-  it('should clear localStorage when calling logout', () => {
-    authService.logout();
-    expect(localStorageService.getItem('accessToken')).toBe(null);
-    expect(localStorageService.getItem('role')).toBe(null);
-    expect(localStorageService.getItem('idUser')).toBe(null);
-  });
-
   afterEach(() => {
     httpTestingController.verify();
   });

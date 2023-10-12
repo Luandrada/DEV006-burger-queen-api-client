@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductItemList } from 'src/app/shared/models/Product';
 
 @Component({
@@ -6,17 +6,13 @@ import { ProductItemList } from 'src/app/shared/models/Product';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit {
-  @Input() data: ProductItemList | null = null;
+export class ModalComponent {
+  @Input() product: ProductItemList | null = null;
   @Output() acceptButton: EventEmitter<number> = new EventEmitter<number>();
   @Output() closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
-  constructor() { }
-
-  ngOnInit(): void {}
 
   handleAccept () {
-    this.acceptButton.emit(this.data?.product.id);
+    this.acceptButton.emit(this.product?.product.id);
     this.closeModal.emit();
   }
-
 }

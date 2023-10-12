@@ -5,9 +5,8 @@
         <app-order-detail [productList]="selectedItems"
         (updateQuantity)="updateQuantity($event)"
         (itemToRemove)="handleRemoveItem($event)"
-        (clearOrder)="handleClearOrder()">
+        (createOrder)="handleCreateOrder($event)">
         </app-order-detail>
-        <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->
     </div>
     <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal>
 </div>

@@ -1,32 +1,22 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductItemList } from 'src/app/shared/models/Product';
-import { OrdersService } from '../../services/orders.service';
-import { Subscription } from 'rxjs';
-
+import { NewOrder, ProductItemList } from 'src/app/shared/models/Product';
 @Component({
   selector: 'app-order-detail',
   templateUrl: './order-detail.component.html',
   styleUrls: ['./order-detail.component.scss']
 })
-export class OrderDetailComponent implements OnInit, OnDestroy {
+export class OrderDetailComponent implements OnInit {
   @Input() productList: Array<ProductItemList>  = [];
   @Output() updateQuantity: EventEmitter<{ id: number; qtyChange: number }> = new EventEmitter<{ id: number; qtyChange: number }>();
   @Output() itemToRemove: EventEmitter<number> = new EventEmitter<number>();
-  @Output() clearOrder: EventEmitter<boolean> = new EventEmitter<boolean>();
-  private orderSubscription: Subscription = new Subscription();
+  @Output() createOrder: EventEmitter<NewOrder> = new EventEmitter<NewOrder>();
 
-  constructor( private fb: FormBuilder, private ordersService: OrdersService) { }
+  constructor( private fb: FormBuilder) { }
   formOrderInfo!: FormGroup;
 
   ngOnInit(): void {
     this.createForm();
-  }
-
-  ngOnDestroy() {
-    if (this.orderSubscription) {
-      this.orderSubscription.unsubscribe();
-    }
   }
 
   createForm(): void {
@@ -40,25 +30,13 @@ export class OrderDetailComponent implements OnInit, OnDestroy {
     if (this.formOrderInfo?.invalid) {
       return Object.values(this.formOrderInfo.controls)
         .forEach(control => control.markAsTouched());
-    } else if (this.productList && this.productList?.length !== 0) {
-
-      const newOrder: {client: string, products: ProductItemList[]} = {
+    } else if (this.productList && this.productList?.length !== 0) {      
+      const newOrder: NewOrder = {
         client: this.formOrderInfo.value.clientName,
         products: this.productList,
       }
-
-      this.orderSubscription = this.ordersService.createOrder(newOrder).subscribe(
-        () => {
-          alert('Orden creada con éxito');
-          this.formOrderInfo.reset();
-          this.clearOrder.emit(true);
-        },
-        (error) => {
-          console.error('Error al crear la orden:', error);
-        }
-      );
+      this.formOrderInfo.reset();
+      this.createOrder.emit(newOrder);
     }
   }
-
-  
 }

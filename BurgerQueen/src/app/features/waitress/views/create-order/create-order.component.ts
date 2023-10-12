@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product, ProductItemList } from 'src/app/shared/models/Product';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-create-order',
@@ -12,7 +14,9 @@ export class CreateOrderComponent implements OnInit {
   orderDetail: ProductItemList[] = [];
   showDeleteModal: boolean = false;
 
-  constructor() { }
+  orderSubscription : Subscription = new Subscription();
+
+  constructor(private ordersService: OrdersService) { }
 
   ngOnInit(): void {
   }
@@ -59,5 +63,17 @@ export class CreateOrderComponent implements OnInit {
 
   handleCloseModal(){
     this.showDeleteModal = false;
+  }
+
+  handleCreateOrder(newOrder : {client: string, products: ProductItemList[]}){
+    this.orderSubscription = this.ordersService.createOrder(newOrder).subscribe(
+        () => {
+          alert('Orden creada con éxito');
+          this.handleClearOrder();
+        },
+        (error) => {
+          console.error('Error al crear la orden:', error);
+        }
+      );
   }
 }

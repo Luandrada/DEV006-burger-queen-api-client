@@ -16,7 +16,7 @@
         margin-top: -80px;
     }
     h2{
-        font-family: $fte-ppal;
+        font-family: $primary-font;
         margin-bottom: 30px;
     }
     .row1{
@@ -25,7 +25,7 @@
         margin-right: auto;
         max-width: 380px;
         margin-bottom: 24px;
-        font-family: $fte-sec;
+        font-family: $secondary-font;
         .inputContainer {
             width: 100%;
             position: relative;
@@ -44,13 +44,13 @@
                 }
                 
                 &:focus~i {
-                    color: rgb(34, 33, 33);
+                    color: #222121;
                 }
                 &.is-invalid{
-                    border: 2px solid rgb(252, 62, 62);
+                    border: 2px solid  $color-error;
                 }
                 &.is-invalid~i{
-                    color:rgb(150, 9, 9);
+                    color:$color-error;
                 }
             }
             i{
@@ -65,12 +65,6 @@
                 margin-left: 86%;
             }
         }
-        .text-rojo-uno{
-            color: red;
-            text-align: right;
-            display: block;
-            font-size: 13px;
-        }
       
     }
     .errorMessage {
@@ -80,13 +74,6 @@
         max-width: 380px;
         height: 18px;
         margin-top: 0;
-        .text-rojo-uno{
-            color: red;
-            text-align: left;
-            display: block;
-            font-size: 15px;
-            font-family: $fte-sec;
-        }
     }
     .buttonContainer {
         margin-top: 30px;
@@ -106,7 +93,12 @@
     align-items: center;
     min-height: 100vh;
     background-color: $color-bq4;
-    background: linear-gradient(0deg,  $color-bq3 3%,  $color-bq4 100%);
+}
+
+.error-text{
+    color: $color-error;
+    text-align: left;
+    font-family: $secondary-font;
 }
 
 .loadingMessage {

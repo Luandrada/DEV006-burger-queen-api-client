@@ -9,15 +9,15 @@
     height: 450px;
     padding-inline: 15px;
     border-radius: 18px 18px 18px 0;
-    background-color: rgba(255, 255, 255, 0.749);
-    font-family: $fte-sec;
+    background-color: #f4f4f4;
+    font-family: $secondary-font;
     position: relative;
     .headerList {
         border-bottom: 1px solid $color-bq1;
         width: 100%;
         margin-bottom: 30px;
         padding-bottom: 10px;
-        .pedido {
+        .order {
             font-weight: bold;
         }
         .orderInfo {

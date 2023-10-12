@@ -17,5 +17,4 @@ export class CalculateTotalPipe implements PipeTransform {
 
     return total;
   }
-
 }

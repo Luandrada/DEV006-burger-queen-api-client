@@ -1,7 +1,7 @@
 <div class="orderDetailContainer ">
     <form autocomplete="off" [formGroup]="formOrderInfo" (ngSubmit)="sendOrder()">
         <div class="headerList">
-            <span class="pedido">Pedido para : </span>
+            <span class="order">Pedido para : </span>
             <div class="orderInfo">
                 <div class="row-input">
                     <label for="clientName"> Nombre</label>
@@ -35,7 +35,7 @@
         </div>
         <p *ngIf="!productList || productList.length === 0" class="placeholder">- Agregue productos a su orden - </p>
         
-        <button type="submit"  class="btnSend btn-ppal" [disabled]="this.formOrderInfo?.invalid || productList?.length === 0" >Enviar a Cocina</button>
+        <button type="submit"  class="btnSend primary-button" [disabled]="this.formOrderInfo?.invalid || productList?.length === 0" >Enviar a Cocina</button>
       
         <div class="total">
             <p>TOTAL: ${{ productList | calculateTotal }}</p>

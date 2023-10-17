@@ -21,7 +21,7 @@
                     [class.is-invalid]="isFieldInvalid('password')">
                 <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
-            <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
+            <span *ngIf="isFieldInvalid('password')" class="error-text">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
             <span *ngIf="invalidCredentials" class="error-text">Credenciales incorrectas</span>

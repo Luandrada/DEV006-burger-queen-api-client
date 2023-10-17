@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { systemUser } from '../../interfaces';
+import { first } from 'rxjs/operators';
 
 class MockLocalStorageService {
   private storage: { [key: string]: any } = {};
@@ -65,18 +66,30 @@ describe('AuthService', () => {
         expect(response.data).toEqual(mockResponse);
       });
     });
-
-    it('should verify if systemUSer$ is filled correctly when login was executed', () => {
-      authService.systemUser$.subscribe((user: systemUser) => {
-        expect(user.id).toBe('1');
-        expect(user.role).toBe('user');
-        expect(user.email).toBe('test@test.com');
-
-        expect(localStorageService.getItem('accessToken')).toBe('mockAccessToken');
-        expect(localStorageService.getItem('role')).toBe('user');
-        expect(localStorageService.getItem('idUser')).toBe('1');
+    
+    it('call the method login must set isloading a true',
+    (done: DoneFn) => {
+      httpClientSpy.post.and.returnValue(of(mockResponse));   
+      authService.loginResponse$.pipe(first()).
+      subscribe(response => {
+        expect(response.isLoading).toBeTrue();
+        done();
       });
-    });
+      authService.login(mockCredentials);
+    }
+    )
+
+    it('call the method login if the response is valid must set system user',
+      (done: DoneFn) => {
+        httpClientSpy.post.and.returnValue(of(mockResponse));   
+        authService.login(mockCredentials);
+        authService.systemUser$.
+        subscribe(response => {
+          expect(response).toEqual({id: '1', accessToken: 'mockAccessToken', role: 'user', email: 'test@test.com'});
+          done();
+        });
+      }
+    )
   })
   
   describe('Logout', () => {
@@ -94,5 +107,7 @@ describe('AuthService', () => {
  
   afterEach(() => {
     httpTestingController.verify();
+    authService.loginResponse$.unsubscribe()
+    authService.systemUser$.unsubscribe()
   });
 });

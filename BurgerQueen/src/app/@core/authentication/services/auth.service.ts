@@ -51,5 +51,4 @@ export class AuthService {
   logout () {
     this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""});
   }
-
 }

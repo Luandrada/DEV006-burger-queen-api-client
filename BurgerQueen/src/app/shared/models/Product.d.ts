@@ -17,3 +17,8 @@ export interface Order {
   products: ProductItemList[],
   status: "pending" | "delivered",
 }
+
+export interface NewOrder {
+  client: string,
+  products: ProductItemList[]
+}

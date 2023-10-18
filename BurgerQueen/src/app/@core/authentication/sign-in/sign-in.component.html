@@ -10,8 +10,7 @@
                 <i class="fas fa-user" id="icono-user" [class.is-invalid]="isFieldInvalid('email')"></i>
             </div>
             <div class="container-error">
-                <span *ngIf="isFieldInvalid('email')" class="text-rojo-uno">Ingrese su email</span>
-                
+                <span *ngIf="isFieldInvalid('email')" class="error-text">Ingrese su email</span>
             </div>
 
         </div>
@@ -22,11 +21,10 @@
                     [class.is-invalid]="isFieldInvalid('password')">
                 <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
-            <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
+            <span *ngIf="isFieldInvalid('password')" class="error-text">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
-            <span *ngIf="errorMessage" class="text-rojo-uno">{{errorMessage}}</span>
-
+            <span *ngIf="invalidCredentials" class="error-text">Credenciales incorrectas</span>
         </div>
         <div class="buttonContainer">
             <button type="submit" class="btn-ppal" [disabled]="isLoading">

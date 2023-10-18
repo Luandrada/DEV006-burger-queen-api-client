@@ -20,9 +20,7 @@ interface requestResponse <DataType> {
     withCredentials?: boolean;
   }
   
-  type HttpMethods = 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'GET' | 'HEAD' | 'JSONP' | 'OPTIONS';
-  
-  
+  type HttpMethods = 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'GET' | 'HEAD' | 'JSONP' | 'OPTIONS';  
   
   export interface UserInformation {
     email: string,

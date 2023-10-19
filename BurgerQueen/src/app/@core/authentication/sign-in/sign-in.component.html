@@ -21,19 +21,20 @@
                     [class.is-invalid]="isFieldInvalid('password')">
                 <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
-            <span *ngIf="isFieldInvalid('password')" class="text-rojo-uno">Ingrese su contraseña</span>
+            <span *ngIf="isFieldInvalid('password')" class="error-text">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
             <span *ngIf="invalidCredentials" class="error-text">Credenciales incorrectas</span>
         </div>
         <div class="buttonContainer">
-            <button type="submit" id="btn-entrar" class="btn-ppal">
-                <div *ngIf="isLoading" class="spinner-border" role="status">
+            <button type="submit" class="btn-ppal" [disabled]="isLoading">
+                <div *ngIf="isLoading" class="spinner-border">
                     <span class="visually-hidden"></span>
                 </div>
 
                 <span *ngIf="!isLoading"> Ingresar</span>
-            </button>
+            </button>    
         </div>
+        <div *ngIf="isLoading" aria-live="polite" class="loadingMessage">Formulario enviado, estado: cargando</div>
     </form>
 </div>

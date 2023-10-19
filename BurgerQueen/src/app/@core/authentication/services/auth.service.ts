@@ -17,8 +17,8 @@ export interface Credentials  {
 export class AuthService {
   private apiUrl = environment.apiUrl;
   private loginHandler!:requestHandler <LoginResponse, Credentials>
-  loginResponse$!: Subject<requestResponse<LoginResponse>>;
-  systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
+  public loginResponse$!: Subject<requestResponse<LoginResponse>>;
+  public systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService ) {
     this.loginHandler = new requestHandler<LoginResponse, Credentials>(this.http)
@@ -49,6 +49,6 @@ export class AuthService {
   }
 
   logout () {
-    this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""})
+    this.systemUser$.next({ id: '', accessToken: '', role: '', email: ""});
   }
 }

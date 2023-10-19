@@ -31,7 +31,8 @@ export class HeaderComponent implements OnInit , OnDestroy{
     
     this.authService.systemUser$.subscribe(systemUser => {
       this.systemUser = systemUser;
-      this.setPersonalInfo();
+      this.userEmail = this.systemUser.email;
+      this.userRole =  this.systemUser.role;
     })
   }
 
@@ -49,11 +50,6 @@ export class HeaderComponent implements OnInit , OnDestroy{
     } else {
       this.renderer.addClass(menuElement, 'show');
     }
-  }
-
-  setPersonalInfo() {
-    this.userEmail = this.systemUser.email;
-    this.userRole =  this.systemUser.role;
   }
 
   signOut() {

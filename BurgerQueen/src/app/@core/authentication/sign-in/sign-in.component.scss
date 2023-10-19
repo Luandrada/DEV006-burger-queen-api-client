@@ -78,8 +78,8 @@
     .buttonContainer {
         margin-top: 30px;
         .spinner-border {
-            width: 10px;
-            height: 10px;
+            width: 15px;
+            height: 15px;
         }
     }
 }
@@ -99,4 +99,8 @@
     color: $color-error;
     text-align: left;
     font-family: $secondary-font;
+}
+
+.loadingMessage {
+    visibility: hidden;
 }

@@ -1,16 +1,15 @@
 /* Importing Variables. */
 @import '../../../../../variables.scss';
 
-.bgPedidos{
+.bgOrders{
     background-color: $color-bq4;
-    background: linear-gradient(0deg,  $color-bq3 3%,  $color-bq4 100%);
     height: fit-content;
     min-height: 91vh;
     padding: 40px;
     padding-inline: 30px;
     .titleSection {
-        font-family: $fte-ppal;
-        color: rgb(23, 22, 22);
+        font-family: $primary-font;
+        color: #171616;
         margin-bottom: 30px;
     }
     .orderMenu {

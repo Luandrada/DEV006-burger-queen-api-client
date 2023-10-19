@@ -12,22 +12,26 @@
     padding: 0;
 }
 
-.btn-ppal {
+.primary-button {
     height: 35px;
     width: fit-content;
     padding-inline: 10px;
     min-width: 110px;
     border-radius: 10px;
     background-color:  $color-bq2;
-    color: white;
+    color: #ffffff;
     border: 0;
     cursor: pointer;
     &:disabled {
-        background-color: rgb(184, 179, 179);
+        background-color: $color-background;
+    }
+    &:hover{
+        background-color: $color-bq1;
+        color: $color-bq2
     }
 }
 
-.btn-sec {
+.secondary-button {
     height: 35px;
     width: 110px;
     color: $color-bq2;
@@ -36,10 +40,10 @@
     border: 0;
     cursor: pointer;
     &:disabled {
-        background-color: rgb(184, 179, 179);
+        background-color: $color-background;
     }
 }
-.btn-sec-border {
+.secondary-button-border {
     height: 35px;
     width: 110px;
     color: $color-bq2;
@@ -52,6 +56,6 @@
     border: 1px solid $color-bq2;
     cursor: pointer;
     &:disabled {
-        background-color: rgb(184, 179, 179);
+        background-color: $color-background;
     }
 }

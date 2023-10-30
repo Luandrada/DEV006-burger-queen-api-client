@@ -3,8 +3,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SignInComponent } from './sign-in.component';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { of } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -12,62 +11,67 @@ describe('SignInComponent', () => {
   let authService: AuthService;
 
   beforeEach(() => {
+    const httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
+
     TestBed.configureTestingModule({
       declarations: [SignInComponent],
       imports: [ReactiveFormsModule, RouterTestingModule],
-      providers: [AuthService],
+      providers: [
+        AuthService,
+        { provide: HttpClient, useValue: httpClientSpy },
+      ],
     });
     fixture = TestBed.createComponent(SignInComponent);
     component = fixture.componentInstance;
     authService = TestBed.inject(AuthService);
-    spyOn(authService, 'login').and.callFake(() => {
-      return;
-    });
     fixture.detectChanges();
   });
 
-  it(' initialize the form', () => {
-    fixture.detectChanges();
+  it('initialize the form', () => {
     expect(component.formLogin).toBeTruthy();
     expect(component.formLogin.get('email')).toBeTruthy();
     expect(component.formLogin.get('password')).toBeTruthy();
   });
 
-  it('should call signIn when the form is valid', () => {
-    spyOn(component, 'signIn');
+  it('should call login when the form is valid', () => {
     const credentials = {
       email: 'test@example.com',
       password: 'myRealPassword',
-    }
+    };
     component.formLogin.setValue(credentials);
+
+    spyOn(authService, 'login');
+
     component.signIn();
     expect(authService.login).toHaveBeenCalledWith(credentials);
   });
 
-  it('should not call signIn when the form is invalid', () => {
-    spyOn(component, 'signIn');
-    component.formLogin.setValue({
+  it('should not call login when the form is invalid', () => {
+    const credentials = {
       email: 'test@example.com',
-      password: '', 
-    });
+      password: '',
+    };
+    component.formLogin.setValue(credentials);
+
+    spyOn(authService, 'login');
+
     component.signIn();
     expect(authService.login).not.toHaveBeenCalled();
   });
 
-  it('handle login errors', () => {
-    const errorResponse = new HttpErrorResponse({ error: 'Incorrect password' });
-    spyOn(authService, 'login').and.callFake(() => {
-      return of(errorResponse);
+  it('should set errorMessage to "Credenciales Inválidas" for "Incorrect password" error', () => {
+    const errorResponse: HttpErrorResponse = new HttpErrorResponse({
+      error: 'Incorrect password',
     });
 
-    component.formLogin.setValue({
-      email: 'test@example.com',
-      password: 'incorrectPassword',
+    authService.loginResponse$.next({
+      isLoading: false,
+      error: errorResponse,
+      data: null,
     });
 
-    component.signIn();
-
-    expect(component.errorMessage).toBe('Credenciales Inválidas');
+    component.authService.loginResponse$.subscribe(() => {
+      expect(component.errorMessage).toEqual('Credenciales Inválidas');
+    });
   });
-
 });

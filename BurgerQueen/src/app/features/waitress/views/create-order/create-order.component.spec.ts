@@ -27,6 +27,33 @@ describe('CreateOrderComponent', () => {
     expect(component.orderDetail[0].qty).toBe(1);
   });
 
+  it('should increase quantity when handleAddItem is called for an existing product', () => {
+    const mockProduct: Product = { id: 1, name: 'Test Product', price: 10, image:"", type:"breakfast"};
+    component.orderDetail = [{ product: mockProduct, qty: 1 }];
+
+    component.handleAddItem(mockProduct.id);
+
+    expect(component.orderDetail[0].qty).toBe(2);
+  });
+
+  it('should decrease quantity when handleDeleteItem is called for an existing product with quantity > 1', () => {
+    const mockProduct: Product = { id: 1, name: 'Test Product', price: 10, image:"", type:"breakfast" };
+    component.orderDetail = [{ product: mockProduct, qty: 2 }];
+
+    component.handleDeleteItem(mockProduct.id);
+
+    expect(component.orderDetail[0].qty).toBe(1);
+  });
+
+  it('should remove item from order when handleDeleteItem is called for an existing product with quantity = 1', () => {
+    const mockProduct: Product = { id: 1, name: 'Test Product', price: 10, image:"", type:"breakfast" };
+    component.orderDetail = [{ product: mockProduct, qty: 1 }];
+
+    component.handleDeleteItem(mockProduct.id);
+
+    expect(component.orderDetail.length).toBe(0);
+  });
+
   it('should remove item from order when handleRemoveItem is called', () => {
     const mockProduct: Product = { id: 1, name: 'Test Product', price: 10, image:"", type:"breakfast" };
     component.orderDetail = [{ product: mockProduct, qty: 1 }];

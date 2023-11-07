@@ -5,7 +5,7 @@
         <div class="row1 ">
             <div class="inputContainer">
                 <label for="username">Usuario</label>
-                <input type="text" id="username" required placeholder="hola@burguerqueen.com" formControlName="email"
+                <input type="text" id="username" placeholder="hola@burguerqueen.com" formControlName="email"
                     [class.is-invalid]="isFieldInvalid('email')">
                 <i class="fas fa-user" id="icono-user" [class.is-invalid]="isFieldInvalid('email')"></i>
             </div>
@@ -17,14 +17,14 @@
         <div class="row1">
             <div class="inputContainer">
                 <label for="password">Contraseña</label>
-                <input [type]="attrsToShowPassword.inputPasswordType" id="password" required #password placeholder="Contraseña" formControlName="password"
+                <input [type]="attrsToShowPassword.inputPasswordType" id="password" #password placeholder="Contraseña" formControlName="password"
                     [class.is-invalid]="isFieldInvalid('password')">
                 <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
             <span *ngIf="isFieldInvalid('password')" class="error-text">Ingrese su contraseña</span>
         </div>
         <div class="errorMessage">
-            <span *ngIf="errorMessage" class="error-text">{{errorMessage}}</span>
+            <span *ngIf="invalidCredentials" class="error-text">Credenciales incorrectas</span>
         </div>
         <div class="buttonContainer">
             <button type="submit" class="btn-ppal" [disabled]="isLoading">

@@ -8,5 +8,5 @@
         (createOrder)="handleCreateOrder($event)">
         </app-order-detail>
     </div>
-    <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal>
+    <app-modal *ngIf="showDeleteModal" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal>
 </div>

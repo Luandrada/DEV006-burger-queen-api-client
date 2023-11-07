@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { LocalStorageService } from 'src/app/@core/services/local-storage.service';
 import { ElementRef, Renderer2 } from '@angular/core';
@@ -45,10 +44,6 @@ describe('HeaderComponent', () => {
 
   it('should create the HeaderComponent', () => {
     expect(component).toBeTruthy();
-  });
-
-  xit('should set imgRole based on authService.getRole()', () => {
-    expect(component.imgRole).toBe('../../../../assets/img/camarera.png'); 
   });
 
   xit('should toggle menu visibility', () => {

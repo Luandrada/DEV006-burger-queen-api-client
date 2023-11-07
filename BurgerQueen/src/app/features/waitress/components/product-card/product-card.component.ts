@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Product } from 'src/app/shared/models/Product';
 
 const placeholderProd: Product = {
@@ -15,10 +15,7 @@ const placeholderProd: Product = {
   styleUrls: ['./product-card.component.scss']
 })
 
-export class ProductCardComponent implements OnInit {
+export class ProductCardComponent {
   
   @Input() product: Product = placeholderProd;
-  constructor() { }
-
-  ngOnInit(): void {}
 }

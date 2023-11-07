@@ -1,53 +1,104 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AuthService } from './auth.service';
-import { Credentials, LoginResponse } from '../../../shared/models/Login';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { AuthService, Credentials } from './auth.service';
+import { LoginResponse } from '../../interfaces';
+
+class MockLocalStorageService {
+  private storage: { [key: string]: any } = {};
+
+  setItem(key: string, value: any): void {
+    this.storage[key] = value;
+  }
+
+  getItem(key: string): any {
+    return this.storage[key] || null;
+  }
+}
 
 describe('AuthService', () => {
   let authService: AuthService;
   let httpTestingController: HttpTestingController;
+  let localStorageService: MockLocalStorageService;
+  const mockCredentials: Credentials = {
+    email: 'test@test.com',
+    password: 'password',
+  };
+
+  const mockResponse: LoginResponse = {
+    user: {
+      id: 1,
+      role: 'user',
+      email: 'test@test.com',
+    },
+    accessToken: 'mockAccessToken',
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [AuthService]
+      providers: [AuthService, MockLocalStorageService],
     });
+
     authService = TestBed.inject(AuthService);
     httpTestingController = TestBed.inject(HttpTestingController);
+    localStorageService = TestBed.inject(MockLocalStorageService);
   });
 
-  it('should be created', () => {
-    expect(authService).toBeTruthy();
-  });
+  describe('Login', () => {
+    it('should make a POST request to the login endpoint with correct credentials ', () => {
+      authService.login(mockCredentials);
+      const req = httpTestingController.expectOne(
+        `${authService['apiUrl']}/login`
+      );
 
-  it('should return a token and role when calling getToken and getRole', () => {
-    localStorage.setItem('accessToken', 'fakeAccessToken');
-    localStorage.setItem('role', 'admin');
+      expect(req.request.method).toEqual('POST');
+      expect(req.request.body).toEqual(mockCredentials);
 
-    const token = authService.getToken();
-    const role = authService.getRole();
-
-    expect(token).toBe('fakeAccessToken');
-    expect(role).toBe('admin');
-  });
-
-  it('should send a POST request to the login endpoint and return a response', () => {
-    const mockCredentials: Credentials = { email: 'user@prueba.com', password: 'password' };
-    const mockResponse: LoginResponse = { accessToken: 'asdtoken', user:{ email: "hola@hola", id: 1, role: "admin"} };
-
-    authService.sigIn(mockCredentials).subscribe((response) => {
-      expect(response).toEqual(mockResponse);
+      req.flush(mockResponse);
     });
 
-    const req = httpTestingController.expectOne(`http://localhost:8080/login`);
-    expect(req.request.method).toEqual('POST');
-    req.flush(mockResponse);
+    it('should handle login errors', () => {
+      const errorMessage = 'Login failed';
+      authService.login(mockCredentials);
+      httpTestingController.expectOne(`${authService['apiUrl']}/login`).error(
+        new ErrorEvent('Network error', {
+          message: errorMessage,
+        })
+      );
 
-    httpTestingController.verify();
+      authService.systemUser$.subscribe((user) => {
+        expect(user).toEqual({
+          id: '',
+          accessToken: '',
+          role: '',
+          email: '',
+        });
+
+        expect(localStorageService.getItem('accessToken')).toBe(null);
+        expect(localStorageService.getItem('role')).toBe(null);
+        expect(localStorageService.getItem('idUser')).toBe(null);
+      });
+    });
+  });
+
+  describe('Logout', () => {
+    it('should clear systemUser$ when calling logout', () => {
+      authService.logout();
+      authService.systemUser$.subscribe((user) => {
+        expect(user).toEqual({ id: '', accessToken: '', role: '', email: '' });
+
+        expect(localStorageService.getItem('accessToken')).toBe(null);
+        expect(localStorageService.getItem('role')).toBe(null);
+        expect(localStorageService.getItem('idUser')).toBe(null);
+      });
+    });
   });
 
   afterEach(() => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('role');
+    httpTestingController.verify();
+    authService.systemUser$.unsubscribe();
   });
 });

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProductItemList } from 'src/app/shared/models/Product';
 
 @Component({
@@ -6,12 +6,15 @@ import { ProductItemList } from 'src/app/shared/models/Product';
   templateUrl: './product-list-item.component.html',
   styleUrls: ['./product-list-item.component.scss']
 })
-export class ProductListItemComponent {
+export class ProductListItemComponent implements OnInit {
   @Input() product: ProductItemList | null = null; 
   @Output() updateQuantity: EventEmitter<{ id: number; qtyChange: number }> = new EventEmitter<{ id: number; qtyChange: number }>();
   @Output() itemToRemove: EventEmitter<number> = new EventEmitter<number>();
 
   totalUnidad: number = 0;
+  constructor() { }
+
+  ngOnInit(): void {}
 
   get subtotal(): number{
     if (this.product) {

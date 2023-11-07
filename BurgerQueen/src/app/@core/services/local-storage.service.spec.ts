@@ -11,6 +11,10 @@ describe('LocalStorageService', () => {
     localStorageService = TestBed.inject(LocalStorageService);
   });
 
+  it('should be created', () => {
+    expect(localStorageService).toBeTruthy();
+  });
+
   it('should set and get a value in localStorage', () => {
     localStorageService.setStorage('testKey', 'testValue');
     const retrievedValue = localStorage.getItem('testKey');

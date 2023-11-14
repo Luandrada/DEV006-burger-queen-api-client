@@ -22,7 +22,7 @@ export class ProductService {
       return of(this.allProducts) ;
     }
     
-    const token = this.authService.systemUser$.getValue().accessToken;
+    const token = this.authService.systemUser$?.getValue().accessToken;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

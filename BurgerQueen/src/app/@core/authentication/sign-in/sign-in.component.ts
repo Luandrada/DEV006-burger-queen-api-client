@@ -50,10 +50,11 @@ export class SignInComponent implements OnInit {
   }
   
   isFieldInvalid(fieldName: string) {
-    return (
-      this.formLogin?.get(fieldName)?.invalid &&
-      this.formLogin.get(fieldName)?.touched
-    );
+    const formValue = this.formLogin.get(fieldName)
+    if(!formValue){
+      return false
+    }
+    return ( formValue.invalid && formValue.touched );
   }
 
   showPsw() {
@@ -71,7 +72,7 @@ export class SignInComponent implements OnInit {
   signIn(): void {
     this.errorMessage = null;
 
-    if (this.formLogin?.invalid) {
+    if (this.formLogin.invalid) {
       Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
       return;

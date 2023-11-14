@@ -20,7 +20,7 @@
                 <label for="password">Contraseña</label>
                 <input [type]="attrsToShowPassword.inputPasswordType" id="password" #password placeholder="Contraseña" formControlName="password"
                     [class.is-invalid]="isFieldInvalid('password')">
-                <i [class]="attrsToShowPassword.iconClass" role="button" y tabindex="0" (click)="showPsw()"></i>
+                <i [class]="attrsToShowPassword.iconClass" id="show-pwd" role="button" y tabindex="0" (click)="showPsw()"></i>
             </div>
             <span *ngIf="isFieldInvalid('password')" id="empty-pwd" class="text-rojo-uno">Ingrese su contraseña</span>
         </div>

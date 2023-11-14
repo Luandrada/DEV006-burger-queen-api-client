@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LocalStorageService } from '../../services/local-storage.service';
 import { requestHandler } from '../../utils/requestHandler';
 import { LoginResponse, requestResponse, systemUser } from '../../interfaces';
 
@@ -20,7 +19,7 @@ export class AuthService {
   public loginResponse$!: Subject<requestResponse<LoginResponse>>;
   public systemUser$ = new BehaviorSubject<systemUser>({ id: '', accessToken: '', role: '', email: ''});
 
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService ) {
+  constructor(private http: HttpClient) {
     this.loginHandler = new requestHandler<LoginResponse, Credentials>(this.http)
     this.loginResponse$ = this.loginHandler.response$;
 
@@ -35,11 +34,6 @@ export class AuthService {
         this.systemUser$.next(newUser);
       }
     });
-    this.systemUser$.subscribe((user)=>{
-      this.localStorageService.setStorage("accessToken", user.accessToken);
-      this.localStorageService.setStorage("role", user.role);
-      this.localStorageService.setStorage("idUser", user.id);
-    })
   }
 
   login(credentials: Credentials) {

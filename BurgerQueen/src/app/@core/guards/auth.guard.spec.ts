@@ -6,7 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
-  let authService: AuthService;
+  //let authService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -14,7 +14,7 @@ describe('AuthGuard', () => {
       providers: [AuthGuard, AuthService]
     });
     guard = TestBed.inject(AuthGuard);
-    authService = TestBed.inject(AuthService);
+    //authService = TestBed.inject(AuthService);
   });
 
   it('should be created', () => {

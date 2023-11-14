@@ -9,7 +9,7 @@ const routes: Routes = [
     allowedRoles: ['admin']
   } },
   { path: 'orders', loadChildren: () => import('./features/waitress/waitress.module').then(m => m.WaitressModule), canActivate: [AuthGuard, RoleGuard], data: {
-    allowedRoles: ['mesera']
+    allowedRoles: ['waiter']
   } },
   { path: 'sign-in', component: SignInComponent},
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' }, 

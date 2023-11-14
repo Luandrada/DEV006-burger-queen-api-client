@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/@core/authentication/services/auth.service'
 describe('OrdersService', () => {
   let service: OrdersService;
   let httpMock: HttpTestingController;
-  let authService: AuthService;
+  //let authService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,7 +15,7 @@ describe('OrdersService', () => {
     });
     service = TestBed.inject(OrdersService);
     httpMock = TestBed.inject(HttpTestingController);
-    authService = TestBed.inject(AuthService);
+    //authService = TestBed.inject(AuthService);
   });
 
   afterEach(() => {

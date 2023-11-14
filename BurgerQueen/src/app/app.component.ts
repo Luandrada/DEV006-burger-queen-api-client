@@ -11,8 +11,8 @@ export class AppComponent {
   title = 'BurgerQueen';
 
   redirections: { [key: string]: string } = {
-    mesera: 'orders/create',
-    cocinera: '',
+    waiter: 'orders/create',
+    chef: '',
     admin: '',
   };
 
@@ -20,6 +20,7 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.authService.systemUser$.subscribe((user)=>{
+      console.log("HOLAAA")
       if(!user.accessToken) { 
         this.router.navigate(['/sign-in']);
         return

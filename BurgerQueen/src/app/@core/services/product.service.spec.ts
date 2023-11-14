@@ -6,7 +6,7 @@ import { AuthService } from '../authentication/services/auth.service';
 describe('ProductService', () => {
   let productService: ProductService;
   let httpTestingController: HttpTestingController;
-  let authService: AuthService;
+  //let authService: AuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,7 +23,7 @@ describe('ProductService', () => {
     });
     productService = TestBed.inject(ProductService);
     httpTestingController = TestBed.inject(HttpTestingController);
-    authService = TestBed.inject(AuthService);
+    //authService = TestBed.inject(AuthService);
   });
 
   afterEach(() => {

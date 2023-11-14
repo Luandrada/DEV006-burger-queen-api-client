@@ -72,8 +72,9 @@ export class SignInComponent implements OnInit {
     this.errorMessage = null;
 
     if (this.formLogin?.invalid) {
-      return Object.values(this.formLogin.controls)
+      Object.values(this.formLogin.controls)
         .forEach(control => control.markAsTouched());
+      return;
     } else {
       this.authService.login(this.formLogin.value)
     }

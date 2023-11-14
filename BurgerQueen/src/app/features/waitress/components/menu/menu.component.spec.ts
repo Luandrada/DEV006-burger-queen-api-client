@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 describe('MenuComponent', () => {
   let component: MenuComponent;
   let fixture: ComponentFixture<MenuComponent>;
-  let productService: ProductService;
+  //let productService: ProductService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -23,7 +23,7 @@ describe('MenuComponent', () => {
     });
     fixture = TestBed.createComponent(MenuComponent);
     component = fixture.componentInstance;
-    productService = TestBed.inject(ProductService);
+    //productService = TestBed.inject(ProductService);
   });
 
   it('should create the MenuComponent', () => {

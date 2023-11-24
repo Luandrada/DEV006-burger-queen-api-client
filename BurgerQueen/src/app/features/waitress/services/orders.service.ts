@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subscriber } from 'rxjs';
+import { Observable, /*Subscriber*/ } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
 import { Order, item} from 'src/app/shared/models/Product';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
@@ -15,34 +15,17 @@ export class OrdersService {
   
   constructor(private authService: AuthService, private requestHandler: requestHandler) { }
 
-  createOrder(newOrder: {client: string, items: Map<string, item>}): Observable<requestResponse<Order>> {
-    return new Observable((subscriber: Subscriber<requestResponse<Order>>) => {
-      const url = `${this.apiUrl}/orders`;
-      const systemUser = this.authService.getSystemUser()
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${systemUser.accessToken}`
-      });
-      const body: Order = { 
-        ...newOrder,
-        userId: Number(systemUser.id),
-        status: 'pending'
-      };
-
-      const subscriptionRequest = this.requestHandler.makeCall<Order,Order>('POST', url, body, { headers })
-      .subscribe({
-        next: (requestResponse) => {
-          subscriber.next(requestResponse)
-        },
-        complete () {
-          subscriber.complete(); 
-        }
-      });
-
-      return {
-        unsubscribe() {
-          subscriptionRequest.unsubscribe();
-        }
-      }
+  createOrder(newOrder: {client: string, items: {[key: number] : item}}): Observable<requestResponse<Order>> {
+    const url = `${this.apiUrl}/orders`;
+    const systemUser = this.authService.getSystemUser()
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${systemUser.accessToken}`
     });
+    const body: Order = { 
+      ...newOrder,
+      userId: Number(systemUser.id),
+      status: 'pending'
+    };
+    return this.requestHandler.makeCall<Order,Order>('POST', url, body, { headers })
   }
 }

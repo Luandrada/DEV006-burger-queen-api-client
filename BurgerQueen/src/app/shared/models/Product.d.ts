@@ -14,6 +14,6 @@ export interface item {
 export interface Order {
   userId: number,
   client: string,
-  items: Map<string, item>
+  items: {[key: number] : item}
   status: "pending" | "delivered",
 }

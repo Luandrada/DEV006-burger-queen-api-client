@@ -2,15 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { OrdersService } from './orders.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { item} from 'src/app/shared/models/Product';
 import { first, last } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 describe('OrdersService', () => {
   let service: OrdersService;
   let httpTestingController: HttpTestingController;
 
-  const items = new Map<string, item>();
-  items.set('1', {
+  const items = { 
+    1: {
     qty:1,
     product:{
       id: 1,
@@ -20,7 +19,7 @@ describe('OrdersService', () => {
       type: 'Desayuno',
       dataEntry: "2022-03-05 15:14:10"
     }
-  })
+  }}
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -84,7 +83,6 @@ describe('OrdersService', () => {
         .pipe(last())
         .subscribe({
           next: response => {
-            console.log("HOLAA")
             expect(response.isLoading).toBeFalse()
             expect(response.data).toEqual({
               userId: 1,

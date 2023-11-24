@@ -90,7 +90,10 @@ describe('AuthService', () => {
       })
     })
     concat(authService.login(mockCredentials), observable, authService.systemUser$)
-    // I skip 3 values because first i make a login and the  when the login is complete and we have information in the systemUser$ make a logut call to clean it 
+    // I skip 3 values because first i make a login and 
+    // when the login is complete and 
+    // we have information in the systemUser$ 
+    // make a logout call to clean it 
       .pipe(skip(3))
       .subscribe({
         next:(response) => {

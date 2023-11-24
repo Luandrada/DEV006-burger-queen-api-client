@@ -1,13 +1,13 @@
 <div class="bgPedidos">
     <h2 class="titleSection">Crear Pedido</h2>
-    <div class="orderMenu">
+    <!-- <div class="orderMenu">
         <app-menu (menuItemsSelected)="handleAddItemToOrder($event)"></app-menu>
         <app-order-detail [productList]="selectedItems"
         (updateQuantity)="updateQuantity($event)"
         (itemToRemove)="handleRemoveItem($event)"
         (clearOrder)="handleClearOrder()">
-        </app-order-detail>
+        </app-order-detail> -->
         <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->
-    </div>
-    <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal>
+    <!-- </div> -->
+    <!-- <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal> -->
 </div>

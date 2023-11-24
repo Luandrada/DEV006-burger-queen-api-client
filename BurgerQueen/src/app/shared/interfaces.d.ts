@@ -34,4 +34,8 @@ interface requestResponse <DataType> {
     accessToken: string,
     user: UserInformation
   }
+
   
+  export interface filtersForProducts{
+    types?: string[]
+  }

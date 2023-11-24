@@ -4,9 +4,9 @@ export interface Product {
     price: number,
     image: string,
     type: string,
-    dataEntry?: Date,
+    dataEntry?: string,
 }
-export interface ProductItemList {
+export interface item {
     qty: number,
     product: Product,
 }
@@ -14,6 +14,6 @@ export interface ProductItemList {
 export interface Order {
   userId: number,
   client: string,
-  products: ProductItemList[],
+  items: Map<string, item>
   status: "pending" | "delivered",
 }

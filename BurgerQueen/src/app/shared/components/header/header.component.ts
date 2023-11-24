@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, OnDestroy, Renderer2, ViewChild } from '
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { systemUser } from 'src/app/@core/interfaces';
+import { systemUser } from 'src/app/shared/interfaces';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',

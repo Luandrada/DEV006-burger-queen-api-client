@@ -1,30 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Order, ProductItemList } from 'src/app/shared/models/Product';
+import { Observable, Subscriber } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { Order, item} from 'src/app/shared/models/Product';
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { requestResponse } from 'src/app/shared/interfaces';
+import { requestHandler } from 'src/app/@core/utils/requestHandler.service';
 @Injectable({
   providedIn: 'root'
 })
 
 export class OrdersService {
   private apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  
+  constructor(private authService: AuthService, private requestHandler: requestHandler) { }
 
-  createOrder(data: {client: string, products: ProductItemList[]}): Observable<any> {
-    const url = `${this.apiUrl}/products`;
-    const systemUser = this.authService.systemUser$.getValue()
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${systemUser.accessToken}`
+  createOrder(newOrder: {client: string, items: Map<string, item>}): Observable<requestResponse<Order>> {
+    return new Observable((subscriber: Subscriber<requestResponse<Order>>) => {
+      const url = `${this.apiUrl}/orders`;
+      const systemUser = this.authService.getSystemUser()
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${systemUser.accessToken}`
+      });
+      const body: Order = { 
+        ...newOrder,
+        userId: Number(systemUser.id),
+        status: 'pending'
+      };
+
+      const subscriptionRequest = this.requestHandler.makeCall<Order,Order>('POST', url, body, { headers })
+      .subscribe({
+        next: (requestResponse) => {
+          subscriber.next(requestResponse)
+        },
+        complete () {
+          subscriber.complete(); 
+        }
+      });
+
+      return {
+        unsubscribe() {
+          subscriptionRequest.unsubscribe();
+        }
+      }
     });
-
-    const body: Order = { 
-      ...data,
-      userId: Number(systemUser.id),
-      status: 'pending'
-    };
-
-    return this.http.post(url, body, { headers });
   }
 }

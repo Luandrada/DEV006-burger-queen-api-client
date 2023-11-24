@@ -20,7 +20,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.authService.systemUser$.subscribe((user)=>{
-      console.log("HOLAAA")
       if(!user.accessToken) { 
         this.router.navigate(['/sign-in']);
         return

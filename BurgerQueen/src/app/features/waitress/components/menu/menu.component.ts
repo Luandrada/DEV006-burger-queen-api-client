@@ -1,6 +1,6 @@
 import { Component, OnInit, Output,  EventEmitter , OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ProductService } from 'src/app/@core/services/product.service';
+// import { ProductService } from 'src/app/@core/services/product.service';
 import { Product } from 'src/app/shared/models/Product';
 
 @Component({
@@ -17,13 +17,13 @@ export class MenuComponent implements OnInit , OnDestroy{
 
   private productSubscription: Subscription = new Subscription();
 
-  constructor(private productService: ProductService) { }
+  // constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    this.productSubscription = this.productService.getAllProducts().subscribe((resp) => {
-      this.allProductsData = resp;
-      this.changeMenu(this.selectedMenu);
-    })
+    // this.productSubscription = this.productService.getAllProducts().subscribe((resp) => {
+    //   this.allProductsData = resp;
+    //   this.changeMenu(this.selectedMenu);
+    // })
   }
 
   ngOnDestroy() {
@@ -34,10 +34,10 @@ export class MenuComponent implements OnInit , OnDestroy{
 
   changeMenu(type: string) {
     this.selectedMenu = type; 
-    this.productService.getProductByCategory([type]).subscribe(resp => {
-      this.products = resp;
-      this.isLoading = false;
-    });
+    // this.productService.getProductByCategory([type]).subscribe(resp => {
+    //   this.products = resp;
+    //   this.isLoading = false;
+    // });
   }
 
   addProduct(product : Product) {

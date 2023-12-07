@@ -1,7 +1,8 @@
 import { Component, OnInit, Output,  EventEmitter , OnDestroy} from '@angular/core';
 import { Subscription } from 'rxjs';
-// import { ProductService } from 'src/app/@core/services/product.service';
-import { Product } from 'src/app/shared/models/Product';
+import { ProductService } from 'src/app/@core/services/product.service';
+import { requestResponse } from 'src/app/shared/interfaces';
+import { Product, menu } from 'src/app/shared/models/Product';
 
 @Component({
   selector: 'app-menu',
@@ -9,21 +10,28 @@ import { Product } from 'src/app/shared/models/Product';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit , OnDestroy{
-  @Output() menuItemsSelected: EventEmitter<Product> = new EventEmitter<Product>();
-  allProductsData: Array<Product> = [];
-  products: Array<Product> = [];
-  selectedMenu: string = "Desayuno";
-  isLoading: boolean = true;
+  @Output() selectProduct: EventEmitter<Product> = new EventEmitter<Product>();
+  productsResponse: requestResponse<Product[]> = {
+    isLoading: false,
+    error: null,
+    data: []
+  }
+  selectedMenu: menu = "Desayuno";
+  
 
   private productSubscription: Subscription = new Subscription();
 
-  // constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
-    // this.productSubscription = this.productService.getAllProducts().subscribe((resp) => {
-    //   this.allProductsData = resp;
-    //   this.changeMenu(this.selectedMenu);
-    // })
+    this.getProducts();
+  }
+
+  getProducts(){
+    this.productSubscription = this.productService.getProducts({types:[this.selectedMenu]})
+    .subscribe(response => {
+      this.productsResponse = response
+    })
   }
 
   ngOnDestroy() {
@@ -32,15 +40,12 @@ export class MenuComponent implements OnInit , OnDestroy{
     }
   }
 
-  changeMenu(type: string) {
+  changeMenu(type: menu) {
     this.selectedMenu = type; 
-    // this.productService.getProductByCategory([type]).subscribe(resp => {
-    //   this.products = resp;
-    //   this.isLoading = false;
-    // });
+    this.getProducts();
   }
 
   addProduct(product : Product) {
-    this.menuItemsSelected.emit(product);
+    this.selectProduct.emit(product);
   }
 }

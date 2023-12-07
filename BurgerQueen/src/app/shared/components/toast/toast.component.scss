@@ -1,0 +1,60 @@
+.position-top-right{
+    top: 2%; 
+    right: 2%;
+}
+
+.position-top-left{
+    top: 2%; 
+    left: 2%;
+}
+
+.position-center{
+    top: 50%;
+    left: 50%;
+}
+
+
+.toast{
+    background-color: grey;
+    width: 350px;
+    position: absolute;
+
+    .toast-grid{
+        display: grid;
+        grid-template-areas:
+        'img title btn-close'
+        'img message message';
+        grid-template-columns: 20% 70% 10%;
+        grid-template-rows: 50% 50% ;
+
+        .img{
+            grid-area: img;
+        }
+
+        .title{
+            grid-area: title;
+            padding: 5px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .message{
+            grid-area: message;
+            padding: 3px;
+            font-size: small;
+            white-space: pre-wrap;
+            word-break: break-all; 
+        }
+
+        .btn-close{
+            grid-area: btn-close;
+        }
+
+        .flexbox-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+}
+

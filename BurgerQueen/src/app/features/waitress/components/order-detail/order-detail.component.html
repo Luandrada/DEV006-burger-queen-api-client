@@ -1,16 +1,29 @@
 <div class="orderDetailContainer ">
-    <form autocomplete="off" [formGroup]="formOrderInfo" (ngSubmit)="sendOrder()">
+
         <div class="headerList">
             <span class="pedido">Pedido para : </span>
             <div class="orderInfo">
                 <div class="row-input">
                     <label for="clientName"> Nombre</label>
-                    <input formControlName="clientName" type="text" id="clientName" class="inputName" placeholder="María">
+                    <input 
+                      type="text" 
+                      id="clientName"
+                      class="inputName"
+                      placeholder="María"
+                      [value]="order.customer"
+                      (input)='onChangeCustomer'
+                    >
                 </div>
                 <div class="row-input">
                     <label for="mesa"> Mesa</label>
 
-                    <select name="mesa" id="mesa" formControlName="table" class="inputName">
+                    <select 
+                      name="mesa" 
+                      id="mesa" 
+                      class="inputName"
+                      [value]="order.table"
+                      (change)='onChangeTable'
+                    >
                         <option hidden selected value="">- Seleccione -</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -30,15 +43,20 @@
             <p class="subtotal">P.U</p>
             <p class="subtotal">Subtotal</p>
         </div>
-        <div class="containerItems" *ngIf="productList">
-            <app-product-list-item  *ngFor="let item of productList; let i=index" [product] = item (updateQuantity)="updateQuantity.emit($event)" (itemToRemove)="itemToRemove.emit($event)" ></app-product-list-item>
+        <div class="containerItems" *ngIf="items.length">
+            <app-order-item  
+              *ngFor="let item of items;"
+              [item] = item
+              (updateQuantity)="updateQuantity($event)"
+              (itemToRemove)="removeItem($event)" 
+            >
+            </app-order-item>
         </div>
-        <p *ngIf="!productList || productList.length === 0" class="placeholder">- Agregue productos a su orden - </p>
+        <p *ngIf="!items.length" class="placeholder">- Agregue productos a su orden - </p>
         
-        <button type="submit"  class="btnSend btn-ppal" [disabled]="this.formOrderInfo?.invalid || productList?.length === 0" >Enviar a Cocina</button>
+        <button type="button"  class="btnSend btn-ppal" (click)="saveOrderChangeEmiter.emit()" >Enviar a Cocina</button>
       
         <div class="total">
-            <p>TOTAL: ${{ productList | calculateTotal }}</p>
+            <p>TOTAL: ${{ items | calculateTotal }}</p>
         </div>
-    </form>
 </div>

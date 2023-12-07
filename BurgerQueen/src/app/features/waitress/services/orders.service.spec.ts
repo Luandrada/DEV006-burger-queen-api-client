@@ -4,6 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { AuthService } from 'src/app/@core/authentication/services/auth.service';
 import { first, last } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { menu } from 'src/app/shared/models/Product';
 describe('OrdersService', () => {
   let service: OrdersService;
   let httpTestingController: HttpTestingController;
@@ -16,7 +17,7 @@ describe('OrdersService', () => {
       name: 'hamburguesa',
       price: 500,
       image: "url de la imagen",
-      type: 'Desayuno',
+      type: 'Desayuno' as menu,
       dataEntry: "2022-03-05 15:14:10"
     }
   }}
@@ -43,7 +44,7 @@ describe('OrdersService', () => {
 
   it("make call to create order the first value that we should received is loading true {is loading: treu, data:null, error:null}", 
     (done:DoneFn) => {
-        service.createOrder({client:"Carlos", items: items })
+        service.createOrder({customer:"Carlos", table: 1, items: items })
         .pipe(first())
         .subscribe({
           next: response => {
@@ -62,7 +63,7 @@ describe('OrdersService', () => {
 
   it("make call to create order and the request fails we should received is error {is loading: false, data:null, error:{}}", 
     (done:DoneFn) => {
-        service.createOrder({client:"Carlos", items: items })
+        service.createOrder({customer:"Carlos", table: 1, items: items })
         .pipe(last())
         .subscribe({
           next: response => {
@@ -79,14 +80,15 @@ describe('OrdersService', () => {
 
   it("make call to create order and the request is ok we should received the data {is loading: true, data:Order, error:null}", 
     (done:DoneFn) => {
-        service.createOrder({client:"Carlos", items: items })
+        service.createOrder({customer:"Carlos", table: 1, items: items })
         .pipe(last())
         .subscribe({
           next: response => {
             expect(response.isLoading).toBeFalse()
             expect(response.data).toEqual({
               userId: 1,
-              client: "Carlos",
+              customer: "Carlos",
+              table: 1,
               items: items,
               status: "pending",
             })
@@ -100,7 +102,8 @@ describe('OrdersService', () => {
         const mock = httpTestingController.expectOne('http://localhost:8089/orders');
         mock.flush({
             userId: 1,
-            client: "Carlos",
+            customer: "Carlos",
+            table: 1,
             items: items,
             status: "pending",
           });

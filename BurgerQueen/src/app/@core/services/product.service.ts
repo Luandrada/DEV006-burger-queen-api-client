@@ -6,7 +6,7 @@ import { Product } from 'src/app/shared/models/Product';
 import { AuthService } from '../authentication/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { requestResponse } from '../../shared/interfaces';
-import { requestHandler } from '../utils/requestHandler.service';
+import { requestHandler } from '../../shared/utils/requestHandler.service';
 import { filtersForProducts } from '../../shared/interfaces';
 
 @Injectable({

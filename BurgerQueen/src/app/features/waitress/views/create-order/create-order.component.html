@@ -1,13 +1,18 @@
 <div class="bgPedidos">
     <h2 class="titleSection">Crear Pedido</h2>
-    <!-- <div class="orderMenu">
-        <app-menu (menuItemsSelected)="handleAddItemToOrder($event)"></app-menu>
-        <app-order-detail [productList]="selectedItems"
-        (updateQuantity)="updateQuantity($event)"
-        (itemToRemove)="handleRemoveItem($event)"
-        (clearOrder)="handleClearOrder()">
-        </app-order-detail> -->
+     <div
+       *ngIf="!createOrderRequest.isLoading" 
+       class="orderMenu">
+        <app-menu (selectProduct)="addItemToOrder($event)"></app-menu>
+        <app-order-detail 
+          [order]="newOrder" 
+          (orderChangeEmiter)="updateOrder"
+          (orderSaveChangeEmiter)="saveOrder"
+        >
+        </app-order-detail>
         <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->
-    <!-- </div> -->
-    <!-- <app-modal *ngIf="showDeleteModal" [data]="itemSelected" (acceptButton)="handleRemoveItem($event)" (closeModal)="handleCloseModal()"></app-modal> -->
+   </div>
+   <div *ngIf="createOrderRequest.isLoading">
+      <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+   </div>
 </div>

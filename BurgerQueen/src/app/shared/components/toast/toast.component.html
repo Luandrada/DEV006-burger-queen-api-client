@@ -1,0 +1,18 @@
+<div *ngIf="toastModel.visible" class="toast" [ngClass]="toastModel.position">
+    <div class="toast-grid">
+
+        <div *ngIf="toastModel.type" class="img flexbox-center">
+            <img *ngIf="toastModel.type == 'error'" src="assets/icons/error.svg" width="70">
+            <img *ngIf="toastModel.type == 'warning'" src="assets/icons/warning.svg" width="70">
+            <img *ngIf="toastModel.type == 'info'" src="assets/icons/info.svg" width="70" >
+        </div>
+
+        <div class="title">{{toastModel.title}}</div>
+        <div class="message">{{toastModel.message}}</div>
+
+        <div class="btn-close flexbox-center">
+            <img (click)="close()" src="assets/icons/close.svg" width="25">
+        </div>
+        
+    </div>
+</div>

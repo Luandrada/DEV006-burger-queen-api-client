@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscriber } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { requestHandler } from '../../utils/requestHandler.service';
+import { requestHandler } from '../../../shared/utils/requestHandler.service';
 import { LoginResponse, requestResponse, systemUser } from '../../../shared/interfaces';
 
 export interface Credentials  {

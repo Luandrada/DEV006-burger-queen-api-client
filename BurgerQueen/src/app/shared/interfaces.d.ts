@@ -37,5 +37,5 @@ interface requestResponse <DataType> {
 
   
   export interface filtersForProducts{
-    types?: string[]
+    types?: import("./models/Product.js").menu[]
   }

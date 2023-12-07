@@ -4,7 +4,7 @@ import { WaitressRoutingModule } from './waitress-routing.module';
 import { CreateOrderComponent } from './views/create-order/create-order.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
-import { ProductListItemComponent } from './components/product-list-item/product-list-item.component';
+import { OrderItemComponent } from './components/order-item/order-item.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
@@ -17,7 +17,7 @@ import { CalculateTotalPipe } from './pipes/calculate-total.pipe';
     CreateOrderComponent,
     MenuComponent,
     OrderDetailComponent,
-    ProductListItemComponent,
+    OrderItemComponent,
     ProductCardComponent,
     ModalComponent,
     CalculateTotalPipe

@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Observable, /*Subscriber*/ } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { Order, Item, newOrder} from 'src/app/shared/models/Product';
-import { AuthService } from 'src/app/@core/authentication/services/auth.service';
-import { environment } from 'src/environments/environment';
-import { requestResponse } from 'src/app/shared/interfaces';
-import { requestHandler } from 'src/app/shared/utils/requestHandler.service';
+import { Order, newOrder} from '../../../shared/models/Product';
+import { AuthService } from '../../../shared/services/auth/auth.service';
+import { environment } from '../../../../environments/environment';
+import { requestResponse } from '../../../shared/interfaces';
+import { requestHandler } from '../../../shared/utils/requestHandler.service';
+
 @Injectable({
   providedIn: 'root'
 })

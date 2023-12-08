@@ -9,7 +9,7 @@ import { newOrder } from 'src/app/shared/models/Product';
 export class OrderDetailComponent implements OnInit, OnChanges {
   @Input() order!:newOrder; 
   @Output() orderChangeEmiter = new EventEmitter<newOrder>();
-  @Output() saveOrderChangeEmiter = new EventEmitter();
+  @Output() saveOrderEmiter = new EventEmitter();
   
   tmpOrder!:newOrder; 
 
@@ -25,6 +25,11 @@ export class OrderDetailComponent implements OnInit, OnChanges {
 
   get items(){
     return Object.values(this.tmpOrder.items)
+  }
+
+  get sendOrderButtonIsDisabled(){
+    console.log("Holaaaa", this.tmpOrder.customer)
+    return !this.tmpOrder.customer
   }
 
   updateQuantity(data:{productId:number, newQty: number}){
@@ -48,6 +53,7 @@ export class OrderDetailComponent implements OnInit, OnChanges {
 
   onChangeCustomer(event: Event){
     this.tmpOrder.customer = (event.target as HTMLInputElement).value;
+    console.log(event, (event.target as HTMLInputElement).value, this.tmpOrder.customer)
     this.orderChangeEmiter.emit(this.tmpOrder);
   }  
 }

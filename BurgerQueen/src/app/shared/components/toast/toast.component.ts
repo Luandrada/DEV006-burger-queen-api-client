@@ -10,7 +10,7 @@ import { ToastService } from './toast.service';
 })
 export class ToastComponent implements OnDestroy {
 
-  public toastModel: ToastModel;
+  public toastModel!: ToastModel;
 
   private $subscriptions: Subscription;
 

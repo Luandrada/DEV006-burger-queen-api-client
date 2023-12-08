@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ProductService } from './product.service';
-import { AuthService } from '../authentication/services/auth.service';
+import { AuthService } from '../../shared/services/auth/auth.service';
 import { concat } from 'rxjs';
 import { first, last } from 'rxjs/operators';
 

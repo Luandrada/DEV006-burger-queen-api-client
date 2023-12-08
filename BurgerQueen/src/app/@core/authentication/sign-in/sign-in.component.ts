@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-sign-in',
@@ -9,7 +9,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 
 export class SignInComponent implements OnInit {
-  formLogin!: FormGroup;
+  formLogin!: UntypedFormGroup;
 
   attrsToShowPassword = {
     inputPasswordType: 'password',
@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   error: HttpErrorResponse | Error | null = null;
   errorMessage : string | null  = null;
 
-  constructor( private fb: FormBuilder, public authService: AuthService) { }
+  constructor( private fb: UntypedFormBuilder, public authService: AuthService) { }
 
   ngOnInit(): void {
     this.createForm();

@@ -1,6 +1,10 @@
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ToastModel, ToastPosition, ToastType } from './toast.model';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class ToastService {
   $toastState = new BehaviorSubject<ToastModel>(new ToastModel(false));
 

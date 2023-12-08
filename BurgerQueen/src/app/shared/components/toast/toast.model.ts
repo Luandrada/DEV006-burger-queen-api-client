@@ -1,8 +1,8 @@
 export class ToastModel {
     public visible: boolean;
 
-    public title: string;
-    public message: string;
+    public title!: string;
+    public message!: string;
     public position: ToastPosition;
     public type: ToastType;
 

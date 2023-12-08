@@ -79,17 +79,23 @@
         color: grey;
         text-align: center;
     }
-    .total {
+    .botom-row{
         position: absolute;
         bottom: 20px;
-        right: 30px;
-        font-weight: bold;
-        text-align: right;
-        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 90%;
+
+        .total {
+            font-weight: bold;
+            text-align: right;
+            width: 100%;
+        }
+
+        button {
+            width: 200px;
+        }
     }
-    .btnSend {
-        position: absolute;
-        bottom: 30px;
-        left: 14px;
-    }
+    
 }

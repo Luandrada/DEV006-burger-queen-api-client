@@ -11,7 +11,7 @@
                       class="inputName"
                       placeholder="María"
                       [value]="order.customer"
-                      (input)='onChangeCustomer'
+                      (input)='onChangeCustomer($event)'
                     >
                 </div>
                 <div class="row-input">
@@ -53,10 +53,19 @@
             </app-order-item>
         </div>
         <p *ngIf="!items.length" class="placeholder">- Agregue productos a su orden - </p>
-        
-        <button type="button"  class="btnSend btn-ppal" (click)="saveOrderChangeEmiter.emit()" >Enviar a Cocina</button>
-      
-        <div class="total">
-            <p>TOTAL: ${{ items | calculateTotal }}</p>
+        <div class="botom-row">
+          <button 
+            class="btnSend btn-ppal"
+            [disabled]="sendOrderButtonIsDisabled"
+            (click)="saveOrderEmiter.emit()"
+            >
+             Enviar a Cocina
+          </button>
+  
+          <div class="total">
+              <p>TOTAL: ${{ items | calculateTotal }}</p>
+          </div>
+
         </div>
+        
 </div>

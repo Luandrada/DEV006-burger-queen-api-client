@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { OrdersService } from './orders.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AuthService } from 'src/app/@core/authentication/services/auth.service';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { first, last } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { menu } from 'src/app/shared/models/Product';

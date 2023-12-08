@@ -6,8 +6,8 @@
         <app-menu (selectProduct)="addItemToOrder($event)"></app-menu>
         <app-order-detail 
           [order]="newOrder" 
-          (orderChangeEmiter)="updateOrder"
-          (orderSaveChangeEmiter)="saveOrder"
+          (orderChangeEmiter)="updateOrder($event)"
+          (saveOrderEmiter)="saveOrder()"
         >
         </app-order-detail>
         <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->

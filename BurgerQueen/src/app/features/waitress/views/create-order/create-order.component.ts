@@ -16,7 +16,7 @@ import { ToastService } from '../../../../shared/components/toast/toast.service'
 export class CreateOrderComponent {
   newOrder: newOrder = {
     customer:'',
-    table:0,
+    table:1,
     items:{},
   }
 
@@ -62,6 +62,14 @@ export class CreateOrderComponent {
       this.createOrderRequest = requestState;
       if(this.createOrderRequest.isLoading){
         this.spinner.show();
+      }
+
+      if(this.createOrderRequest.data){
+        this.newOrder = {
+          customer:'',
+          table:1,
+          items:{},
+        }
       }
 
       if(this.createOrderRequest.error){

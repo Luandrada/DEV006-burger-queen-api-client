@@ -108,7 +108,7 @@ describe('ProductService', () => {
   })
 
   it('If we subscribe to getProducts with the filters type we should received products of that type', (done: DoneFn) => {
-    productService.getProducts({types:['comida']}).pipe(last()).subscribe({
+    productService.getProducts({types:['Almuerzo']}).pipe(last()).subscribe({
       next: (state) => {
         expect(state.data?.length).toBe(1)
         expect((state.data?state.data[0]:[])).toEqual({
@@ -116,7 +116,7 @@ describe('ProductService', () => {
           name: 'tacos',
           price: 1000,
           image: "url de la imagen",
-          type: 'comida',
+          type: 'Almuerzo',
           dataEntry: "2022-03-05 15:14:10",
         })
       },
@@ -139,14 +139,14 @@ describe('ProductService', () => {
       name: 'tacos',
       price: 1000,
       image: "url de la imagen",
-      type: 'comida',
+      type: 'Almuerzo',
       dataEntry: "2022-03-05 15:14:10",
     }
   ]);
   })
 
   it('If we subscribe to getProducts and the request fails we will get {isloading:false, data:[], error:Error}', (done: DoneFn) => {
-  productService.getProducts({types:['comida']}).pipe(last()).subscribe({
+  productService.getProducts({types:['Almuerzo']}).pipe(last()).subscribe({
     next: (state) => {
       expect(state.data).toEqual([])
       expect(state.isLoading).toBeFalsy()

@@ -1,23 +1,38 @@
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { AuthGuard } from './auth.guard';
-import { AuthService } from '../../shared/services/auth/auth.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
-  //let authService: AuthService;
+    let guard: AuthGuard;
+    let router = {
+        navigate: jasmine.createSpy('navigate')
+    };
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [AuthGuard, AuthService]
+    // async beforeEach
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, CommonModule, HttpModule],
+            providers: [LoggedInGuard, StorageService, CookieService,
+                {provide: Router, useValue: router}
+            ]
+        })
+            .compileComponents(); // compile template and css
+    }));
+
+    // synchronous beforeEach
+    beforeEach(() => {
+        loggedInGuard = TestBed.get(LoggedInGuard);
+        storageService = TestBed.get(StorageService);
     });
-    guard = TestBed.inject(AuthGuard);
-    //authService = TestBed.inject(AuthService);
-  });
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+    it('be able to hit route when user is logged in', () => {
+        storageService.isLoggedIn = true;
+        expect(loggedInGuard.canActivate()).toBe(true);
+    });
+
+    it('not be able to hit route when user is not logged in', () => {
+        storageService.isLoggedIn = false;
+        expect(loggedInGuard.canActivate()).toBe(false);
+    });
 });

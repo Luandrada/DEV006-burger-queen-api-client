@@ -9,10 +9,10 @@ export class RoleGuard implements CanActivate {
 
   constructor(private router: Router, private authService: AuthService) {  }
 
-  canActivate(route: ActivatedRouteSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot) {
     const res = route.data.allowedRoles.includes(this.authService.getSystemUser().role);
     if (!res)
-      this.router.navigate(['/sign-in']);
-    return res;
+      return this.router.createUrlTree(['/sign-in']);
+    return true;
   }
 }

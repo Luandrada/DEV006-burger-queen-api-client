@@ -21,8 +21,7 @@
                       name="mesa" 
                       id="mesa" 
                       class="inputName"
-                      [value]="order.table"
-                      (change)='onChangeTable'
+                      (change)='onChangeTable($event)'
                     >
                         <option hidden selected value="">- Seleccione -</option>
                         <option value="1">1</option>

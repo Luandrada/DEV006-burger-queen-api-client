@@ -10,8 +10,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate() {
       if(!this.authService.getSystemUser().accessToken){
-        this.router.navigate(['/sign-in']);
-        return false;
+        return this.router.createUrlTree(['/sign-in']);
       }else{
         return true;
       }

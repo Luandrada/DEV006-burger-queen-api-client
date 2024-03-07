@@ -1,13 +1,13 @@
 <div class="containerButtons ">
-    <button class="btn-sec-border" [class.selectedBtn]="selectedMenu !== 'Desayuno'" (click)="changeMenu('Desayuno')">Desayuno</button>
-    <button class="btn-sec-border" [class.selectedBtn]="selectedMenu !== 'Almuerzo'" (click)="changeMenu('Almuerzo')">Almuerzo</button>
+    <button id="btn-desayuno" class="btn-sec-border" [class.selectedBtn]="selectedMenu !== 'Desayuno'" (click)="changeMenu('Desayuno')">Desayuno</button>
+    <button id="btn-almuerzo" class="btn-sec-border" [class.selectedBtn]="selectedMenu !== 'Almuerzo'" (click)="changeMenu('Almuerzo')">Almuerzo</button>
 </div>
 <div  class="containerCards">
     <app-product-card *ngFor="let item of productsResponse.data || []" [product] = item (click)="addProduct(item)"></app-product-card>
     <div *ngIf="productsResponse.isLoading" class="spinner-border" role="status">
         <span class="visually-hidden"></span>
     </div>
-    <div *ngIf="productsResponse.error" role="status">
-        no se pudieron obtener los Productor por favoir intenta de nuevo
+    <div id="error-message" *ngIf="productsResponse.error" role="status">
+        no se pudieron obtener los productos por favor intenta de nuevo
     </div>
 </div>

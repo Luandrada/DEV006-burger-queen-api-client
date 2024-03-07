@@ -1,12 +1,12 @@
 <div class="rowItem">
-    <i class="fa-regular fa-trash-can icon" (click)="itemToRemove.emit(item.product.id)"></i>
+    <i class="fa-regular fa-trash-can icon" (click)="showDeleteModal = true"></i>
     <p class="name">{{item.product.name}}</p>
     <div class="counter">
         <i class="fa-solid fa-circle-minus icon" (click)="modifyQuantity(item.product.id, -1)"></i>
-        <span>{{item.qty}}</span>
+        <span class="item-qty">{{item.qty}}</span>
         <i class="fa-solid fa-circle-plus icon" (click)="modifyQuantity(item.product.id, +1)"></i>
     </div>
     <p class="subtotal">${{item.product.price}}</p>
-    <p class="subtotal">${{ subtotal }}</p>
+    <p class="subtotal subtotal-price">${{ subtotal }}</p>
      <app-modal *ngIf="showDeleteModal" [item]="item" (acceptButton)="removeItem()" (closeModal)="showDeleteModal = false"></app-modal>
 </div>

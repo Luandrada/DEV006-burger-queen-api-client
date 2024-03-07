@@ -13,10 +13,9 @@ export class OrderItemComponent implements OnInit {
 
   showDeleteModal = false
 
-  totalUnidad: number = 0;
   constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   get subtotal(): number{
     return this.item.qty * this.item.product.price;

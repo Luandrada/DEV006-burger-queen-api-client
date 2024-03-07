@@ -1,11 +1,11 @@
 <div class="bg-modal">
     <div class="modalBox">
         <i class="fa-solid fa-xmark icon" (click)="closeModal.emit()" ></i>
-        <h4>¿ Desea eliminar "{{item.product.name}}" de su orden?</h4>
+        <h4 id="modal-rmeove-item-title">¿ Desea eliminar "{{item.product.name}}" de su orden?</h4>
 
         <div class="cont-btn">
             <button class="btn-sec"  (click)="closeModal.emit()">Cancelar</button>
-            <button class="btn-ppal"  (click)="acceptButton.emit(item.product.id)">Aceptar</button>
+            <button id="btn-confirm-remove-item" class="btn-ppal"  (click)="acceptButton.emit(item.product.id)">Aceptar</button>
         </div>
         
     </div>

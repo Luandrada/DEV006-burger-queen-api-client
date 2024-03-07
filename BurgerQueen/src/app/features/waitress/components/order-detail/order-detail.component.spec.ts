@@ -1,76 +1,78 @@
-// import { ComponentFixture, TestBed } from '@angular/core/testing';
-// import { OrderDetailComponent } from './order-detail.component';
-// import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
-// import { OrdersService } from '../../services/orders.service';
-// import { ProductItemList } from 'src/app/shared/models/Product';
-// import { of } from 'rxjs';
+import { ComponentFixture, TestBed, fakeAsync, flush, 
+   // flushMicrotasks
+ } from '@angular/core/testing';
+import { OrderDetailComponent } from './order-detail.component';
+import { CalculateTotalPipe } from '../../pipes/calculate-total.pipe';
+import { skip } from 'rxjs/operators';
 
-// describe('OrderDetailComponent', () => {
-//   let component: OrderDetailComponent;
-//   let fixture: ComponentFixture<OrderDetailComponent>;
-//   let ordersService: OrdersService;
 
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [OrderDetailComponent],
-//       imports: [ReactiveFormsModule, FormsModule],
-//       providers: [
-//         FormBuilder,
-//         {
-//           provide: OrdersService,
-//           useValue: {
-//             createOrder: () => of({}),
-//           },
-//         },
-//       ],
-//     });
-//     fixture = TestBed.createComponent(OrderDetailComponent);
-//     component = fixture.componentInstance;
-//     ordersService = TestBed.inject(OrdersService);
-//   });
+describe('OrderDetailComponent', () => {
+    let fixture: ComponentFixture<OrderDetailComponent>;
+    let component:OrderDetailComponent;
 
-//   it('should create the OrderDetailComponent', () => {
-//     expect(component).toBeTruthy();
-//   });
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [OrderDetailComponent, CalculateTotalPipe],
+        });
+        fixture = TestBed.createComponent(OrderDetailComponent);
+        component = fixture.componentInstance;
+    });
 
-//   it('should initialize the form', () => {
-//     component.ngOnInit();
-//     expect(component.formOrderInfo).toBeDefined();
-//   });
 
-//   it('should mark form controls as touched when sendOrder is called with invalid form', () => {
-//     component.ngOnInit();
-//     component.sendOrder();
-//     expect(component.formOrderInfo.get('clientName')?.touched).toBeTrue();
-//     expect(component.formOrderInfo.get('table')?.touched).toBeTrue();
-//   });
+    it('if the componente received an empty order must shows the inputs without value the button to send disabled and show a placeholder message to add items', async () => {
+        component.order = {
+            customer:'',
+            table:0,
+            items:{},
+          }
+        await fixture.whenStable();
+        fixture.detectChanges();
 
-//   it('should call createOrder when sendOrder is called with valid form and productList is not empty', () => {
-//     const mockProductList: ProductItemList[] = [
-//       { product: { id: 1, name: 'Product 1', price: 10 , image: "...", type:"breakfast"}, qty: 2 },
-//     ];
-//     component.ngOnInit();
-//     component.formOrderInfo.patchValue({ clientName: 'Client', table: 'Table' });
-//     component.productList = mockProductList;
+        const placeholderElement = fixture.nativeElement.querySelector('.placeholder');
+        expect(placeholderElement.innerHTML).toEqual('- Agregue productos a su orden - ');
 
-//     spyOn(ordersService, 'createOrder').and.callThrough();
-//     component.sendOrder();
+        const btnElement = fixture.nativeElement.querySelector('.btnSend');
+        expect(btnElement.disabled).toBeTrue();
 
-//     expect(ordersService.createOrder).toHaveBeenCalledOnceWith({
-//       client: 'Client',
-//       products: mockProductList,
-//     });
-//   });
+        const nameInputElement = fixture.nativeElement.querySelector('#clientName');
+        expect(nameInputElement.value).toBe('');
 
-//   it('should not call createOrder when sendOrder is called with valid form but productList is empty', () => {
-//     component.ngOnInit();
-//     component.formOrderInfo.patchValue({ clientName: 'Client', table: 'Table' });
-//     component.productList = [];
+        const tableInputElement = fixture.nativeElement.querySelector('#mesa');
+        expect(tableInputElement.value).toBe('');
 
-//     spyOn(ordersService, 'createOrder').and.callThrough();
-//     component.sendOrder();
+    });
 
-//     expect(ordersService.createOrder).not.toHaveBeenCalled();
-//   });
+    it('if the user change the inputs the component should emit a order with the nuew values',  fakeAsync(async () => {
+        const newOrder = {
+            customer:'',
+            table:0,
+            items:{},
+          }
+        component.order = newOrder
+        fixture.detectChanges();
 
-// });
+        component.orderChangeEmiter.pipe(skip(1)).subscribe(updatedOrder => {
+            expect(updatedOrder).toEqual({...newOrder, customer: 'Carlos', table: 5});
+        })
+
+        const nameInputElement = fixture.nativeElement.querySelector('#clientName');
+        expect(nameInputElement.value).toBe('');
+
+        nameInputElement.value = 'Carlos';
+        nameInputElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        const tableInputElement = fixture.nativeElement.querySelector('#mesa');
+
+        tableInputElement.value = 5;
+        tableInputElement.dispatchEvent(new Event('change'));
+        fixture.detectChanges();
+        flush()
+
+    }));
+
+})
+
+
+
+

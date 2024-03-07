@@ -28,7 +28,6 @@ export class OrderDetailComponent implements OnInit, OnChanges {
   }
 
   get sendOrderButtonIsDisabled(){
-    console.log("Holaaaa", this.tmpOrder.customer)
     return !this.tmpOrder.customer
   }
 
@@ -53,7 +52,6 @@ export class OrderDetailComponent implements OnInit, OnChanges {
 
   onChangeCustomer(event: Event){
     this.tmpOrder.customer = (event.target as HTMLInputElement).value;
-    console.log(event, (event.target as HTMLInputElement).value, this.tmpOrder.customer)
     this.orderChangeEmiter.emit(this.tmpOrder);
   }  
 }

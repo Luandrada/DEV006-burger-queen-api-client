@@ -10,9 +10,8 @@
           (saveOrderEmiter)="saveOrder()"
         >
         </app-order-detail>
-        <!-- en vez de clear order emitir directamente crear orden que deberia estar en este componente -->
    </div>
-   <div *ngIf="createOrderRequest.isLoading">
+   <div id="spinner-wrapper" *ngIf="createOrderRequest.isLoading">
       <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
    </div>
 </div>

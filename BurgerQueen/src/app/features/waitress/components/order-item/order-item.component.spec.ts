@@ -1,7 +1,4 @@
-import {
-    ComponentFixture, TestBed,
-    fakeAsync, flush, flushMicrotasks
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrderItemComponent } from './order-item.component';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -44,7 +41,7 @@ describe('MenuComponent', () => {
         expect(subtotalPriceElement.innerHTML).toBe("$5000");
     });
 
-    it('if the user clicks in minus button and the qty is greater than 1 the component must emit a productId with the new Qty  ', fakeAsync(async () => {
+    it('if the user clicks in minus button and the qty is greater than 1 the component must emit a productId with the new Qty  ', (async () => {
         const item = {
             qty: 10,
             product: {
@@ -67,10 +64,10 @@ describe('MenuComponent', () => {
         const productNameElement = fixture.nativeElement.querySelector('.fa-circle-minus');
         const event = new Event('click');
         productNameElement.dispatchEvent(event);
-        flush();
+        
     }));
 
-    it('if the user clicks in minus button and the qty is less than 1 the component must open the modal to comfirm remove element', fakeAsync(async () => {
+    it('if the user clicks in minus button and the qty is less than 1 the component must open the modal to comfirm remove element', (async () => {
         const item = {
             qty: 1,
             product: {
@@ -88,14 +85,14 @@ describe('MenuComponent', () => {
         const productNameElement = fixture.nativeElement.querySelector('.fa-circle-minus');
         const event = new Event('click');
         productNameElement.dispatchEvent(event);
-        flushMicrotasks();
+       
         fixture.detectChanges();
 
         const modalTitleElement = fixture.nativeElement.querySelector('#modal-rmeove-item-title');
         expect(modalTitleElement.innerHTML).toBe('¿ Desea eliminar "hamburguesa" de su orden?')
     }));
 
-    it('if the user clicks in plus the component must emit a productId with the new Qty  ', fakeAsync(async () => {
+    it('if the user clicks in plus the component must emit a productId with the new Qty  ', (async () => {
         const item = {
             qty: 10,
             product: {
@@ -118,7 +115,7 @@ describe('MenuComponent', () => {
         const productNameElement = fixture.nativeElement.querySelector('.fa-circle-plus');
         const event = new Event('click');
         productNameElement.dispatchEvent(event);
-        flush();
+        
     }));
 
     it('if the user clicks in trash button the component must open the modal to comfirm remove element', async () => {
@@ -181,7 +178,7 @@ describe('MenuComponent', () => {
 
     });
 
-    it('if the user clicks in modal accept button the component must close the modal and emit a productId with the new Qty', fakeAsync(async () => {
+    it('if the user clicks in modal accept button the component must close the modal and emit a productId with the new Qty', (async () => {
         const item = {
             qty: 1,
             product: {
@@ -219,7 +216,7 @@ describe('MenuComponent', () => {
         modalTitleElement = fixture.nativeElement.querySelector('#modal-rmeove-item-title');
         expect(modalTitleElement).toBeNull();
 
-        flushMicrotasks();
+       
 
     }));
 

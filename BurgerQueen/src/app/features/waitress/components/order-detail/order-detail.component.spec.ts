@@ -1,6 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, flush, 
-   // flushMicrotasks
- } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OrderDetailComponent } from './order-detail.component';
 import { CalculateTotalPipe } from '../../pipes/calculate-total.pipe';
 import { skip } from 'rxjs/operators';
@@ -42,7 +40,7 @@ describe('OrderDetailComponent', () => {
 
     });
 
-    it('if the user change the inputs the component should emit a order with the nuew values',  fakeAsync(async () => {
+    it('if the user change the inputs the component should emit a order with the nuew values',  (async () => {
         const newOrder = {
             customer:'',
             table:0,
@@ -67,8 +65,7 @@ describe('OrderDetailComponent', () => {
         tableInputElement.value = 5;
         tableInputElement.dispatchEvent(new Event('change'));
         fixture.detectChanges();
-        flush()
-
+        //flush()
     }));
 
 })

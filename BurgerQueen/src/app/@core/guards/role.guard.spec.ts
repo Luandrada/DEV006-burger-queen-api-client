@@ -41,13 +41,13 @@
 
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router, UrlTree } from '@angular/router';
-import { AuthGuard } from './auth.guard';
+import { ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { RoleGuard } from './role.guard';
 
 describe('AuthGuard', () => {
   let router: Router;
-  let guard: AuthGuard;
+  let guard: RoleGuard;
   let authService: AuthService;
 
   beforeEach(() => {
@@ -65,18 +65,20 @@ describe('AuthGuard', () => {
     // Get the Router instance
     router = TestBed.inject(Router);
     authService = TestBed.inject(AuthService);
-    guard = new AuthGuard(router, authService);
+    guard = new RoleGuard(router, authService);
    
   });
 
-  it('if in the AuthService does not exist a token should navigate to sign-in', async () => {
-    const result = await guard.canActivate();
+  it('if in the AuthService does not exist a role should navigate to sign-in', async () => {
+    const route: ActivatedRouteSnapshot = {data: { allowedRoles: ['ROLE'] }} as any;
+    const result = await guard.canActivate(route);
     expect(result instanceof UrlTree).toBeTrue();
   });
 
   it('if in the AuthService exist a token should return true', async () => {
-    spyOn(authService, 'getSystemUser').and.callFake(() => ({ id: '', accessToken: 'Token', role: '', email: ''}));
-    const result = await guard.canActivate();
+    const route: ActivatedRouteSnapshot = {data: { allowedRoles: ['ROLE'] }} as any;
+    spyOn(authService, 'getSystemUser').and.callFake(() => ({ id: '', accessToken: '', role: 'ROLE', email: ''}));
+    const result = await guard.canActivate(route);
     expect(result).toBeTrue();
   });
 });

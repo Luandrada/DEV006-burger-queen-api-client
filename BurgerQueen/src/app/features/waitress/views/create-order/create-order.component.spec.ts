@@ -7,9 +7,7 @@ import {
 } from '@angular/common/http';
 
 import {
-    ComponentFixture, TestBed,
-    fakeAsync,
-} from '@angular/core/testing';
+    ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateOrderComponent } from './create-order.component';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { OrderDetailComponent } from '../../components/order-detail/order-detail.component';
@@ -91,7 +89,7 @@ describe('Create Oder Component', () => {
 
     describe("Add items to order", () => {
 
-        it('since product card', fakeAsync(async () => {
+        it('since product card', (async () => {
             // click to select a product
             const card = fixture.nativeElement.querySelector('app-product-card');
             const event = new Event('click');
@@ -107,7 +105,7 @@ describe('Create Oder Component', () => {
 
         }));
 
-        it('increases item qty since product card', fakeAsync(async () => {
+        it('increases item qty since product card', (async () => {
             // click to select a product
             let card = fixture.nativeElement.querySelector('app-product-card');
             let event = new Event('click');
@@ -131,7 +129,7 @@ describe('Create Oder Component', () => {
 
         }));
 
-        it('from order item plus button', fakeAsync(async () => {
+        it('from order item plus button', (async () => {
             // click to select a product
             let card = fixture.nativeElement.querySelector('app-product-card');
             let event = new Event('click');
@@ -174,7 +172,7 @@ describe('Create Oder Component', () => {
 
         })
 
-        it('decreases qty from minus button', fakeAsync(async () => {
+        it('decreases qty from minus button', (async () => {
             // click to remove item
             const card = fixture.nativeElement.querySelector('.fa-circle-minus');
             const event = new Event('click');
@@ -191,7 +189,7 @@ describe('Create Oder Component', () => {
             expect(qtyElement.innerHTML).toBe("1");
         }));
 
-        it('remove item from tash button', fakeAsync(async () => {
+        it('remove item from tash button', (async () => {
             // click to remove item
             const card = fixture.nativeElement.querySelector('.fa-trash-can');
             let event = new Event('click');
@@ -210,7 +208,7 @@ describe('Create Oder Component', () => {
 
         }));
 
-        it('remove item from minus button when qty is 1', fakeAsync(async () => {
+        it('remove item from minus button when qty is 1', (async () => {
             // click to remove item
             let card = fixture.nativeElement.querySelector('.fa-circle-minus');
             let event = new Event('click');
@@ -294,6 +292,7 @@ describe('Create Oder Component', () => {
                 customer: "Carlos",
                 table: 5,
                 items: {
+                  1: {
                     qty:2, 
                     product: {
                         id: 1,
@@ -303,6 +302,7 @@ describe('Create Oder Component', () => {
                         type: 'Desayuno',
                         dataEntry: "2022-03-05 15:14:10",
                     },
+                  }
                 },
                 status: "pending",
             });
@@ -328,271 +328,6 @@ describe('Create Oder Component', () => {
         })
 
     });
-
-
-    // beforeEach(() => {
-    //     TestBed.configureTestingModule({
-    //         imports: [HttpClientTestingModule],
-    //         declarations: [
-    //             CreateOrderComponent,
-    //             MenuComponent,
-    //             OrderDetailComponent,
-    //             ProductCardComponent,
-    //             OrderItemComponent,
-    //             CalculateTotalPipe
-    //         ],
-    //         providers: [
-    //             {
-    //                 provide: ProductService,
-    //             },
-    //             { provide: HttpClient },
-    //         ],
-    //     });
-    //     fixture = TestBed.createComponent(CreateOrderComponent);
-    //     httpTestingController = TestBed.inject(HttpTestingController);
-    //     fixture.detectChanges();
-    // });
-
-
-
-    // it('if the Item that user selects to add is already in the order just the qty increases in 1', fakeAsync(async () => {
-    //     await fixture.whenStable();
-    //     fixture.detectChanges();
-
-    //     // Mock Request Products
-    //     const mock = httpTestingController.expectOne('http://localhost:8089/products');
-    //     mock.flush([{
-    //         id: 1,
-    //         name: 'hamburguesa',
-    //         price: 500,
-    //         image: "url de la imagen",
-    //         type: 'Desayuno',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'tacos',
-    //         price: 1000,
-    //         image: "url de la imagen",
-    //         type: 'Almuerzo',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     }
-    //     ]);
-    //     fixture.detectChanges();
-
-    //     // click to select product 
-    //     let card = fixture.nativeElement.querySelector('app-product-card');
-    //     let event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was added
-    //     let productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('1');
-
-    //     let subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$500");
-
-    //     // click to select the product again
-    //     card = fixture.nativeElement.querySelector('app-product-card');
-    //     event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was updated successfully
-    //     productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('2');
-
-    //     subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$1000");
-
-    // }));
-
-    // it('if user click in the plus button thw qty and the price should increases', fakeAsync(async () => {
-    //     await fixture.whenStable();
-    //     fixture.detectChanges();
-
-    //     // Mock Request Products
-    //     const mock = httpTestingController.expectOne('http://localhost:8089/products');
-    //     mock.flush([{
-    //         id: 1,
-    //         name: 'hamburguesa',
-    //         price: 500,
-    //         image: "url de la imagen",
-    //         type: 'Desayuno',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'tacos',
-    //         price: 1000,
-    //         image: "url de la imagen",
-    //         type: 'Almuerzo',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     }
-    //     ]);
-    //     fixture.detectChanges();
-
-    //     // click to select product 
-    //     let card = fixture.nativeElement.querySelector('app-product-card');
-    //     let event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was added
-    //     let productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('1');
-
-    //     let subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$500");
-
-
-
-    // }));
-
-    // it('if user click in the plus button thw qty and the price should increases', fakeAsync(async () => {
-    //     await fixture.whenStable();
-    //     fixture.detectChanges();
-
-    //     // Mock Request Products
-    //     const mock = httpTestingController.expectOne('http://localhost:8089/products');
-    //     mock.flush([{
-    //         id: 1,
-    //         name: 'hamburguesa',
-    //         price: 500,
-    //         image: "url de la imagen",
-    //         type: 'Desayuno',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'tacos',
-    //         price: 1000,
-    //         image: "url de la imagen",
-    //         type: 'Almuerzo',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     }
-    //     ]);
-    //     fixture.detectChanges();
-
-    //     // click to select product 
-    //     let card = fixture.nativeElement.querySelector('app-product-card');
-    //     let event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was added
-    //     let productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('1');
-
-    //     let subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$500");
-
-    //     // click in the plus button of the hamburgusa
-    //     card = fixture.nativeElement.querySelector('.fa-circle-plus');
-    //     event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was increases successfully
-    //     productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('2');
-
-    //     subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$1000");
-
-    //     // click in minus button of the hamburgusa
-    //     card = fixture.nativeElement.querySelector('.fa-circle-minus');
-    //     event = new Event('click');
-    //     card.dispatchEvent(event);
-
-    //     fixture.detectChanges();
-
-    //     // validate that the product was decreases successfully
-    //     productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     productNameElement = fixture.nativeElement.querySelector('.item-qty');
-    //     expect(productNameElement.innerHTML).toBe('1');
-
-    //     subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$500");
-
-    // }));
-
-    // fit('when the user clicks a trash button the the item is removed from the order', fakeAsync(async () => {
-    //     await fixture.whenStable();
-    //     fixture.detectChanges();
-
-
-    //     // Mock Request Products
-    //     const mock = httpTestingController.expectOne('http://localhost:8089/products');
-    //     mock.flush([{
-    //         id: 1,
-    //         name: 'hamburguesa',
-    //         price: 500,
-    //         image: "url de la imagen",
-    //         type: 'Desayuno',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     },
-    //     {
-    //         id: 2,
-    //         name: 'tacos',
-    //         price: 1000,
-    //         image: "url de la imagen",
-    //         type: 'Almuerzo',
-    //         dataEntry: "2022-03-05 15:14:10",
-    //     }
-    //     ]);
-    //     fixture.detectChanges();
-
-    //     // click to select a product
-    //     let card = fixture.nativeElement.querySelector('app-product-card');
-    //     let event = new Event('click');
-    //     card.dispatchEvent(event);
-    //     fixture.detectChanges();
-
-    //     // Validate that product was added to the order
-    //     let productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement.innerHTML).toBe('hamburguesa');
-
-    //     const subtotalPriceElement = fixture.nativeElement.querySelector('.subtotal-price');
-    //     expect(subtotalPriceElement.innerHTML).toBe("$500");
-
-    //     // click to remove item
-    //     card = fixture.nativeElement.querySelector('.fa-trash-can');
-    //     event = new Event('click');
-    //     card.dispatchEvent(event);
-    //     fixture.detectChanges();
-
-    //     // validate that the item was removed
-    //     productNameElement = fixture.nativeElement.querySelector('.name');
-    //     expect(productNameElement).toBeNull();
-
-    // }));
-
-
-
 
 })
 
